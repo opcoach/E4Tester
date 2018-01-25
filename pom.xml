@@ -19,6 +19,12 @@
 			<url>http://download.eclipse.org/releases/oxygen</url>
 		</repository>
 		
+		<repository>
+			<id>e4Spies</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/</url>
+		</repository>
+		
 	</repositories>
 
 	<build>
