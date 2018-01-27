@@ -12,7 +12,7 @@ import org.eclipse.e4.tools.context.spy.ContextSpyPart;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.BeforeClass;
 
 import com.opcoach.e4tester.core.stubs.DisplayRealm;
 
@@ -24,7 +24,8 @@ import com.opcoach.e4tester.core.stubs.DisplayRealm;
  */
 public class E4PartTester extends E4BaseTester {
 
-	@BeforeAll
+	
+	@BeforeClass   // See issue #3 (https://github.com/opcoach/E4Tester/issues/3), replace with BeforeAll later
 	public static void initForParts() throws Exception
 	{
 		System.out.println("Enter in initForParts ");
