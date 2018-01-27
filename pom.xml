@@ -74,6 +74,7 @@
 	<!-- the modules that should be built together -->
 	<modules>
 		<module>com.opcoach.e4tester.core</module>
+		<module>com.opcoach.e4tester.core.test</module>
 		<module>com.opcoach.e4tester.feature</module>
 		<module>com.opcoach.e4tester.repository</module>
 	</modules>
