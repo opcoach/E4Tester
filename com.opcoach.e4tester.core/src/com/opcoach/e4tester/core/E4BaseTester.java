@@ -10,6 +10,7 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.log.Logger;
 import org.eclipse.e4.tools.context.spy.ContextSpyPart;
+import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.internal.workbench.ModelServiceImpl;
 import org.eclipse.e4.ui.internal.workbench.SelectionServiceImpl;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -51,22 +52,28 @@ public abstract class E4BaseTester {
 		BundleContext e4BundleContext = e4Bundle.getBundleContext();
 		osgiCtx = EclipseContextFactory.getServiceContext(e4BundleContext);
 		osgiCtx.set("myKeyInOsgi1", "value");
+		
+		ModelServiceImpl ms = new ModelServiceImpl(osgiCtx);
+		ContextInjectionFactory.inject(ms, osgiCtx);
+		osgiCtx.set(EModelService.class, ms);
+		
+		MApplication appli = ms.createModelElement(MApplication.class);
+
 
 		ctx = EclipseContextFactory.create("TestContext");
 		ctx.setParent(osgiCtx);
 		ctx.set(IEclipseContext.class, ctx);
 
 		ctx.set(ESelectionService.class, ContextInjectionFactory.make(SelectionServiceImpl.class, ctx));
-		ModelServiceImpl ms = new ModelServiceImpl(ctx);
-		ContextInjectionFactory.inject(ms, ctx);
-		ctx.set(EModelService.class, ms);
+
 		E4TesterLogger log = ContextInjectionFactory.make(E4TesterLogger.class, ctx);
 		ctx.set(Logger.class, log);
 
 		// _____> IL FAUDRAIT CREER UNE APPLI PARTICULIERE POUR AVOIR LES SPIES ??
-		MApplication appli = ms.createModelElement(MApplication.class);
 		appli.setContext(ctx);
-		osgiCtx.set(MApplication.class, appli);
+		osgiCtx.set(MApplication.class, appli); 
+		
+
 
 	}
 
@@ -76,7 +83,6 @@ public abstract class E4BaseTester {
 			s = new Shell(Display.getCurrent());
 			s.setText("Test window");
 			ctx.set(Composite.class, s);
-
 		}
 		return s;
 	}
