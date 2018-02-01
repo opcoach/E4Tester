@@ -38,9 +38,7 @@ public abstract class E4BaseTester {
 
 	private static final String TEST_WINDOW_ID = "com.opcoach.e4tester.core.testWindow";
 	private static final String TEST_PART_STACK = "com.opcoach.e4tester.core.partstack";
-	
-	
-	
+
 	protected static E4Application e4Appli = null;
 	protected static E4Workbench e4workbench = null;
 
@@ -51,63 +49,14 @@ public abstract class E4BaseTester {
 
 		System.out.println("Enter in globalSetup ");
 
-		if (e4Appli == null)
-		{
+		if (e4Appli == null) {
 			e4Appli = E4TesterApplication.getE4Appli();
 			e4workbench = E4TesterApplication.getE4workbench();
 		}
-		
 
 	}
 
-	private static void createE4Application() {
-		if (e4Appli != null)
-			return;
-
-		e4Appli = new E4Application();
-
-		Display display = e4Appli.getApplicationDisplay();
-
-		e4workbench = e4Appli.createE4Workbench(new E4TesterApplicationContext(), display);
-
-		// e4workbench.initializeContext(E4Workbench.getServiceContext(),
-		// e4workbench.getApplication());
-
-		/*
-		 * IEclipseContext ctx = e4workbench.getContext(); PartRenderingEngine pre = new
-		 * PartRenderingEngine(null); ctx.set(IPresentationEngine.class, pre);
-		 */
-
-		// ContextInjectionFactory.inject(pre, ctx);
-
-		// Location instanceLocation = (Location)
-		// e4workbench.getContext().get(E4Workbench.INSTANCE_LOCATION);
-		Shell shell = display.getActiveShell();
-		if (shell == null) {
-			shell = new Shell();
-			// place it off so it's not visible
-			shell.setLocation(0, 10000);
-		}
-
-		class RunUI extends Thread {
-			E4Workbench e4w;
-
-			public RunUI(E4Workbench e4workbench) {
-				super("Run Test UI");
-				e4w = e4workbench;
-			}
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				e4w.createAndRunUI(e4workbench.getApplication());
-			}
-		}
-		Runnable r = new RunUI(e4workbench);
-		r.run();
-
-	}
-
+	
 	/** Create or return the test Window as a sibling of application's window. */
 	protected MWindow getTestWindow() {
 		MApplication a = getApplication();
@@ -118,9 +67,8 @@ public abstract class E4BaseTester {
 		if (tw.isPresent()) {
 			result = tw.get();
 			result.getContext().activate();
-			//getModelService().bringToTop(result);
-			//getApplication().setSelectedElement(result);
-			//result.setOnTop(true);
+			getApplication().setSelectedElement(result);
+			// result.setOnTop(true);
 			// result.getContext().get(EPartService.class);
 		}
 
@@ -147,31 +95,28 @@ public abstract class E4BaseTester {
 		return getContext().get(EModelService.class);
 	}
 
-	
-	class PartCreatorRunner implements Runnable
-	{
-		MPart createdPart = null; 
+/*	class PartCreatorRunner implements Runnable {
+		MPart createdPart = null;
 		String name = "";
 		Class<?> pojoClazz = null;
-		
-		
+
 		public PartCreatorRunner(String name, Class<?> pojoClazz) {
 			this.name = name;
 			this.pojoClazz = pojoClazz;
 		}
-		
+
 		public MPart getCreatedPart() {
 			return createdPart;
 		}
+
 		public void run() {
 
-			// TODO Auto-generated method stub
-			 MPart p = getModelService().createModelElement(MPart.class);
+			MPart p = getModelService().createModelElement(MPart.class);
 			p.setLabel(name);
 			p.setContributionURI("bundleclass://" + pojoClazz.getCanonicalName());
 			p.setVisible(true);
 			p.setToBeRendered(true);
-			
+
 			Object o = ContextInjectionFactory.make(pojoClazz, getContext());
 			p.setObject(o);
 
@@ -186,59 +131,42 @@ public abstract class E4BaseTester {
 			getPartService().showPart(p, PartState.CREATE);
 			getPartService().activate(p);
 
-			/*
-			 * IEclipseContext partContext = EclipseContextFactory.create("Context for " +
-			 * clazz.getName()); // partContext.setParent(ctx); Shell s = getShell();
-			 * partContext.set(Composite.class, s); Object result =
-			 * ContextInjectionFactory.make(clazz, partContext);
-			 * 
-			 * s.pack(); s.open();
-			 */
-		
+
 		}
 	}
-	
+*/
 	/**
 	 * Create a part in the test window
 	 * 
 	 * @param clazz
 	 * @return
 	 */
-	public MPart createTestPart(String name, Class<?> pojoClazz) {
-		
-		MPart p= null;
+	public MPart createTestPart(String name, String id, Class<?> pojoClazz) {
+
+		MPart p = null;
 		try {
-		//PartCreatorRunner pcr = new PartCreatorRunner(name, pojoClazz);
-		//Display.getDefault().syncExec(pcr);
-		 p = getModelService().createModelElement(MPart.class);
-		p.setLabel(name);
-		p.setContributionURI("bundleclass://" + pojoClazz.getCanonicalName());
-		p.setVisible(true);
-		p.setToBeRendered(true);
-		
+			// PartCreatorRunner pcr = new PartCreatorRunner(name, pojoClazz);
+			// Display.getDefault().syncExec(pcr);
+			p = getModelService().createModelElement(MPart.class);
+			p.setLabel(name);
+			p.setContributionURI("bundleclass://" + pojoClazz.getCanonicalName());
+			p.setVisible(true);
+			p.setElementId(id);
+			p.setToBeRendered(true);
 
-		// Add this part in the test window and activate it !
-		MPartStack mps = getPartStack();
-		mps.getChildren().add(p);
-		p.setOnTop(true);
+			// Add this part in the test window and activate it !
+			MPartStack mps = getPartStack();
+			mps.getChildren().add(p);
+			p.setOnTop(true);
 
-		// getTestWindow().setOnTop(true);
-		getPartService().showPart(p, PartState.CREATE);
-		getPartService().activate(p);
-		
-		Object o = ContextInjectionFactory.make(pojoClazz, p.getContext());
-	p.setObject(o);
+			// getTestWindow().setOnTop(true);
+			getPartService().showPart(p, PartState.CREATE);
+			getPartService().activate(p);
 
-	
+			Object o = ContextInjectionFactory.make(pojoClazz, p.getContext());
+			p.setObject(o);
 
-		
-		
-		
-		
-		wait1second();
-		}
-		catch (Throwable t)
-		{
+		} catch (Throwable t) {
 			t.printStackTrace();
 		}
 		return p;
@@ -262,31 +190,21 @@ public abstract class E4BaseTester {
 
 	public void wait1second() {
 		try {
-			Thread.sleep(100L);
+			Thread.sleep(1000L);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	/*
-	 * public static void openContextSpy() {
-	 * System.out.println("Opening SpyContext"); Display d = Display.getCurrent();
-	 * Shell s = new Shell(d); s.setLayout(new GridLayout(1, true));
-	 * s.setText("Context Spy"); IEclipseContext spyCtx =
-	 * EclipseContextFactory.create("SpyContext"); spyCtx.setParent(ctx);
-	 * spyCtx.set(Composite.class, s); ContextSpyPart cs =
-	 * ContextInjectionFactory.make(ContextSpyPart.class, spyCtx);
-	 * 
-	 * Job j = new Job("UI") { protected IStatus run(IProgressMonitor monitor) {
-	 * s.pack(); s.open();
-	 * 
-	 * while (!s.isDisposed()) { if (!d.readAndDispatch()) d.sleep(); }
-	 * 
-	 * System.out.println("End Opening SpyContext"); return Status.OK_STATUS;
-	 * 
-	 * } }; j.schedule(); }
-	 */
+	public void waitseconds(int nbSec) {
+		try {
+			Thread.sleep(nbSec * 1000L);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Get the text value of the clazz widget, null if no field found or no getText
@@ -317,6 +235,10 @@ public abstract class E4BaseTester {
 
 		return result;
 
+	}
+
+	public String getTextWidgetValue(MPart part, String widgetFieldName) {
+		return getTextWidgetValue(part.getObject(), widgetFieldName);
 	}
 
 	/**
@@ -351,6 +273,10 @@ public abstract class E4BaseTester {
 
 	}
 
+	protected Object getInstanceValue(MPart part, String fieldName) {
+		return getInstanceValue(part.getObject(), fieldName);
+	}
+
 	/**
 	 * Get the treeviewer instance stored in the field 'fieldname' of the pojo
 	 * instance.
@@ -371,6 +297,10 @@ public abstract class E4BaseTester {
 		return result;
 	}
 
+	protected TreeViewer getTreeViewer(MPart part, String fieldName) {
+		return getTreeViewer(part.getObject(), fieldName);
+	}
+
 	/**
 	 * 
 	 * @param pojo
@@ -384,6 +314,12 @@ public abstract class E4BaseTester {
 		if (tv != null) {
 			tv.setSelection(new StructuredSelection(value));
 		}
+
+	}
+
+	protected void selectObjectInTreeViewer(MPart part, String fieldName, Object value) {
+
+		selectObjectInTreeViewer(part.getObject(), fieldName, value);
 
 	}
 
