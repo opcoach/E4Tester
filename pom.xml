@@ -27,6 +27,13 @@
 		
 	</repositories>
 
+
+
+  <issueManagement>
+    <url>https://github.com/opcoach/E4Tester/issues</url>
+    <system>github</system>
+  </issueManagement>
+
 	<build>
 		<plugins>
 			<plugin>
