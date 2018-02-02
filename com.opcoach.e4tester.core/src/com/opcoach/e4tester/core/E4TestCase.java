@@ -34,7 +34,7 @@ import com.opcoach.e4tester.core.stubs.E4TesterApplicationContext;
  * @author olivier
  *
  */
-public abstract class E4BaseTester {
+public abstract class E4TestCase {
 
 	private static final String TEST_WINDOW_ID = "com.opcoach.e4tester.core.testWindow";
 	private static final String TEST_PART_STACK = "com.opcoach.e4tester.core.partstack";
