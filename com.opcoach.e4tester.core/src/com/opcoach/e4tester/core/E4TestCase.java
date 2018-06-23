@@ -42,12 +42,11 @@ public abstract class E4TestCase {
 	protected static E4Application e4Appli = null;
 	protected static E4Workbench e4workbench = null;
 
+
 	/** This global setup initializes basic contexts for tests */
 	@BeforeClass // See issue #3 (https://github.com/opcoach/E4Tester/issues/3), replace with
 					// BeforeAll later
 	public static void globalSetup() throws Exception {
-
-		System.out.println("Enter in globalSetup ");
 
 		if (e4Appli == null) {
 			e4Appli = E4TesterApplication.getE4Appli();
@@ -68,8 +67,7 @@ public abstract class E4TestCase {
 			result = tw.get();
 			result.getContext().activate();
 			getApplication().setSelectedElement(result);
-			// result.setOnTop(true);
-			// result.getContext().get(EPartService.class);
+			
 		}
 
 		return result;
@@ -95,46 +93,7 @@ public abstract class E4TestCase {
 		return getContext().get(EModelService.class);
 	}
 
-/*	class PartCreatorRunner implements Runnable {
-		MPart createdPart = null;
-		String name = "";
-		Class<?> pojoClazz = null;
 
-		public PartCreatorRunner(String name, Class<?> pojoClazz) {
-			this.name = name;
-			this.pojoClazz = pojoClazz;
-		}
-
-		public MPart getCreatedPart() {
-			return createdPart;
-		}
-
-		public void run() {
-
-			MPart p = getModelService().createModelElement(MPart.class);
-			p.setLabel(name);
-			p.setContributionURI("bundleclass://" + pojoClazz.getCanonicalName());
-			p.setVisible(true);
-			p.setToBeRendered(true);
-
-			Object o = ContextInjectionFactory.make(pojoClazz, getContext());
-			p.setObject(o);
-
-			// Add this part in the test window and activate it !
-			MPartStack mps = getPartStack();
-			mps.getChildren().add(p);
-			p.setOnTop(true);
-
-			// getTestWindow().setOnTop(true);
-
-			createdPart = p;
-			getPartService().showPart(p, PartState.CREATE);
-			getPartService().activate(p);
-
-
-		}
-	}
-*/
 	/**
 	 * Create a part in the test window
 	 * 
@@ -145,8 +104,6 @@ public abstract class E4TestCase {
 
 		MPart p = null;
 		try {
-			// PartCreatorRunner pcr = new PartCreatorRunner(name, pojoClazz);
-			// Display.getDefault().syncExec(pcr);
 			p = getModelService().createModelElement(MPart.class);
 			p.setLabel(name);
 			p.setContributionURI("bundleclass://" + pojoClazz.getCanonicalName());
@@ -159,14 +116,13 @@ public abstract class E4TestCase {
 			mps.getChildren().add(p);
 			p.setOnTop(true);
 
-			// getTestWindow().setOnTop(true);
 			getPartService().showPart(p, PartState.CREATE);
 			getPartService().activate(p);
 
 			Object o = ContextInjectionFactory.make(pojoClazz, p.getContext());
 			p.setObject(o);
 
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			t.printStackTrace();
 		}
 		return p;
@@ -176,8 +132,7 @@ public abstract class E4TestCase {
 	private MPartStack getPartStack() {
 		MWindow testWindow = getTestWindow();
 
-		MPartStack mps = (MPartStack) testWindow.getChildren().get(0);
-		return mps;
+		return (MPartStack) testWindow.getChildren().get(0);
 	}
 
 	protected Shell getTestShell() {
