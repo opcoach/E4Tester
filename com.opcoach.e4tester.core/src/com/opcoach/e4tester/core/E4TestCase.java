@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.internal.workbench.swt.E4Application;
 import org.eclipse.e4.ui.model.application.MApplication;
@@ -18,11 +19,8 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.BeforeClass;
-
-import com.opcoach.e4tester.core.stubs.E4TesterApplicationContext;
 
 /**
  * This basic class can be used as parent class for any E4 POJO test It
@@ -42,7 +40,6 @@ public abstract class E4TestCase {
 	protected static E4Application e4Appli = null;
 	protected static E4Workbench e4workbench = null;
 
-
 	/** This global setup initializes basic contexts for tests */
 	@BeforeClass // See issue #3 (https://github.com/opcoach/E4Tester/issues/3), replace with
 					// BeforeAll later
@@ -55,7 +52,6 @@ public abstract class E4TestCase {
 
 	}
 
-	
 	/** Create or return the test Window as a sibling of application's window. */
 	protected MWindow getTestWindow() {
 		MApplication a = getApplication();
@@ -67,7 +63,7 @@ public abstract class E4TestCase {
 			result = tw.get();
 			result.getContext().activate();
 			getApplication().setSelectedElement(result);
-			
+
 		}
 
 		return result;
@@ -88,15 +84,50 @@ public abstract class E4TestCase {
 	protected EPartService getPartService() {
 		return getContext().get(EPartService.class);
 	}
+	
+	protected IEventBroker getEventBroker() {
+		return getContext().get(IEventBroker.class);
+	}
+
 
 	protected EModelService getModelService() {
 		return getContext().get(EModelService.class);
 	}
 
+	/**
+	 * Create a part from the corresponding part Descriptor defined.
+	 * 
+	 * @param partDescId
+	 * @return
+	 */
+	public MPart createTestPart(String partDescId) {
+
+		MPart p = null;
+		try {
+
+			EPartService ps = getPartService();
+			p = ps.createPart(partDescId);
+
+			// Add this part in the test window and activate it !
+			MPartStack mps = getPartStack();
+			mps.getChildren().add(p);
+			p.setOnTop(true);
+
+			ps.showPart(p, PartState.CREATE);
+			ps.activate(p);
+
+		} catch (Exception t) {
+			t.printStackTrace();
+		}
+		return p;
+	}
 
 	/**
-	 * Create a part in the test window
+	 * Create a part in the test window using raw parameters If a part descriptor is
+	 * already defined use rather createTestPart(String partDescId)
 	 * 
+	 * @param name  : the name for this part
+	 * @param id    : the ID of created Part
 	 * @param clazz
 	 * @return
 	 */
@@ -144,19 +175,13 @@ public abstract class E4TestCase {
 	}
 
 	public void wait1second() {
-		try {
-			Thread.sleep(1000L);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		waitseconds(1);
 	}
 
 	public void waitseconds(int nbSec) {
 		try {
 			Thread.sleep(nbSec * 1000L);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -199,10 +224,8 @@ public abstract class E4TestCase {
 	/**
 	 * Get the value of a field in the pojo instance
 	 * 
-	 * @param pojo
-	 *            : the pojo instance
-	 * @param fieldName
-	 *            : the name of the field in the pojo's class
+	 * @param pojo      : the pojo instance
+	 * @param fieldName : the name of the field in the pojo's class
 	 * @return
 	 */
 	protected Object getInstanceValue(Object pojo, String fieldName) {
@@ -236,10 +259,8 @@ public abstract class E4TestCase {
 	 * Get the treeviewer instance stored in the field 'fieldname' of the pojo
 	 * instance.
 	 * 
-	 * @param pojo
-	 *            the part to be analyzed
-	 * @param fieldName
-	 *            the fieldname containing the tree viewer
+	 * @param pojo      the part to be analyzed
+	 * @param fieldName the fieldname containing the tree viewer
 	 * @return the treeviewer of null if nothing found.
 	 */
 	protected TreeViewer getTreeViewer(Object pojo, String fieldName) {

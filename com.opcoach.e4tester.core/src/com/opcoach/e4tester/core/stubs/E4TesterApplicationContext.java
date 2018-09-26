@@ -19,7 +19,7 @@ public class E4TesterApplicationContext implements IApplicationContext {
 
 	
 	@Override
-	public Map getArguments() {
+	public Map<String, Object> getArguments() {
 		if (applicationMap == null)
 		{
 			String[] applicationArgs = Platform.getApplicationArgs();

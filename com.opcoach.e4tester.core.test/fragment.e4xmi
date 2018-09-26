@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_B_r34MGmEeiJLZ0q1GunjQ">
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EI0uoMGmEeiJLZ0q1GunjQ" featurename="descriptors" parentElementId="xpath:/">
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_GYRBsMGmEeiJLZ0q1GunjQ" elementId="com.opcoach.e4tester.core.test.part1" label="Part for test" contributionURI="bundleclass://com.opcoach.e4tester.core.test.components/com.opcoach.e4tester.core.test.components.Part1"/>
+  </fragments>
+</fragment:ModelFragments>
