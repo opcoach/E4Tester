@@ -14,9 +14,9 @@
 
 	<repositories>
 		<repository>
-			<id>oxygen</id>
+			<id>photon</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/oxygen</url>
+			<url>http://download.eclipse.org/releases/photon</url>
 		</repository>
 		
 		<repository>
@@ -82,6 +82,7 @@
 	<modules>
 		<module>com.opcoach.e4tester.core</module>
 		<module>com.opcoach.e4tester.core.test</module>
+		<module>com.opcoach.e4tester.core.test.components</module>
 		<module>com.opcoach.e4tester.feature</module>
 		<module>com.opcoach.e4tester.repository</module>
 	</modules>
