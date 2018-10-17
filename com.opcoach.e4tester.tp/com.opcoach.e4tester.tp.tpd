@@ -1,0 +1,28 @@
+target "E4 Tester" with source requirements
+
+location "http://download.eclipse.org/releases/photon" {
+// org.eclipse.rcp.feature.group
+	org.eclipse.platform.feature.group
+	org.eclipse.e4.rcp.feature.group
+		
+	org.eclipse.jdt.junit.runtime
+	org.eclipse.pde.junit.runtime
+	org.eclipse.equinox.executable.feature.group
+	// Dependencies to launch swtbot tests 
+	/*org.eclipse.pde.junit.runtime
+	org.eclipse.jdt.junit4.runtime
+	org.eclipse.pde.core */
+}
+
+// Add E4 Spies
+location "http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/" {
+	org.eclipse.e4.tools.spies.feature.feature.group
+}
+
+
+// Add delta pack
+location "http://download.eclipse.org/eclipse/updates/4.8" {
+	org.eclipse.equinox.sdk.feature.group
+}
+
+
