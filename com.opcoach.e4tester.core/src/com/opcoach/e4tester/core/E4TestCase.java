@@ -48,6 +48,15 @@ public abstract class E4TestCase {
 		if (e4Appli == null) {
 			e4Appli = E4TesterApplication.getE4Appli();
 			e4workbench = E4TesterApplication.getE4workbench();
+
+			MApplication appli = e4workbench.getApplication();
+
+			EPartService ps = appli.getContext().get(EPartService.class);
+			EModelService ms = appli.getContext().get(EModelService.class);
+
+			// Activate first window (to avoid No Active context !).
+			appli.getChildren().get(0).getContext().activate();
+
 		}
 
 	}
@@ -79,16 +88,16 @@ public abstract class E4TestCase {
 	 */
 	protected void cleanTestWindow() {
 		// getPartStack().getChildren().clear();
+		System.out.println("Must implement E4TestCase::cleanTestWindow");
 	}
 
 	protected EPartService getPartService() {
 		return getContext().get(EPartService.class);
 	}
-	
+
 	protected IEventBroker getEventBroker() {
 		return getContext().get(IEventBroker.class);
 	}
-
 
 	protected EModelService getModelService() {
 		return getContext().get(EModelService.class);
@@ -178,9 +187,24 @@ public abstract class E4TestCase {
 		waitseconds(1);
 	}
 
-	public void waitseconds(int nbSec) {
+	public static void waitseconds(int nbSec) {
+		waitseconds(null, nbSec);
+	}
+
+	public static void waitseconds(String mess, int nbSec) {
+
 		try {
-			Thread.sleep(nbSec * 1000L);
+			for (int i = 0; i < nbSec; i++) {
+				if (nbSec > 1) {
+					if (mess != null)
+						System.out.println(mess + " " + i + "/" + nbSec);
+					else
+						System.out.println("Waiting " + i + "/" + nbSec);
+				}
+
+				Thread.sleep(1000L);
+			}
+
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -218,7 +242,8 @@ public abstract class E4TestCase {
 	}
 
 	public String getTextWidgetValue(MPart part, String widgetFieldName) {
-		return getTextWidgetValue(part.getObject(), widgetFieldName);
+		Object pojo = (part == null) ? null : part.getObject();
+		return (pojo == null) ? null : getTextWidgetValue(pojo, widgetFieldName);
 	}
 
 	/**

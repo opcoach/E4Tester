@@ -18,11 +18,9 @@ public class WidgetAccessTest extends E4TestCase {
 
 	private MPart part;
 
-	
 	@Before public void setup()
 	{
 		part = createTestPart(Part1.ID);
-
 	}
 	
 	@Test
@@ -56,12 +54,12 @@ public class WidgetAccessTest extends E4TestCase {
 		IEventBroker eb = getEventBroker();
 		eb.send("topicTest", "eventString");
 		// JUnit 5 : assertNotNull(part, "The sample part1 must be created" );
-		waitseconds(5);
+		//waitseconds(5);
 		String lab = getTextWidgetValue(part, "label");
 
 		// JUnit 5 : assertEquals(objectLabel, "Perceuse Electrique", "La location par
 		// défaut doit afficher perceuse electrique");
-		assertEquals("Label must contain 'eventString'", lab, "eventString");
+		assertEquals("Label must contain 'eventString'","eventString",  lab);
 
 	}
 

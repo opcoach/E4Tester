@@ -6,24 +6,44 @@ import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.internal.workbench.swt.E4Application;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.osgi.service.datalocation.Location;
-import org.eclipse.pde.internal.junit.runtime.RemotePluginTestRunner;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * Use this application to launch the tests extending E4TestCase 
+ * @author olivier
+ */
 public class E4TesterApplication extends E4Application {
-	
+
 	private static E4Workbench e4workbench = null;
 	private static E4Application e4Appli = null;
+	private static boolean appliIsInitialized = false;
 
 	public static E4Application getE4Appli() {
 		return e4Appli;
 	}
-	
+
 	public static E4Workbench getE4workbench() {
+		// Get the part service in E4 Workbench and ensure that everything is
+		// initialized
+		// IE : there is an active Child on current applciation
+		/*
+		 * synchronized (e4workbench) { IEclipseContext ctx =
+		 * e4workbench.getApplication().getContext().getActiveChild(); while (ctx ==
+		 * null) { System.out.println("Waiting for e4workbench"); try {
+		 * e4workbench.wait(); } catch (InterruptedException e) { // TODO Auto-generated
+		 * catch block e.printStackTrace(); } }
+		 * 
+		 * }
+		 */
+
 		return e4workbench;
 	}
-	
-	/** Take hand on the default E4 Application and launch the tests in another thread. */
+
+	/**
+	 * Take hand on the default E4 Application and launch the tests in another
+	 * thread.
+	 */
 	@Override
 	public Object start(IApplicationContext applicationContext) throws Exception {
 		// set the display name before the Display is
@@ -35,26 +55,21 @@ public class E4TesterApplication extends E4Application {
 			Display.setAppName(product.getName());
 		}
 		Display display = getApplicationDisplay();
-		
-		Location instanceLocation = null;  // Do not manage instance location for tests... 
+
+		Location instanceLocation = null; // Do not manage instance location for tests...
 		try {
-			 e4Appli = this;
-			 e4workbench = createE4Workbench(applicationContext, display);
+			e4Appli = this;
+			e4workbench = createE4Workbench(applicationContext, display);
 
 			Shell shell = display.getActiveShell();
 			if (shell == null) {
 				shell = new Shell();
 				// place it off so it's not visible
-				shell.setLocation(0, 10000);
+				shell.setLocation(0, 0);
 			}
-			
-			
-			// Create a thread to run the tests beside the main thread. ...
-			//TestThread tt = new TestThread();
-			//tt.run();
-			
+
 			e4workbench.getApplication().setOnTop(true);
-			
+
 			// Create and run the UI (if any)
 			e4workbench.createAndRunUI(e4workbench.getApplication());
 
@@ -73,32 +88,5 @@ public class E4TesterApplication extends E4Application {
 				instanceLocation.release();
 		}
 	}
-	
-	
-	class TestThread extends Thread
-	{
-		public TestThread() {
-			super("TestThread");
-		}
-		
-		@Override
-		public void run() {
-			
-			System.out.println("Start waiting 10 seconds to start tests in thread " + getName());
-			// Wait 2 seconds before running tests...
-			try {
-				Thread.sleep(10000L);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("End waiting 5 seconds to start tests");
 
-			
-			System.out.println("Running the tests on UI");
-			// TODO Auto-generated method stub
-			RemotePluginTestRunner.main(Platform.getApplicationArgs());
-		}
-		
-	}
 }

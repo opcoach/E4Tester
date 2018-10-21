@@ -2,7 +2,7 @@
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmi:id="_0zTiEAXoEeip1LfYYd6tAQ" elementId="com.opcoach.e4tester.core.application">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_rKS20AagEeip1LfYYd6tAQ" elementId="com.opcoach.e4tester.core.testWindow" selectedElement="_zX6N4AdjEeip1LfYYd6tAQ" label="Test Window" x="100" y="100" width="1000" height="1000">
     <children xsi:type="basic:PartStack" xmi:id="_zX6N4AdjEeip1LfYYd6tAQ" elementId="com.opcoach.e4tester.core.partstack">
-      <children xsi:type="basic:Part" xmi:id="_jxGQEAduEeip1LfYYd6tAQ" elementId="com.opcoach.e4tester.core.part.modespy" contributionURI="bundleclass://org.eclipse.e4.tools.model.spy/org.eclipse.e4.tools.model.spy.ModelSpyPart" label="Model Spy"/>
+      <children xsi:type="basic:Part" xmi:id="_jxGQEAduEeip1LfYYd6tAQ" elementId="com.opcoach.e4tester.core.part.modelspy" contributionURI="bundleclass://org.eclipse.e4.tools.model.spy/org.eclipse.e4.tools.model.spy.ModelSpyPart" label="Model Spy"/>
     </children>
   </children>
   <addons xmi:id="_0zTiEQXoEeip1LfYYd6tAQ" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
