@@ -8,9 +8,9 @@ location "http://download.eclipse.org/releases/photon" {
 	org.eclipse.jdt.junit.runtime
 	org.eclipse.pde.junit.runtime
 	org.eclipse.equinox.executable.feature.group
-	// Dependencies to launch swtbot tests 
-	/*org.eclipse.pde.junit.runtime
-	org.eclipse.jdt.junit4.runtime
+	org.eclipse.pde.junit.runtime
+	
+	/*org.eclipse.jdt.junit4.runtime
 	org.eclipse.pde.core */
 }
 

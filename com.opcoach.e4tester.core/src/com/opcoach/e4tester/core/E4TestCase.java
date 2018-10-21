@@ -17,6 +17,7 @@ import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
+import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Shell;
@@ -101,6 +102,10 @@ public abstract class E4TestCase {
 
 	protected EModelService getModelService() {
 		return getContext().get(EModelService.class);
+	}
+	
+	protected ESelectionService getSelectionService() {
+		return getContext().get(ESelectionService.class);
 	}
 
 	/**

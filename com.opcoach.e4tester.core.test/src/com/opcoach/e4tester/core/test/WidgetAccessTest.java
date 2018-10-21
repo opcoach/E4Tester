@@ -8,6 +8,7 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,20 +48,40 @@ public class WidgetAccessTest extends E4TestCase {
 		assertNotNull("The sample part1 must be created", part);
 	}
 	
+	@Test
+	// JUnit 5 : @DisplayName("Label widget has a good value")
+	public void testLabelValue(){
+
+		assertEquals("The label in Part1 must have a right value", Part1.LABEL_VALUE, getTextWidgetValue(part, "label"));
+	}
+	
 	
 	@Test
-	// JUnit 5 : @DisplayName("Label widget is found")
-	public void testEvent()  {
-		IEventBroker eb = getEventBroker();
-		eb.send("topicTest", "eventString");
-		// JUnit 5 : assertNotNull(part, "The sample part1 must be created" );
-		//waitseconds(5);
-		String lab = getTextWidgetValue(part, "label");
-
-		// JUnit 5 : assertEquals(objectLabel, "Perceuse Electrique", "La location par
-		// défaut doit afficher perceuse electrique");
-		assertEquals("Label must contain 'eventString'","eventString",  lab);
-
+	public void testDeployTree(){
+		TreeViewer tv = getTreeViewer(part, "tv");
+		tv.expandToLevel(2);
+		
+		// Check tree contains : 
+		/*
+		  String1
+		  	String11
+		  	String12
+		  	String13
+		  	String14
+		  	String15
+		   String2
+		  	String21
+		  	String22
+		  	String23
+		  	String24
+		  	String25
+		  	*/
+		  
+		assertNotNull("The treeviewer tv must be found", tv);
 	}
+	
+	
+	
+	
 
 }

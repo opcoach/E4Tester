@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
-<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_B_r34MGmEeiJLZ0q1GunjQ">
+<fragment:ModelFragments xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/descriptor/basic" xmlns:basic_1="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:fragment="http://www.eclipse.org/ui/2010/UIModel/fragment" xmi:id="_B_r34MGmEeiJLZ0q1GunjQ">
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EI0uoMGmEeiJLZ0q1GunjQ" featurename="descriptors" parentElementId="xpath:/">
     <elements xsi:type="basic:PartDescriptor" xmi:id="_GYRBsMGmEeiJLZ0q1GunjQ" elementId="com.opcoach.e4tester.core.test.part1" label="Part for test" contributionURI="bundleclass://com.opcoach.e4tester.core.test.components/com.opcoach.e4tester.core.test.components.Part1"/>
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_u0oSQNVvEeizsdd7xzGMLQ" elementId="com.opcoach.e4tester.core.test.part2" label="Part  2 for test" contributionURI="bundleclass://com.opcoach.e4tester.core.test.components/com.opcoach.e4tester.core.test.components.Part2"/>
+  </fragments>
+  <fragments xsi:type="fragment:StringModelFragment" xmi:id="_kqJbQNVvEeizsdd7xzGMLQ" featurename="snippets" parentElementId="xpath:/">
+    <elements xsi:type="advanced:Perspective" xmi:id="_mquL4NVvEeizsdd7xzGMLQ" elementId="com.opcoach.e4tester.core.test.perspective1">
+      <children xsi:type="basic_1:PartSashContainer" xmi:id="_rc46YNVvEeizsdd7xzGMLQ" elementId="com.opcoach.e4tester.core.test.partsashcontainer.0">
+        <children xsi:type="advanced:Placeholder" xmi:id="_sTbg0NVvEeizsdd7xzGMLQ" elementId="com.opcoach.e4tester.core.test.part1"/>
+      </children>
+    </elements>
   </fragments>
 </fragment:ModelFragments>
