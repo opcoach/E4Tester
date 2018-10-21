@@ -1,6 +1,6 @@
 language: java
 jdk: oraclejdk8
-script: mvn install 
+script: mvn -X install 
 
 # Add init for UI Tests
 before_script:
