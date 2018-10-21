@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="com.opcoach.e4tester.feature"
-      label="Feature"
+      label="E4Tester Feature to help writing E4 POJO Tests"
       version="0.1.0.qualifier"
       provider-name="OPCOACH">
 
