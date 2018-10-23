@@ -6,12 +6,9 @@ location "http://download.eclipse.org/releases/photon" {
 	org.eclipse.e4.rcp.feature.group
 		
 	org.eclipse.jdt.junit.runtime
-	org.eclipse.pde.junit.runtime
 	org.eclipse.equinox.executable.feature.group
 	org.eclipse.pde.junit.runtime
-	
-	/*org.eclipse.jdt.junit4.runtime
-	org.eclipse.pde.core */
+
 }
 
 // Add E4 Spies
