@@ -223,6 +223,7 @@ public abstract class E4TestCase {
 	 * @param part            the part to be tested
 	 * @param widgetFieldName the name of the field in the relative pojo class
 	 * @return
+	 * @throws NoSuchFieldException
 	 */
 	public String getTextWidgetValue(MPart part, String widgetFieldName) {
 		Object pojo = (part == null) ? null : part.getObject();
@@ -326,8 +327,14 @@ public abstract class E4TestCase {
 			// Get the instance value .
 			result = f.get(pojo);
 
-		} catch (NoSuchFieldException | SecurityException e) {
-			System.out.println("The  field name " + fieldName + " does not exist in the class " + c.getCanonicalName());
+		} catch (NoSuchFieldException e) {
+			WrongFieldnameException wfe = new WrongFieldnameException(fieldName, pojo);
+			System.out.println(wfe.getMessage());
+			throw wfe;
+		} catch (SecurityException e) {
+			System.out
+					.println("The field name " + fieldName + " is not accessible in the class " + c.getCanonicalName());
+			throw e;
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			System.out.println(
 					"The field value of '" + fieldName + "' can not be extracted from class : " + c.getCanonicalName());
@@ -348,6 +355,7 @@ public abstract class E4TestCase {
 	 * @param pojo      the part to be analyzed
 	 * @param fieldName the fieldname containing the tree viewer
 	 * @return the treeviewer of null if nothing found.
+	 * @throws NoSuchFieldException
 	 */
 	protected TreeViewer getTreeViewer(Object pojo, String fieldName) {
 		TreeViewer result = null;
