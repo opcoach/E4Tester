@@ -2,7 +2,9 @@ package com.opcoach.e4tester.core.test;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
@@ -41,25 +43,23 @@ public class WidgetAccessTest extends E4TestCase {
 	}
 	
 	@Test
-	// JUnit 5 : @DisplayName("Label widget is found")
 	public void testCreateContent(){
 
-		// JUnit 5 : assertNotNull(part, "The sample part1 must be created" );
 		assertNotNull("The sample part1 must be created", part);
 	}
 	
 	@Test
-	// JUnit 5 : @DisplayName("Label widget has a good value")
 	public void testLabelValue(){
-
-		assertEquals("The label in Part1 must have a right value", Part1.LABEL_VALUE, getTextWidgetValue(part, "label"));
+		assertLabelContains(part, "label", Part1.LABEL_VALUE, "The label in Part1 must have a right value");
 	}
 	
 	
 	@Test
 	public void testDeployTree(){
 		TreeViewer tv = getTreeViewer(part, "tv");
-		tv.expandToLevel(2);
+		assertNotNull("The treeviewer tv must be found", tv);
+
+		// tv.expandToLevel(2);
 		
 		// Check tree contains : 
 		/*
@@ -77,10 +77,29 @@ public class WidgetAccessTest extends E4TestCase {
 		  	String25
 		  	*/
 		  
-		assertNotNull("The treeviewer tv must be found", tv);
 	}
 	
+	@Test
+	public void testButtonSelected(){
+		assertTrue("The selected checkbox button must be selected", isButtonChecked(part, "checkboxSelected"));
+	}
+
+	@Test
+	public void testButtonSelectedHasRightText(){
+		assertEquals("The selected checkbox button must be selected", Part1.CHECKBOX_SELECTED_TEXT, getTextWidgetValue(part,  "checkboxSelected"));
+	}
+
 	
+	@Test
+	public void testButtonNotSelected(){
+		assertFalse("The notselected checkbox button must be selected", isButtonChecked(part, "checkboxNotSelected"));
+	}
+
+	@Test
+	public void testButtonNotSelectedHasRightText(){
+		assertEquals("The notselected checkbox button must be selected", Part1.CHECKBOX_NOTSELECTED_TEXT, getTextWidgetValue(part,  "checkboxNotSelected"));
+	}
+
 	
 	
 

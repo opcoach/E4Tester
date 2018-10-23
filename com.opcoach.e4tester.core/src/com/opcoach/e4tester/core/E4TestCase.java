@@ -1,5 +1,7 @@
 package com.opcoach.e4tester.core;
 
+import static org.junit.Assert.assertEquals;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -103,7 +105,7 @@ public abstract class E4TestCase {
 	protected EModelService getModelService() {
 		return getContext().get(EModelService.class);
 	}
-	
+
 	protected ESelectionService getSelectionService() {
 		return getContext().get(ESelectionService.class);
 	}
@@ -216,6 +218,18 @@ public abstract class E4TestCase {
 	}
 
 	/**
+	 * Return the text value in the field defined in the Pojo contained in the part
+	 * 
+	 * @param part            the part to be tested
+	 * @param widgetFieldName the name of the field in the relative pojo class
+	 * @return
+	 */
+	public String getTextWidgetValue(MPart part, String widgetFieldName) {
+		Object pojo = (part == null) ? null : part.getObject();
+		return (pojo == null) ? null : getTextWidgetValue(pojo, widgetFieldName);
+	}
+
+	/**
 	 * Get the text value of the clazz widget, null if no field found or no getText
 	 * method
 	 */
@@ -246,9 +260,51 @@ public abstract class E4TestCase {
 
 	}
 
-	public String getTextWidgetValue(MPart part, String widgetFieldName) {
+	/**
+	 * Check whether the button loaded in widgetFieldName is selected in the part
+	 * 
+	 * @param part            the part to be tested
+	 * @param widgetFieldName the field name in the pojo that contains the widget
+	 * @return
+	 */
+	public boolean isButtonChecked(MPart part, String widgetFieldName) {
 		Object pojo = (part == null) ? null : part.getObject();
-		return (pojo == null) ? null : getTextWidgetValue(pojo, widgetFieldName);
+		return (pojo == null) ? false : isButtonChecked(pojo, widgetFieldName);
+
+	}
+
+	/**
+	 * Check whether the button loaded in widgetFieldName is selected
+	 * 
+	 * @param pojo            the pojo containing the widget
+	 * @param widgetFieldName the field name in the pojo that contains the widget
+	 * @return
+	 */
+	public boolean isButtonChecked(Object pojo, String widgetFieldName) {
+		// Get the field in the pojo object
+		Class<?> c = pojo.getClass();
+		boolean result = false;
+		try {
+			// Get the instance value .
+			Object o = getInstanceValue(pojo, widgetFieldName);
+
+			// Look for the getText method in the field instance
+			Class<?> wclass = o.getClass(); // Class for this widget
+			// Is there a getText method ?
+			Method m = wclass.getMethod("getSelection");
+			if (m != null)
+				result = (boolean) m.invoke(o);
+
+		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+			System.out.println("The method getSelection could not be called on value instance of field "
+					+ widgetFieldName + " of class : " + c.getCanonicalName());
+		} catch (NoSuchMethodException e) {
+			System.out.println("The method getSelection could not be found on value instance of field '"
+					+ widgetFieldName + "' in class : " + c.getCanonicalName());
+		}
+
+		return result;
+
 	}
 
 	/**
@@ -327,6 +383,19 @@ public abstract class E4TestCase {
 
 		selectObjectInTreeViewer(part.getObject(), fieldName, value);
 
+	}
+
+	/// ASSERT METHODS
+
+	/**
+	 * 
+	 * @param p         : the part containing the widget
+	 * @param fieldname : the fieldname in the pojo class that host the label
+	 * @param expected  : the expected string in the Label
+	 * @param message   : the message to display when it fails
+	 */
+	public void assertLabelContains(MPart p, String fieldname, String expected, String message) {
+		assertEquals(message, expected, getTextWidgetValue(p, fieldname));
 	}
 
 }
