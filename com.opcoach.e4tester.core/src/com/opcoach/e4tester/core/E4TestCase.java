@@ -22,6 +22,7 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Shell;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -65,6 +66,21 @@ public abstract class E4TestCase {
 
 	}
 
+	/**
+	 * Release the main test window
+	 */
+	@After 
+	public void release() {
+		cleanTestWindow();
+		cleanSelection();
+		wait1second();
+	}
+
+	private void cleanSelection() {
+		getSelectionService().setSelection(null);
+		
+	}
+
 	/** Create or return the test Window as a sibling of application's window. */
 	protected MWindow getTestWindow() {
 		MApplication a = getApplication();
@@ -91,8 +107,8 @@ public abstract class E4TestCase {
 	 * This method removes the content in the test window (created by previous test)
 	 */
 	protected void cleanTestWindow() {
-		// getPartStack().getChildren().clear();
-		System.out.println("Must implement E4TestCase::cleanTestWindow");
+		getPartStack().getChildren().clear();
+		// System.out.println("Must implement E4TestCase::cleanTestWindow");
 	}
 
 	protected EPartService getPartService() {
@@ -159,10 +175,10 @@ public abstract class E4TestCase {
 			p.setVisible(true);
 			p.setElementId(id);
 			p.setToBeRendered(true);
-			
-			//Object o = ContextInjectionFactory.make(pojoClazz, p.getContext());
-			//p.setObject(o);
-			
+
+			// Object o = ContextInjectionFactory.make(pojoClazz, p.getContext());
+			// p.setObject(o);
+
 			// Add this part in the test window and activate it !
 			MPartStack mps = getPartStack();
 			mps.getChildren().add(p);
@@ -363,17 +379,16 @@ public abstract class E4TestCase {
 		TreeViewer result = null;
 
 		Object fieldValue = getInstanceValue(pojo, fieldName);
-		if (fieldValue != null)
-			{
-			 if (fieldValue instanceof TreeViewer) {
-				 result = (TreeViewer) fieldValue;
-			} else
-			{
-				WrongFieldTypeException wfte = new WrongFieldTypeException(fieldName, pojo, TreeViewer.class, fieldValue.getClass());
-			    System.out.println(wfte.getMessage());
-			    throw wfte;
+		if (fieldValue != null) {
+			if (fieldValue instanceof TreeViewer) {
+				result = (TreeViewer) fieldValue;
+			} else {
+				WrongFieldTypeException wfte = new WrongFieldTypeException(fieldName, pojo, TreeViewer.class,
+						fieldValue.getClass());
+				System.out.println(wfte.getMessage());
+				throw wfte;
 			}
-			
+
 		}
 		return result;
 	}
