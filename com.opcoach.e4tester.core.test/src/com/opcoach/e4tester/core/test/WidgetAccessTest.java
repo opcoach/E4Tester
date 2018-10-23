@@ -3,12 +3,10 @@ package com.opcoach.e4tester.core.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
-import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +26,6 @@ public class WidgetAccessTest extends E4TestCase {
 
 	@Test
 	public void testPartDescriptorExists() {
-		EModelService ms = getModelService();
 		MPartDescriptor elt = null;
 
 		for (MPartDescriptor mp : getApplication().getDescriptors())
@@ -52,7 +49,7 @@ public class WidgetAccessTest extends E4TestCase {
 	}
 
 	@Test
-	public void testDeployTree() {
+	public void testFindTreeviewer() {
 		TreeViewer tv = getTreeViewer(part, "tv");
 		assertNotNull("The treeviewer tv must be found", tv);
 
