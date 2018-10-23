@@ -77,7 +77,7 @@ public abstract class E4TestCase {
 	}
 
 	private void cleanSelection() {
-		getSelectionService().setSelection(null);
+		getSelectionService().setSelection("");
 		
 	}
 
