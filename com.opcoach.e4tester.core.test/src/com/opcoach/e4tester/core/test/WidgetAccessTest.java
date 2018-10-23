@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.opcoach.e4tester.core.E4TestCase;
+import com.opcoach.e4tester.core.WrongFieldTypeException;
 import com.opcoach.e4tester.core.WrongFieldnameException;
 import com.opcoach.e4tester.core.test.components.Part1;
 
@@ -88,6 +89,11 @@ public class WidgetAccessTest extends E4TestCase {
 	@Test(expected = WrongFieldnameException.class)
 	public void testFieldnameForWidgetIsWrong() {
 		getInstanceValue(part, "adummyfield");
+	}
+
+	@Test(expected = WrongFieldTypeException.class)
+	public void testFieldTypeForWidgetIsWrong() {
+		getTreeViewer(part, "label");  // Label is not a TreeViewer.
 	}
 
 }

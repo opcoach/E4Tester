@@ -361,8 +361,17 @@ public abstract class E4TestCase {
 		TreeViewer result = null;
 
 		Object fieldValue = getInstanceValue(pojo, fieldName);
-		if ((fieldValue != null) && (fieldValue instanceof TreeViewer)) {
-			result = (TreeViewer) fieldValue;
+		if (fieldValue != null)
+			{
+			 if (fieldValue instanceof TreeViewer) {
+				 result = (TreeViewer) fieldValue;
+			} else
+			{
+				WrongFieldTypeException wfte = new WrongFieldTypeException(fieldName, pojo, TreeViewer.class, fieldValue.getClass());
+			    System.out.println(wfte.getMessage());
+			    throw wfte;
+			}
+			
 		}
 		return result;
 	}
