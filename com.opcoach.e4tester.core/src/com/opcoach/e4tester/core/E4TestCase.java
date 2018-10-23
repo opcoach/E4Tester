@@ -7,7 +7,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
@@ -24,6 +23,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.BeforeClass;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * This basic class can be used as parent class for any E4 POJO test It
@@ -153,11 +154,15 @@ public abstract class E4TestCase {
 		try {
 			p = getModelService().createModelElement(MPart.class);
 			p.setLabel(name);
-			p.setContributionURI("bundleclass://" + pojoClazz.getCanonicalName());
+			Bundle b = FrameworkUtil.getBundle(pojoClazz);
+			p.setContributionURI("bundleclass://" + b.getSymbolicName() + "/" + pojoClazz.getCanonicalName());
 			p.setVisible(true);
 			p.setElementId(id);
 			p.setToBeRendered(true);
-
+			
+			//Object o = ContextInjectionFactory.make(pojoClazz, p.getContext());
+			//p.setObject(o);
+			
 			// Add this part in the test window and activate it !
 			MPartStack mps = getPartStack();
 			mps.getChildren().add(p);
@@ -165,9 +170,6 @@ public abstract class E4TestCase {
 
 			getPartService().showPart(p, PartState.CREATE);
 			getPartService().activate(p);
-
-			Object o = ContextInjectionFactory.make(pojoClazz, p.getContext());
-			p.setObject(o);
 
 		} catch (Exception t) {
 			t.printStackTrace();
