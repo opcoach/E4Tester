@@ -6,7 +6,7 @@
 	<artifactId>com.opcoach.e4tester.parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>E4 Tester parent pom</name>
+<!-- 	<name>E4 Tester parent pom</name> -->
 
 
 	<properties>
@@ -81,6 +81,7 @@
 		<module>com.opcoach.e4tester.core</module>
 		<module>com.opcoach.e4tester.core.test</module>
 		<module>com.opcoach.e4tester.test.components</module>
+		<module>com.opcoach.e4tester.test.components.test</module>
 		<module>com.opcoach.e4tester.feature</module>
 		<module>com.opcoach.e4tester.repository</module>
 	</modules>

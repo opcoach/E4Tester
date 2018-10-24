@@ -4,17 +4,16 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
+		<parent>
 		<groupId>com.opcoach.e4tester</groupId>
 		<artifactId>com.opcoach.e4tester.parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-<!-- 	<name>E4 Tester Core Unit Tests</name> -->
-	<artifactId>com.opcoach.e4tester.core.test</artifactId>
+<!-- 	<name>Tests Components tests (sample project)</name> -->
+	<artifactId>com.opcoach.e4tester.test.components.test</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
-
 
 
 	<!-- For mac os, must use a specific configuration to manage the SWT Thread 
@@ -53,18 +52,15 @@
 				<version>${tycho-version}</version>
 				<configuration>
 				   <!--  See https://www.eclipse.org/tycho/sitedocs/tycho-surefire/tycho-surefire-plugin/test-mojo.html -->
-				  <useUIHarness>true</useUIHarness>
-					
+					<useUIHarness>true</useUIHarness>
 					 <useUIThread>true</useUIThread>
+					 <!--  Must use the e4Tester application and product  -->
 		 			<application>com.opcoach.e4tester.core.application</application> 
 					<product>com.opcoach.e4tester.core.product</product>
 					<argLine>${ui.test.vmargs}</argLine>
-					
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
-
 
 </project>

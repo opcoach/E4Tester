@@ -21,7 +21,7 @@ public class EventTopicTest extends E4TestCase {
 	
 	
 	@Test
-	public void testEvent()  {
+	public void testGetEventBrokerSend()  {
 		
 		String sentString = "eventString";
 		getEventBroker().send("topicTest", sentString);
@@ -29,5 +29,7 @@ public class EventTopicTest extends E4TestCase {
 		assertEquals("Label must contain 'eventString'",sentString,  getTextWidgetValue(part, "label"));
 
 	}
+	
+	
 
 }

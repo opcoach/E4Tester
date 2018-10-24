@@ -25,74 +25,44 @@ public class WidgetAccessTest extends E4TestCase {
 		part = createTestPart(Part1.ID);
 	}
 
-	@Test
-	public void testPartDescriptorExists() {
-		MPartDescriptor elt = null;
-
-		for (MPartDescriptor mp : getApplication().getDescriptors())
-			if (Part1.ID.equals(mp.getElementId())) {
-				elt = mp;
-				break;
-			}
-
-		assertNotNull("The part1 descriptor must be included in the application", elt);
-	}
 
 	@Test
-	public void testCreateContent() {
+	public void testCreatePart() {
 
 		assertNotNull("The sample part1 must be created", part);
 	}
 
-	@Test
-	public void testLabelValue() {
-		assertLabelContains(part, "label", Part1.LABEL_VALUE, "The label in Part1 must have a right value");
-	}
 
 	@Test
-	public void testFindTreeviewer() {
+	public void testGetTreeViewer() {
 		TreeViewer tv = getTreeViewer(part, "tv");
 		assertNotNull("The treeviewer tv must be found", tv);
-
-		// tv.expandToLevel(2);
-
-		// Check tree contains :
-		/*
-		 * String1 String11 String12 String13 String14 String15 String2 String21
-		 * String22 String23 String24 String25
-		 */
-
 	}
 
 	@Test
-	public void testButtonSelected() {
+	public void testIsButtonCheckedReturnsTrue() {
 		assertTrue("The selected checkbox button must be selected", isButtonChecked(part, "checkboxSelected"));
 	}
 
 	@Test
-	public void testButtonSelectedHasRightText() {
+	public void testGetTextWidgetValueOnButton() {
 		assertEquals("The selected checkbox button must be selected", Part1.CHECKBOX_SELECTED_TEXT,
 				getTextWidgetValue(part, "checkboxSelected"));
 	}
 
 	@Test
-	public void testButtonNotSelected() {
+	public void testIsButtonCheckedReturnsFalse() {
 		assertFalse("The notselected checkbox button must be selected", isButtonChecked(part, "checkboxNotSelected"));
 	}
 
-	@Test
-	public void testButtonNotSelectedHasRightText() {
-		assertEquals("The notselected checkbox button must be selected", Part1.CHECKBOX_NOTSELECTED_TEXT,
-				getTextWidgetValue(part, "checkboxNotSelected"));
-	}
 
 	@Test(expected = WrongFieldnameException.class)
-	public void testFieldnameForWidgetIsWrong() {
+	public void testGetInstanceValueBadFielName() {
 		getInstanceValue(part, "adummyfield");
 	}
 
 	@Test(expected = WrongFieldTypeException.class)
-	public void testFieldTypeForWidgetIsWrong() {
+	public void testGetTreeViewerBadFieldType() {
 		getTreeViewer(part, "label");  // Label is not a TreeViewer.
 	}
 

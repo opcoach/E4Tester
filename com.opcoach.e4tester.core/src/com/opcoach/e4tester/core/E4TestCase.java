@@ -69,7 +69,7 @@ public abstract class E4TestCase {
 	/**
 	 * Release the main test window
 	 */
-	@After 
+	@After
 	public void release() {
 		cleanTestWindow();
 		cleanSelection();
@@ -78,7 +78,7 @@ public abstract class E4TestCase {
 
 	private void cleanSelection() {
 		getSelectionService().setSelection("");
-		
+
 	}
 
 	/** Create or return the test Window as a sibling of application's window. */
@@ -219,18 +219,23 @@ public abstract class E4TestCase {
 	public static void waitseconds(String mess, int nbSec) {
 
 		try {
-			for (int i = 0; i < nbSec; i++) {
-				if (nbSec > 1) {
-					if (mess != null)
-						System.out.println(mess + " " + i + "/" + nbSec);
-					else
-						System.out.println("Waiting " + i + "/" + nbSec);
+			if (mess != null) {
+				for (int i = 0; i < nbSec; i++) {
+					if (nbSec > 1) {
+						if (mess != null)
+							System.out.println(mess + " " + i + "/" + nbSec);
+						else
+							System.out.println("Waiting " + i + "/" + nbSec);
+					}
+
+					Thread.sleep(1000L);
 				}
+			} else
+				Thread.sleep(nbSec * 500);
 
-				Thread.sleep(1000L);
-			}
+		} catch (
 
-		} catch (InterruptedException e) {
+		InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
@@ -408,7 +413,10 @@ public abstract class E4TestCase {
 		// Then can select value in the treeviewer
 		TreeViewer tv = getTreeViewer(pojo, fieldName);
 		if (tv != null) {
-			tv.setSelection(new StructuredSelection(value));
+			// tv.setSelection(new TreeSelection(new TreePath( new Object[] {expected} )));
+
+			// tv.setSelection(new TreeSelection(new TreePath( new Object[] {value} )));
+			tv.setSelection(new StructuredSelection(value), true);
 		}
 
 	}

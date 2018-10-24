@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: com.opcoach.e4tester.test.components.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: OPCOACH
+Fragment-Host: com.opcoach.e4tester.test.components;bundle-version="1.0.0"
+Automatic-Module-Name: com.opcoach.e4tester.test.components.test
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: com.opcoach.e4tester.core;bundle-version="1.0.0",
+ org.junit;bundle-version="4.12.0"
