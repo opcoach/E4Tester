@@ -2,7 +2,7 @@
 <feature
       id="com.opcoach.e4tester.feature"
       label="E4Tester Feature to help writing E4 POJO Tests"
-      version="0.1.0.qualifier"
+      version="1.0.0.qualifier"
       provider-name="OPCOACH">
 
    <description url="http://www.example.com/description">

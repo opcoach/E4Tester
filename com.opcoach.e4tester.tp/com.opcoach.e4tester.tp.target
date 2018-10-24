@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="E4 Tester" sequenceNumber="1540202021">
+<target name="E4 Tester" sequenceNumber="1540409534">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.feature.group" version="4.8.0.v20180611-0656"/>
@@ -12,7 +12,7 @@
       <repository location="http://download.eclipse.org/releases/photon"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.e4.tools.spies.feature.feature.group" version="0.18.0.v20171217-2215"/>
+      <unit id="org.eclipse.e4.tools.spies.feature.feature.group" version="0.18.0.v20181023-1826"/>
       <repository location="http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">

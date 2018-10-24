@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.opcoach.e4tester.feature_0.1.0.qualifier.jar" id="com.opcoach.e4tester.feature" version="0.1.0.qualifier">
+   <feature url="features/com.opcoach.e4tester.feature_1.0.0.qualifier.jar" id="com.opcoach.e4tester.feature" version="1.0.0.qualifier">
       <category name="com.opcoach.e4 tester"/>
    </feature>
    <category-def name="com.opcoach.e4 tester" label="e4Tester"/>
