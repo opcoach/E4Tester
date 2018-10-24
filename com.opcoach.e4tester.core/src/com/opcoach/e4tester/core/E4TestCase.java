@@ -13,7 +13,6 @@ import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.internal.workbench.swt.E4Application;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
-import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
@@ -23,6 +22,8 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -401,7 +402,46 @@ public abstract class E4TestCase {
 	}
 
 	protected TreeViewer getTreeViewer(MPart part, String fieldName) {
+		getPartService().activate(part);
 		return getTreeViewer(part.getObject(), fieldName);
+	}
+	
+	/**
+	 * Get the control instance stored in the field 'fieldname' of the pojo
+	 * instance.
+	 * 
+	 * @param pojo      the part to be analyzed
+	 * @param fieldName the fieldname containing the tree viewer
+	 * @param controlClass the expectedClass for this control
+	 * @return the control of null if nothing found.
+	 * @throws NoSuchFieldException
+	 */
+	protected <T extends Control> T getControl(Object pojo, String fieldName, Class<T> controlClass) {
+		T result = null;
+
+		Object fieldValue = getInstanceValue(pojo, fieldName);
+		if (fieldValue != null) {
+			if (fieldValue.getClass() == controlClass) {
+				result = (T) fieldValue;
+			} else {
+				WrongFieldTypeException wfte = new WrongFieldTypeException(fieldName, pojo, controlClass,
+						fieldValue.getClass());
+				System.out.println(wfte.getMessage());
+				throw wfte;
+			}
+
+		}
+		return  result;
+	}
+
+	protected <T extends Control> T  getControl(MPart part, String fieldName, Class<T> controlClass) {
+		getPartService().activate(part);
+		return getControl(part.getObject(), fieldName, controlClass);
+	}
+
+	protected Combo getCombo(MPart part, String fieldName)
+	{
+		return getControl(part, fieldName, Combo.class);
 	}
 
 	/**
@@ -412,9 +452,14 @@ public abstract class E4TestCase {
 	 */
 	protected void selectObjectInTreeViewer(Object pojo, String fieldName, Object value) {
 
+		////// MUST BE UPDATED... IT WORKS IF PARTS ARE CREATED IN A GIVEN ORDER (See tests)...
+		
+		
+		
 		// Then can select value in the treeviewer
 		TreeViewer tv = getTreeViewer(pojo, fieldName);
 		if (tv != null) {
+			tv.getTree().setFocus();
 			// tv.setSelection(new TreeSelection(new TreePath( new Object[] {expected} )));
 
 			// tv.setSelection(new TreeSelection(new TreePath( new Object[] {value} )));

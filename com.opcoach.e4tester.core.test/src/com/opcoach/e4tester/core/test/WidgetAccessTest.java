@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.eclipse.e4.ui.model.application.descriptor.basic.MPartDescriptor;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Combo;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,18 +25,23 @@ public class WidgetAccessTest extends E4TestCase {
 		part = createTestPart(Part1.ID);
 	}
 
-
 	@Test
 	public void testCreatePart() {
 
 		assertNotNull("The sample part1 must be created", part);
 	}
 
-
 	@Test
 	public void testGetTreeViewer() {
 		TreeViewer tv = getTreeViewer(part, "tv");
-		assertNotNull("The treeviewer tv must be found", tv);
+		assertNotNull("The treeviewer must be found", tv);
+	}
+
+
+	@Test
+	public void testCombo() {
+		Combo c = getCombo(part, "combobox");
+		assertNotNull("The combo  must be found", c);
 	}
 
 	@Test
@@ -55,7 +60,6 @@ public class WidgetAccessTest extends E4TestCase {
 		assertFalse("The notselected checkbox button must be selected", isButtonChecked(part, "checkboxNotSelected"));
 	}
 
-
 	@Test(expected = WrongFieldnameException.class)
 	public void testGetInstanceValueBadFielName() {
 		getInstanceValue(part, "adummyfield");
@@ -63,7 +67,12 @@ public class WidgetAccessTest extends E4TestCase {
 
 	@Test(expected = WrongFieldTypeException.class)
 	public void testGetTreeViewerBadFieldType() {
-		getTreeViewer(part, "label");  // Label is not a TreeViewer.
+		getTreeViewer(part, "label"); // Label is not a TreeViewer.
+	}
+
+	@Test(expected = WrongFieldTypeException.class)
+	public void testComboBadFieldType() {
+		getCombo(part, "label"); // Label is not a Combo.
 	}
 
 }
