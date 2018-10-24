@@ -26,7 +26,7 @@ public class Part1Test extends E4TestCase {
 	
 	@Test
 	public void testPartDescriptorExists() {
-		// The fragment in components contains this descriptor. Must check it is in applciation. 
+		// The fragment in components contains this descriptor. Check if it has been put in application. 
 		MPartDescriptor elt = null;
 
 		for (MPartDescriptor mp : getApplication().getDescriptors())
@@ -40,7 +40,7 @@ public class Part1Test extends E4TestCase {
 	
 	@Test
 	public void testLabelValue() {
-		assertLabelContains(part, "label", Part1.LABEL_VALUE, "The label in Part1 must have a right value");
+		assertLabelContains(part, "label", Part1.LABEL_VALUE, "The label in Part1 must have its init value");
 	}
 
 
