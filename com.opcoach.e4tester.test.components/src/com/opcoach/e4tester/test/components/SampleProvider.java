@@ -5,6 +5,8 @@ import org.eclipse.jface.viewers.LabelProvider;
 
 public class SampleProvider extends LabelProvider implements ITreeContentProvider {
 
+	private int level = 0; 
+	
 	@Override
 	public Object[] getElements(Object inputElement) {
 		return new String[] { "String1", "String2"};
@@ -20,6 +22,8 @@ public class SampleProvider extends LabelProvider implements ITreeContentProvide
 			String result[] = new String[5];
 			for (int i = 0; i < 5; i++)
 				result[i] = p + i;
+			
+			level++;
 			return result;
 		}
 			
@@ -37,7 +41,7 @@ public class SampleProvider extends LabelProvider implements ITreeContentProvide
 	@Override
 	public boolean hasChildren(Object element) {
 		// Always have children
-		return true;
+		return level < 5;
 	}
 
 }

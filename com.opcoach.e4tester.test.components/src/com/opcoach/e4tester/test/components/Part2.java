@@ -23,7 +23,7 @@ public class Part2 {
 	@PostConstruct
 	public void postConstruct(Composite parent) {
 		label = new Label(parent, SWT.NONE);
-		label.setText("");
+		label.setText(" sample label ");
 	}
 
 	@Inject
