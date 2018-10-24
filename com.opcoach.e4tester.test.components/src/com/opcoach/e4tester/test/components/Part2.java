@@ -1,5 +1,5 @@
 
-package com.opcoach.e4tester.core.test.components;
+package com.opcoach.e4tester.test.components;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Label;
  * changes
  */
 public class Part2 {
-	public static final String ID = "com.opcoach.e4tester.core.test.part2";
+	public static final String ID = "com.opcoach.e4tester.test.part2";
 
 	private Label label;
 

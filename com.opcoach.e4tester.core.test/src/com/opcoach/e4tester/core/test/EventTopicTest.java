@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.opcoach.e4tester.core.E4TestCase;
-import com.opcoach.e4tester.core.test.components.Part1;
+import com.opcoach.e4tester.test.components.Part1;
 
 public class EventTopicTest extends E4TestCase {
 

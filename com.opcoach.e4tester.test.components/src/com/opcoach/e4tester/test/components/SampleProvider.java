@@ -1,4 +1,4 @@
-package com.opcoach.e4tester.core.test.components;
+package com.opcoach.e4tester.test.components;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;

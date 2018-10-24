@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.opcoach.e4tester.core.E4TestCase;
-import com.opcoach.e4tester.core.test.components.Part2;
+import com.opcoach.e4tester.test.components.Part2;
 
 public class SelectionTest extends E4TestCase {
 

@@ -13,22 +13,6 @@
 		<tycho-version>1.2.0</tycho-version>
 	</properties>
 
-	<!--   <repositories>
-		<repository>
-			<id>photon</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/photon</url>
-		</repository>
-		
-		<repository>
-			<id>e4Spies</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/</url>
-		</repository>
-		
-	</repositories>
--->
-
 
   <issueManagement>
     <url>https://github.com/opcoach/E4Tester/issues</url>
@@ -96,7 +80,7 @@
 		<module>com.opcoach.e4tester.tp</module>
 		<module>com.opcoach.e4tester.core</module>
 		<module>com.opcoach.e4tester.core.test</module>
-		<module>com.opcoach.e4tester.core.test.components</module>
+		<module>com.opcoach.e4tester.test.components</module>
 		<module>com.opcoach.e4tester.feature</module>
 		<module>com.opcoach.e4tester.repository</module>
 	</modules>

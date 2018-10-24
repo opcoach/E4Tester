@@ -10,7 +10,7 @@
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>com.opcoach.e4tester.core.test.components</artifactId>
+	<artifactId>com.opcoach.e4tester.test.components</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 

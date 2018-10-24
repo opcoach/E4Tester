@@ -1,5 +1,5 @@
  
-package com.opcoach.e4tester.core.test.components;
+package com.opcoach.e4tester.test.components;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Label;
 /** Create a sample part with label and treeviewer */
 public class Part1 {
 	
-	public static final String ID = "com.opcoach.e4tester.core.test.part1";
+	public static final String ID = "com.opcoach.e4tester.test.part1";
 	public static final String LABEL_VALUE = "a value in label";
 	public static final String CHECKBOX_SELECTED_TEXT = "checkboxSelectedText";
 	public static final String CHECKBOX_NOTSELECTED_TEXT = "checkboxNotSelectedText";
