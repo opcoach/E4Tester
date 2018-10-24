@@ -16,7 +16,7 @@ import org.eclipse.swt.widgets.Label;
  * changes
  */
 public class Part2 {
-	public static final String ID = "com.opcoach.e4tester.test.part2";
+	public static final String ID = "com.opcoach.e4tester.test.components.part2";
 
 	private Label label;
 

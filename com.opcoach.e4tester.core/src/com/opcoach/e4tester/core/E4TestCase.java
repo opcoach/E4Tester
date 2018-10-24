@@ -12,6 +12,8 @@ import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.internal.workbench.swt.E4Application;
 import org.eclipse.e4.ui.model.application.MApplication;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
+import org.eclipse.e4.ui.model.application.ui.advanced.MPerspectiveStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
@@ -438,6 +440,30 @@ public abstract class E4TestCase {
 	 */
 	public void assertLabelContains(MPart p, String fieldname, String expected, String message) {
 		assertEquals(message, expected, getTextWidgetValue(p, fieldname));
+	}
+
+	/**
+	 * Switch to the perspective and returns it
+	 * 
+	 * @param id of the perspective to show (can be defined in a snippet fragment)
+	 * @return the perspective in the model or null if nothing found or created.
+	 */
+	public MPerspective showPerspective(String id) {
+		EPartService ps = getPartService();
+		Optional<MPerspective> p = ps.switchPerspective(id);
+		if (p.isPresent())
+			return p.get();
+		else {
+			// Find the perspective in snippet and show it.
+			MPerspective pers = (MPerspective) getModelService().findSnippet(getApplication(), id);
+			if (pers != null) {
+				ps.switchPerspective(pers);
+				return pers;
+			}
+		}
+		
+		return null;
+
 	}
 
 }
