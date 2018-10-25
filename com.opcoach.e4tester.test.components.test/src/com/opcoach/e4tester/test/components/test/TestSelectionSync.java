@@ -18,8 +18,8 @@ public class TestSelectionSync extends E4TestCase {
 
 	@Before public void setup()
 	{
-		part2 = createTestPart(Part2.ID);
-		part1 = createTestPart(Part1.ID);
+			part1 = createTestPart(Part1.ID);
+			part2 = createTestPart(Part2.ID);
 	}
 
 	@Test

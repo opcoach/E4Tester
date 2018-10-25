@@ -111,7 +111,6 @@ public abstract class E4TestCase {
 	 */
 	protected void cleanTestWindow() {
 		getPartStack().getChildren().clear();
-		// System.out.println("Must implement E4TestCase::cleanTestWindow");
 	}
 
 	protected EPartService getPartService() {
@@ -150,7 +149,7 @@ public abstract class E4TestCase {
 			p.setOnTop(true);
 
 			ps.showPart(p, PartState.CREATE);
-			ps.activate(p);
+			ps.activate(p);			
 
 		} catch (Exception t) {
 			t.printStackTrace();
@@ -470,6 +469,7 @@ public abstract class E4TestCase {
 
 	protected void selectObjectInTreeViewer(MPart part, String fieldName, Object value) {
 
+		getPartService().activate(part, true);
 		selectObjectInTreeViewer(part.getObject(), fieldName, value);
 
 	}
