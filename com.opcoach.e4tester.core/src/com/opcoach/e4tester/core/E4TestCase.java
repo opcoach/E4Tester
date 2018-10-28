@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
@@ -15,6 +16,7 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -110,6 +112,25 @@ public abstract class E4TestCase {
 	 * This method removes the content in the test window (created by previous test)
 	 */
 	protected void cleanTestWindow() {
+		
+		// Must ensure that Test model is always the same for each test.. 
+		// 2 ideas : 
+		//  Use a ChangeRecorder EMF to revert the changes ? 
+		//  Reload the applicationE4Xmi and all fragments.. but heavy... 
+		// It must also ensure that Pojo of part are correctly unregistered from injector. 
+		
+		
+		
+		// Must release pojo in each part in partStack
+//		for (MStackElement mse : getPartStack().getChildren()) {
+//			if (mse instanceof MPart) {
+//				// Release the pojo in injector
+//				MPart p = (MPart) mse;
+//				ContextInjectionFactory.uninject(p.getObject(), p.getContext());
+//			}
+//
+//		} 
+
 		getPartStack().getChildren().clear();
 	}
 
@@ -149,7 +170,7 @@ public abstract class E4TestCase {
 			p.setOnTop(true);
 
 			ps.showPart(p, PartState.CREATE);
-			ps.activate(p);			
+			ps.activate(p);
 
 		} catch (Exception t) {
 			t.printStackTrace();
@@ -177,9 +198,6 @@ public abstract class E4TestCase {
 			p.setVisible(true);
 			p.setElementId(id);
 			p.setToBeRendered(true);
-
-			// Object o = ContextInjectionFactory.make(pojoClazz, p.getContext());
-			// p.setObject(o);
 
 			// Add this part in the test window and activate it !
 			MPartStack mps = getPartStack();
@@ -404,13 +422,13 @@ public abstract class E4TestCase {
 		getPartService().activate(part);
 		return getTreeViewer(part.getObject(), fieldName);
 	}
-	
+
 	/**
 	 * Get the control instance stored in the field 'fieldname' of the pojo
 	 * instance.
 	 * 
-	 * @param pojo      the part to be analyzed
-	 * @param fieldName the fieldname containing the tree viewer
+	 * @param pojo         the part to be analyzed
+	 * @param fieldName    the fieldname containing the tree viewer
 	 * @param controlClass the expectedClass for this control
 	 * @return the control of null if nothing found.
 	 * @throws NoSuchFieldException
@@ -430,16 +448,15 @@ public abstract class E4TestCase {
 			}
 
 		}
-		return  result;
+		return result;
 	}
 
-	protected <T extends Control> T  getControl(MPart part, String fieldName, Class<T> controlClass) {
+	protected <T extends Control> T getControl(MPart part, String fieldName, Class<T> controlClass) {
 		getPartService().activate(part);
 		return getControl(part.getObject(), fieldName, controlClass);
 	}
 
-	protected Combo getCombo(MPart part, String fieldName)
-	{
+	protected Combo getCombo(MPart part, String fieldName) {
 		return getControl(part, fieldName, Combo.class);
 	}
 
@@ -451,10 +468,9 @@ public abstract class E4TestCase {
 	 */
 	protected void selectObjectInTreeViewer(Object pojo, String fieldName, Object value) {
 
-		////// MUST BE UPDATED... IT WORKS IF PARTS ARE CREATED IN A GIVEN ORDER (See tests)...
-		
-		
-		
+		////// MUST BE UPDATED... IT WORKS IF PARTS ARE CREATED IN A GIVEN ORDER (See
+		////// tests)...
+
 		// Then can select value in the treeviewer
 		TreeViewer tv = getTreeViewer(pojo, fieldName);
 		if (tv != null) {
@@ -506,7 +522,7 @@ public abstract class E4TestCase {
 				return pers;
 			}
 		}
-		
+
 		return null;
 
 	}

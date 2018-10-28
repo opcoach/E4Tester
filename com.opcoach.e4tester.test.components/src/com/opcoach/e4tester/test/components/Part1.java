@@ -2,11 +2,12 @@
 package com.opcoach.e4tester.test.components;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.di.UIEventTopic;
-import org.eclipse.e4.ui.internal.workbench.SelectionServiceImpl;
+import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -93,7 +94,11 @@ public class Part1 {
 		label.setText(s);
 	}
 	
-	
+	@PreDestroy
+	public void predest(MPart p)
+	{
+		System.out.println("Enter in predestroy for part " + p.getLabel());
+	}
 	
 	
 	
