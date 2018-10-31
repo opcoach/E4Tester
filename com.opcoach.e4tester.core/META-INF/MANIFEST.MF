@@ -13,11 +13,12 @@ Require-Bundle: org.eclipse.e4.core.contexts,
  org.eclipse.e4.core.services,
  org.eclipse.e4.core.di,
  org.eclipse.e4.ui.model.workbench,
- org.junit,
  org.eclipse.e4.ui.services,
  org.eclipse.e4.ui.workbench.swt,
- org.eclipse.pde.junit.runtime,
  org.eclipse.e4.ui.di,
  org.eclipse.e4.core.di.extensions,
- org.eclipse.osgi.services
+ org.eclipse.osgi.services,
+ org.junit.platform.commons,
+ org.eclipse.jdt.junit5.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.junit.jupiter.api

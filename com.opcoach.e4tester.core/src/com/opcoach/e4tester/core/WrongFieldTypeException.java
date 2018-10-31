@@ -1,7 +1,5 @@
 package com.opcoach.e4tester.core;
 
-import org.junit.rules.ExpectedException;
-
 /** This exception is thrown when a field is found in a pojo but not with the expected type
  * This is a runtime exception to avoid any try catch in the test code
  * @author olivier

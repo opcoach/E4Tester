@@ -1,13 +1,12 @@
 package com.opcoach.e4tester.core;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
@@ -16,7 +15,6 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
-import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -27,8 +25,8 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.junit.After;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -51,7 +49,7 @@ public abstract class E4TestCase {
 	protected static E4Workbench e4workbench = null;
 
 	/** This global setup initializes basic contexts for tests */
-	@BeforeClass // See issue #3 (https://github.com/opcoach/E4Tester/issues/3), replace with
+	@BeforeAll // See issue #3 (https://github.com/opcoach/E4Tester/issues/3), replace with
 					// BeforeAll later
 	public static void globalSetup() throws Exception {
 
@@ -74,7 +72,7 @@ public abstract class E4TestCase {
 	/**
 	 * Release the main test window
 	 */
-	@After
+	@AfterEach
 	public void release() {
 		cleanTestWindow();
 		cleanSelection();
@@ -500,7 +498,7 @@ public abstract class E4TestCase {
 	 * @param message   : the message to display when it fails
 	 */
 	public void assertLabelContains(MPart p, String fieldname, String expected, String message) {
-		assertEquals(message, expected, getTextWidgetValue(p, fieldname));
+		assertEquals(expected, getTextWidgetValue(p, fieldname), message);
 	}
 
 	/**

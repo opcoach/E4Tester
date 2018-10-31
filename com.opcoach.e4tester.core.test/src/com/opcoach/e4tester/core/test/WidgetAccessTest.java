@@ -1,16 +1,17 @@
 package com.opcoach.e4tester.core.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Combo;
-import org.junit.Before;
-import org.junit.Test;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import com.opcoach.e4tester.core.E4TestCase;
 import com.opcoach.e4tester.core.WrongFieldTypeException;
 import com.opcoach.e4tester.core.WrongFieldnameException;
@@ -20,7 +21,7 @@ public class WidgetAccessTest extends E4TestCase {
 
 	private MPart part;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		part = createTestPart(Part1.ID);
 	}
@@ -28,51 +29,61 @@ public class WidgetAccessTest extends E4TestCase {
 	@Test
 	public void testCreatePart() {
 
-		assertNotNull("The sample part1 must be created", part);
+		assertNotNull(part, "The sample part1 must be created");
 	}
 
 	@Test
 	public void testGetTreeViewer() {
 		TreeViewer tv = getTreeViewer(part, "tv");
-		assertNotNull("The treeviewer must be found", tv);
+		assertNotNull(tv, "The treeviewer must be found");
 	}
-
 
 	@Test
 	public void testCombo() {
 		Combo c = getCombo(part, "combobox");
-		assertNotNull("The combo  must be found", c);
+		assertNotNull(c, "The combo  must be found");
 	}
 
 	@Test
 	public void testIsButtonCheckedReturnsTrue() {
-		assertTrue("The selected checkbox button must be selected", isButtonChecked(part, "checkboxSelected"));
+		assertTrue(isButtonChecked(part, "checkboxSelected"), "The selected checkbox button must be selected");
 	}
 
 	@Test
 	public void testGetTextWidgetValueOnButton() {
-		assertEquals("The selected checkbox button must be selected", Part1.CHECKBOX_SELECTED_TEXT,
-				getTextWidgetValue(part, "checkboxSelected"));
+		assertEquals(Part1.CHECKBOX_SELECTED_TEXT, getTextWidgetValue(part, "checkboxSelected"),
+				"The selected checkbox button must be selected");
 	}
 
 	@Test
 	public void testIsButtonCheckedReturnsFalse() {
-		assertFalse("The notselected checkbox button must be selected", isButtonChecked(part, "checkboxNotSelected"));
+		assertFalse(isButtonChecked(part, "checkboxNotSelected"), "The notselected checkbox button must be selected");
 	}
 
-	@Test(expected = WrongFieldnameException.class)
+	@Test
 	public void testGetInstanceValueBadFielName() {
-		getInstanceValue(part, "adummyfield");
+		assertThrows(WrongFieldnameException.class,
+
+				() -> {
+					getInstanceValue(part, "adummyfield");
+				}, "adummyfield is not a field");
+
 	}
 
-	@Test(expected = WrongFieldTypeException.class)
+	@Test
 	public void testGetTreeViewerBadFieldType() {
-		getTreeViewer(part, "label"); // Label is not a TreeViewer.
+		assertThrows(WrongFieldTypeException.class, () -> {
+			getTreeViewer(part, "label");
+		});
+
 	}
 
-	@Test(expected = WrongFieldTypeException.class)
+	@Test
 	public void testComboBadFieldType() {
-		getCombo(part, "label"); // Label is not a Combo.
+		// Label is not a Combo.
+		assertThrows(WrongFieldTypeException.class, () -> {
+			getCombo(part, "label");
+		});
 	}
 
 }
