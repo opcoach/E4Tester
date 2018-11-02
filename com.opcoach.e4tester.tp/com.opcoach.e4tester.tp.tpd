@@ -5,11 +5,11 @@ location "http://download.eclipse.org/releases/photon" {
 	org.eclipse.platform.feature.group
 	org.eclipse.e4.rcp.feature.group
 		
-	org.eclipse.jdt.junit5.runtime
 	org.eclipse.equinox.executable.feature.group
 	org.eclipse.pde.junit.runtime
 
     // Add the junit 5 support	
+   	org.eclipse.jdt.junit5.runtime
 	org.junit.jupiter.api
 	org.junit.jupiter.engine
 	org.junit.jupiter.migrationsupport

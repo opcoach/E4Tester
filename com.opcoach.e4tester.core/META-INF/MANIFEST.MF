@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.e4.core.contexts,
  org.eclipse.e4.ui.di,
  org.eclipse.e4.core.di.extensions,
  org.eclipse.osgi.services,
- org.junit.platform.commons,
- org.eclipse.jdt.junit5.runtime
+ org.junit.platform.commons;visibility:=reexport,
+ org.eclipse.jdt.junit5.runtime;visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.junit.jupiter.api

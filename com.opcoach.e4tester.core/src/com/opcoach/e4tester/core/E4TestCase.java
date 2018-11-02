@@ -49,8 +49,7 @@ public abstract class E4TestCase {
 	protected static E4Workbench e4workbench = null;
 
 	/** This global setup initializes basic contexts for tests */
-	@BeforeAll // See issue #3 (https://github.com/opcoach/E4Tester/issues/3), replace with
-					// BeforeAll later
+	@BeforeAll 
 	public static void globalSetup() throws Exception {
 
 		if (e4Appli == null) {
