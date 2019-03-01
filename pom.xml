@@ -10,7 +10,7 @@
 
 
 	<properties>
-		<tycho-version>1.2.0</tycho-version>
+		<tycho-version>1.3.0</tycho-version>
 	</properties>
 
 
@@ -46,7 +46,7 @@
 						<artifact>
 							<groupId>com.opcoach.e4tester</groupId>
 							<artifactId>com.opcoach.e4tester.tp</artifactId>
-							<version>4.9.0-SNAPSHOT</version>
+							<version>4.10.0-SNAPSHOT</version>
 						</artifact>
 					</target>
 					<environments>
