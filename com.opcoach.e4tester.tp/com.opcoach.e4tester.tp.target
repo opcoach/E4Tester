@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="E4 Tester" sequenceNumber="1554741282">
+<target name="E4 Tester 2019-06" sequenceNumber="1561586926">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.platform.feature.group" version="4.11.0.v20190307-0500"/>
-      <unit id="org.eclipse.e4.rcp.feature.group" version="1.6.400.v20190305-0602"/>
-      <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.300.v20190213-1655"/>
-      <unit id="org.eclipse.pde.junit.runtime" version="3.5.300.v20180827-1331"/>
-      <unit id="org.eclipse.jdt.junit5.runtime" version="1.0.400.v20190215-1312"/>
+      <unit id="org.eclipse.platform.feature.group" version="4.12.0.v20190605-1801"/>
+      <unit id="org.eclipse.e4.rcp.feature.group" version="1.6.500.v20190605-1801"/>
+      <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.400.v20190515-0925"/>
+      <unit id="org.eclipse.pde.junit.runtime" version="3.5.400.v20190513-1223"/>
+      <unit id="org.eclipse.jdt.junit5.runtime" version="1.0.500.v20190510-0840"/>
       <unit id="org.junit.jupiter.api" version="5.4.0.v20190212-2109"/>
       <unit id="org.junit.jupiter.engine" version="5.4.0.v20190212-2109"/>
       <unit id="org.junit.jupiter.migrationsupport" version="5.4.0.v20190212-2109"/>
       <unit id="org.junit.jupiter.params" version="5.4.0.v20190212-2109"/>
       <unit id="org.junit.platform.commons" version="1.4.0.v20190212-2109"/>
-      <repository location="http://download.eclipse.org/releases/2019-03"/>
+      <repository location="http://download.eclipse.org/releases/2019-06"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.e4.tools.spies.feature.feature.group" version="0.18.0.v20190227-1016"/>
       <repository location="http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.equinox.sdk.feature.group" version="3.17.0.v20190305-2225"/>
-      <repository location="http://download.eclipse.org/eclipse/updates/4.11"/>
+      <unit id="org.eclipse.equinox.sdk.feature.group" version="3.18.0.v20190528-1257"/>
+      <repository location="http://download.eclipse.org/eclipse/updates/4.12"/>
     </location>
   </locations>
 </target>
