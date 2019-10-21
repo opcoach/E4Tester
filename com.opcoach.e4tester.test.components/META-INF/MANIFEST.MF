@@ -14,3 +14,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.13.0",
  org.eclipse.e4.ui.workbench,
  org.eclipse.e4.ui.model.workbench;bundle-version="2.1.0"
 Export-Package: com.opcoach.e4tester.test.components
+Import-Package: javax.inject;version="1.0.0"
