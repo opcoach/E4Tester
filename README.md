@@ -3,3 +3,6 @@
 
 # E4Tester
 A project to provide tooling to help developpers to test their E4 code using appropriate IEclipseContexts 
+
+See the Eclipse Conf Talk here : https://www.eclipsecon.org/europe2018/sessions/test-your-e4-pojos-easily-and-efficiently
+
