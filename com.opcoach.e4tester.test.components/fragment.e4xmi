@@ -3,12 +3,14 @@
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_EI0uoMGmEeiJLZ0q1GunjQ" featurename="descriptors" parentElementId="xpath:/">
     <elements xsi:type="basic:PartDescriptor" xmi:id="_GYRBsMGmEeiJLZ0q1GunjQ" elementId="com.opcoach.e4tester.test.components.part1" label="Part1 for test" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.components.Part1"/>
     <elements xsi:type="basic:PartDescriptor" xmi:id="_u0oSQNVvEeizsdd7xzGMLQ" elementId="com.opcoach.e4tester.test.components.part2" label="Part 2 for test" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.components.Part2"/>
+    <elements xsi:type="basic:PartDescriptor" xmi:id="_HPkYEEHuEeqep8nxdCYgeQ" elementId="com.opcoach.e4tester.test.components.nattablepart1" label="NatTable Part 1 for test" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.nattable.components.NattablePart1"/>
   </fragments>
   <fragments xsi:type="fragment:StringModelFragment" xmi:id="_kqJbQNVvEeizsdd7xzGMLQ" featurename="snippets" parentElementId="xpath:/">
     <elements xsi:type="advanced:Perspective" xmi:id="_mquL4NVvEeizsdd7xzGMLQ" elementId="com.opcoach.e4tester.test.components.perspective" selectedElement="_IenlMNfWEeiYk_yPLvIACA" label="Components">
       <children xsi:type="basic_1:PartStack" xmi:id="_IenlMNfWEeiYk_yPLvIACA" elementId="com.opcoach.e4tester.test.components.partstack.0">
         <children xsi:type="advanced:Placeholder" xmi:id="_sTbg0NVvEeizsdd7xzGMLQ" elementId="com.opcoach.e4tester.test.components.part1"/>
         <children xsi:type="advanced:Placeholder" xmi:id="_GDJoUNfWEeiYk_yPLvIACA" elementId="com.opcoach.e4tester.test.components.part2"/>
+        <children xsi:type="advanced:Placeholder" xmi:id="_VCvNAEHuEeqep8nxdCYgeQ" elementId="com.opcoach.e4tester.test.components.nattablepart1"/>
       </children>
     </elements>
   </fragments>

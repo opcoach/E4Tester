@@ -8,6 +8,9 @@
       <children xsi:type="basic:PartStack" xmi:id="_VkKrUNd3Eei9mNR82qPnrg" elementId="com.opcoach.e4tester.test.eap.partstack.0" containerData="30">
         <children xsi:type="basic:Part" xmi:id="_WdwlwNd3Eei9mNR82qPnrg" elementId="com.opcoach.e4tester.test.eap.part.part2" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.components.Part2" label="Part2"/>
       </children>
+      <children xsi:type="basic:PartStack" xmi:id="_rsd9gEHvEeqep8nxdCYgeQ" elementId="com.opcoach.e4tester.test.eap.partstack.1">
+        <children xsi:type="basic:Part" xmi:id="_wCMAkEHvEeqep8nxdCYgeQ" elementId="com.opcoach.e4tester.test.eap.part.nattablepart1" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.nattable.components.NattablePart1" label="Nattable Part"/>
+      </children>
     </children>
     <mainMenu xmi:id="_6wlLicgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.main.menu">
       <children xsi:type="menu:Menu" xmi:id="_6wlLisgZEeSyMNYR5xypkQ" elementId="file" label="File">
