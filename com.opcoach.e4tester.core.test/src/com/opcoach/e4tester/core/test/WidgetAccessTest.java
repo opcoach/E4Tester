@@ -9,20 +9,29 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Combo;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import com.opcoach.e4tester.core.E4TestCase;
 import com.opcoach.e4tester.core.WrongFieldTypeException;
 import com.opcoach.e4tester.core.WrongFieldnameException;
+import com.opcoach.e4tester.core.stubs.E4TesterLogger;
 import com.opcoach.e4tester.test.components.Part1;
 
 public class WidgetAccessTest extends E4TestCase {
 
 	private MPart part;
 
+	private E4TesterLogger theLogger;
+	
+	
+	
 	@BeforeEach
 	public void setup() {
+		theLogger = (E4TesterLogger) getApplication().getContext().get(E4TesterLogger.E4TEST_LOGGER);
+		assertNotNull(theLogger);
+		theLogger.info("create test part id:" + Part1.ID);
 		part = createTestPart(Part1.ID);
 	}
 

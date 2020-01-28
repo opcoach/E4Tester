@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
@@ -27,8 +28,11 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.platform.commons.logging.Logger;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
+import com.opcoach.e4tester.core.stubs.E4TesterLogger;
 
 /**
  * This basic class can be used as parent class for any E4 POJO test It
@@ -48,10 +52,12 @@ public abstract class E4TestCase {
 	protected static E4Application e4Appli = null;
 	protected static E4Workbench e4workbench = null;
 
+	protected static E4TesterLogger e4testLogger = null;
 	/** This global setup initializes basic contexts for tests */
 	@BeforeAll 
 	public static void globalSetup() throws Exception {
 
+		
 		if (e4Appli == null) {
 			e4Appli = E4TesterApplication.getE4Appli();
 			e4workbench = E4TesterApplication.getE4workbench();
@@ -63,7 +69,10 @@ public abstract class E4TestCase {
 
 			// Activate first window (to avoid No Active context !).
 			appli.getChildren().get(0).getContext().activate();
-
+			
+			// create E4TesterLogger
+			e4testLogger = ContextInjectionFactory.make(E4TesterLogger.class,appli.getContext());
+			appli.getContext().set(E4TesterLogger.E4TEST_LOGGER,e4testLogger);
 		}
 
 	}
@@ -80,7 +89,6 @@ public abstract class E4TestCase {
 
 	private void cleanSelection() {
 		getSelectionService().setSelection("");
-
 	}
 
 	/** Create or return the test Window as a sibling of application's window. */
@@ -146,6 +154,7 @@ public abstract class E4TestCase {
 	protected ESelectionService getSelectionService() {
 		return getContext().get(ESelectionService.class);
 	}
+	
 
 	/**
 	 * Create a part from the corresponding part Descriptor defined.
@@ -170,7 +179,7 @@ public abstract class E4TestCase {
 			ps.activate(p);
 
 		} catch (Exception t) {
-			t.printStackTrace();
+			e4testLogger.error(t);
 		}
 		return p;
 	}
