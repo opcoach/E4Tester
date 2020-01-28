@@ -6,6 +6,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -17,6 +19,9 @@ import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
+import org.eclipse.e4.ui.services.internal.events.EventBroker;
+import org.eclipse.e4.ui.workbench.UIEvents;
+import org.eclipse.e4.ui.workbench.UIEvents.EventTags;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
@@ -25,10 +30,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.platform.commons.logging.Logger;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -53,7 +58,13 @@ public abstract class E4TestCase {
 	protected static E4Workbench e4workbench = null;
 
 	protected static E4TesterLogger e4testLogger = null;
+	
+	static AtomicBoolean partActivated = new AtomicBoolean(false);
+	
+	static AtomicReference<String> refPartId = new AtomicReference<>();
+	
 	/** This global setup initializes basic contexts for tests */
+	@SuppressWarnings("restriction")
 	@BeforeAll 
 	public static void globalSetup() throws Exception {
 
@@ -73,6 +84,28 @@ public abstract class E4TestCase {
 			// create E4TesterLogger
 			e4testLogger = ContextInjectionFactory.make(E4TesterLogger.class,appli.getContext());
 			appli.getContext().set(E4TesterLogger.E4TEST_LOGGER,e4testLogger);
+			
+			// get event broker to subscribe 
+			EventBroker broker = appli.getContext().getLocal(EventBroker.class);
+			
+			// subscribe to LifeCycle Event topic 
+			broker.subscribe(UIEvents.UILifeCycle.ACTIVATE, (eventHandler) -> {
+				
+				// this Event Tag is published when a part is activated
+				if ( eventHandler.containsProperty(EventTags.ELEMENT) && 
+						eventHandler.getProperty(EventTags.ELEMENT) instanceof MPart)
+				{
+					MPart activatePart = (MPart) eventHandler.getProperty(EventTags.ELEMENT);
+					String createdPartId = refPartId.get(); 
+					// get part id and compare with referenced part Id  
+					if ( createdPartId != null && createdPartId.equals(activatePart.getElementId()))
+					{
+						partActivated.set(true);
+						refPartId.set("");
+					}
+					
+				}
+			});
 		}
 
 	}
@@ -167,9 +200,10 @@ public abstract class E4TestCase {
 		MPart p = null;
 		try {
 
+			refPartId.set(partDescId);
 			EPartService ps = getPartService();
 			p = ps.createPart(partDescId);
-
+			
 			// Add this part in the test window and activate it !
 			MPartStack mps = getPartStack();
 			mps.getChildren().add(p);
@@ -177,7 +211,18 @@ public abstract class E4TestCase {
 
 			ps.showPart(p, PartState.CREATE);
 			ps.activate(p);
-
+			Display.getDefault().syncExec(() ->{
+				// TODO implement timout configuration
+				while(!partActivated.get())
+				{
+					try {
+						Thread.sleep(1000L);
+					} catch (InterruptedException e) {
+						e4testLogger.error(e);
+					}
+				}
+			});
+			partActivated.set(false);
 		} catch (Exception t) {
 			e4testLogger.error(t);
 		}

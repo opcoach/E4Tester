@@ -22,8 +22,9 @@ public class SelectionTest extends E4TestCase {
 
 	@BeforeEach public void setup()
 	{
-		part2 = createTestPart(Part2.ID);
 		part1 = createTestPart(Part1.ID);
+		part2 = createTestPart(Part2.ID);
+		
 	}
 	
 	@Test
@@ -44,7 +45,7 @@ public class SelectionTest extends E4TestCase {
 		String expected = "String11";
 		selectObjectInTreeViewer(part1, "tv", expected);
 		//tv.setSelection(new TreeSelection(new TreePath( new Object[] {expected} )));
-		wait1second();
+		//wait1second();
 		assertEquals(expected, getTextWidgetValue(part2, "label"), "Text in label must be as selected tree node");
 	}
 

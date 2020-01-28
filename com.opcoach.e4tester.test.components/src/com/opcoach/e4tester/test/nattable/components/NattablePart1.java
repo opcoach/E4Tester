@@ -6,7 +6,10 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import org.eclipse.e4.core.di.annotations.Optional;
+import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.nebula.widgets.nattable.NatTable;
@@ -35,15 +38,25 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * NatTable Part
+ * @author root
+ *
+ */
 public class NattablePart1 {
 
-	
+	/** NatTable part ID **/ 
 	public static final String ID = "com.opcoach.e4tester.test.components.nattablepart1";
 
 	@Inject
     ESelectionService service;
 	
+	/** Nattable selection result **/ 
 	private Text outputArea;
+	
+	/** the natTable **/
+	NatTable natTable;
+	
 	
 	@PostConstruct
 	public void postConstruct(Composite parent, ESelectionService selService) {
@@ -120,7 +133,7 @@ public class NattablePart1 {
                         rowHeaderLayer,
                         cornerLayer);
 
-        final NatTable natTable = new NatTable(parent, gridLayer);
+        natTable = new NatTable(parent, gridLayer);
         natTable.setData("org.eclipse.e4.ui.css.CssClassName", "modern");
 
         parent.setLayout(new GridLayout());
@@ -132,4 +145,15 @@ public class NattablePart1 {
 		
 	}
 	
+	@Inject
+    @Optional
+    void handleSelection(@Named(IServiceConstants.ACTIVE_SELECTION) List<Person> selected) {
+        if (selected != null) {
+            String msg = "";
+            for (Person p : selected) {
+                msg += p.getFirstName() + " " + p.getLastName() + " selected\n";
+            }
+            outputArea.append(msg);
+        }
+    }
 }
