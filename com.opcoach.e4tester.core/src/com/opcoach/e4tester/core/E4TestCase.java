@@ -28,10 +28,12 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.osgi.framework.Bundle;
@@ -63,6 +65,7 @@ public abstract class E4TestCase {
 	
 	static AtomicReference<String> refPartId = new AtomicReference<>();
 	
+	static long DEFAULT_TIMEOUT_PART_ACTIVATION = 2 * 1000;
 	/** This global setup initializes basic contexts for tests */
 	@SuppressWarnings("restriction")
 	@BeforeAll 
@@ -211,18 +214,8 @@ public abstract class E4TestCase {
 
 			ps.showPart(p, PartState.CREATE);
 			ps.activate(p);
-			Display.getDefault().syncExec(() ->{
-				// TODO implement timout configuration
-				while(!partActivated.get())
-				{
-					try {
-						Thread.sleep(1000L);
-					} catch (InterruptedException e) {
-						e4testLogger.error(e);
-					}
-				}
-			});
-			partActivated.set(false);
+			waitActivatedPart();
+			
 		} catch (Exception t) {
 			e4testLogger.error(t);
 		}
@@ -265,6 +258,28 @@ public abstract class E4TestCase {
 
 	}
 
+	
+	private void waitActivatedPart() {
+		Display.getDefault().syncExec(() ->{
+			
+			long end = System.currentTimeMillis() + DEFAULT_TIMEOUT_PART_ACTIVATION;
+			while(!partActivated.get())
+			{
+				try {
+					Thread.sleep(200L);
+					if ( System.currentTimeMillis() > end )
+					{
+						partActivated.set(true);
+					}
+						
+				} catch (InterruptedException e) {
+					e4testLogger.error(e);
+				}
+			}
+		});
+		partActivated.set(false);
+	}
+	
 	private MPartStack getPartStack() {
 		MWindow testWindow = getTestWindow();
 
@@ -354,7 +369,36 @@ public abstract class E4TestCase {
 		return result;
 
 	}
+	/**
+	 * Get the text value of the clazz widget, null if no field found or no getText
+	 * method
+	 */
+	public String setTextWidgetValue(Object pojo, String widgetFieldName, String newValue) {
+		// Get the field in the pojo object
+		Class<?> c = pojo.getClass();
+		String result = null;
+		try {
+			// Get the instance value .
+			Object o = getInstanceValue(pojo, widgetFieldName);
 
+			// Look for the getText method in the field instance
+			Class<?> wclass = o.getClass(); // Class for this widget
+			// Is there a getText method ?
+			Method m = wclass.getMethod("setText", String.class);
+			if (m != null)
+				 m.invoke(o,newValue);
+
+		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+			System.out.println("The method getText could not be called on value instance of field " + widgetFieldName
+					+ " of class : " + c.getCanonicalName());
+		} catch (NoSuchMethodException e) {
+			System.out.println("The method getText could not be found on value instance of field '" + widgetFieldName
+					+ "' in class : " + c.getCanonicalName());
+		}
+
+		return result;
+
+	}
 	/**
 	 * Check whether the button loaded in widgetFieldName is selected in the part
 	 * 
@@ -464,7 +508,6 @@ public abstract class E4TestCase {
 				System.out.println(wfte.getMessage());
 				throw wfte;
 			}
-
 		}
 		return result;
 	}
@@ -473,6 +516,37 @@ public abstract class E4TestCase {
 		getPartService().activate(part);
 		return getTreeViewer(part.getObject(), fieldName);
 	}
+	
+	/** Get the nattable instance stored in the field 'fieldname' of the pojo
+	 * instance.
+	 * 
+	 * @param pojo      the part to be analyzed
+	 * @param fieldName the fieldname containing the tree viewer
+	 * @return the treeviewer of null if nothing found.
+	 * @throws NoSuchFieldException
+	 */
+	protected NatTable getNatTable(Object pojo, String fieldName) {
+		NatTable result = null;
+
+		Object fieldValue = getInstanceValue(pojo, fieldName);
+		if (fieldValue != null) {
+			if (fieldValue instanceof NatTable) {
+				result = (NatTable) fieldValue;
+			} else {
+				WrongFieldTypeException wfte = new WrongFieldTypeException(fieldName, pojo, TreeViewer.class,
+						fieldValue.getClass());
+				e4testLogger.error(wfte.getMessage());
+				throw wfte;
+			}
+		}
+		return result;
+	}
+
+	protected NatTable getNatTable(MPart part, String fieldName) {
+		getPartService().activate(part);
+		return getNatTable(part.getObject(), fieldName);
+	}
+
 
 	/**
 	 * Get the control instance stored in the field 'fieldname' of the pojo
@@ -511,6 +585,9 @@ public abstract class E4TestCase {
 		return getControl(part, fieldName, Combo.class);
 	}
 
+	protected Text getTextWidget(MPart part, String fieldName) {
+		return getControl(part, fieldName, Text.class);
+	}
 	/**
 	 * 
 	 * @param pojo

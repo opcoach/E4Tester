@@ -12,6 +12,8 @@ import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.LayoutConstants;
+import org.eclipse.jface.util.Geometry;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.data.IColumnPropertyAccessor;
 import org.eclipse.nebula.widgets.nattable.data.IDataProvider;
@@ -32,9 +34,14 @@ import org.eclipse.nebula.widgets.nattable.grid.layer.RowHeaderLayer;
 import org.eclipse.nebula.widgets.nattable.layer.DataLayer;
 import org.eclipse.nebula.widgets.nattable.layer.ILayer;
 import org.eclipse.nebula.widgets.nattable.selection.SelectionLayer;
+import org.eclipse.nebula.widgets.nattable.selection.command.SelectCellCommand;
 import org.eclipse.nebula.widgets.nattable.viewport.ViewportLayer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
@@ -141,7 +148,28 @@ public class NattablePart1 {
 
         outputArea = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.V_SCROLL);
         outputArea.setEditable(false);
+        outputArea.setText("Init");
         GridDataFactory.fillDefaults().grab(true, false).hint(0, 100).align(SWT.FILL, SWT.BEGINNING).applyTo(outputArea);
+       
+        // GridDataFactory version
+        Button button = new Button(parent, SWT.NONE);
+        Point preferredSize = button.computeSize(SWT.DEFAULT, SWT.DEFAULT, false);
+        Point hint = Geometry.max(LayoutConstants.getMinButtonSize(), preferredSize);
+        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).hint(hint).applyTo(button);
+        
+        button.addSelectionListener( new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				natTable.doCommand(new SelectCellCommand(natTable,1,10,false,false));
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 	}
 	
