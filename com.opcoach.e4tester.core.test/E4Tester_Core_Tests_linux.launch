@@ -38,20 +38,18 @@
 <setEntry value="javax.annotation@default:default"/>
 <setEntry value="javax.inject@default:default"/>
 <setEntry value="javax.servlet@default:default"/>
-<setEntry value="javax.xml@default:default"/>
 <setEntry value="org.apache.batik.constants@default:default"/>
-<setEntry value="org.apache.batik.css*1.11.0.v20190515-0436@default:default"/>
+<setEntry value="org.apache.batik.css@default:default"/>
 <setEntry value="org.apache.batik.i18n@default:default"/>
-<setEntry value="org.apache.batik.util*1.11.0.v20190515-0436@default:default"/>
+<setEntry value="org.apache.batik.util@default:default"/>
 <setEntry value="org.apache.commons.io@default:default"/>
 <setEntry value="org.apache.commons.jxpath@default:default"/>
 <setEntry value="org.apache.commons.logging*1.2.0.v20180409-1502@default:default"/>
 <setEntry value="org.apache.felix.gogo.runtime@default:default"/>
 <setEntry value="org.apache.felix.scr@1:true"/>
-<setEntry value="org.apache.log4j@default:default"/>
-<setEntry value="org.apache.lucene.analyzers-common*8.0.0.v20190404-1858@default:default"/>
+<setEntry value="org.apache.lucene.analyzers-common@default:default"/>
 <setEntry value="org.apache.lucene.analyzers-smartcn@default:default"/>
-<setEntry value="org.apache.lucene.core*8.0.0.v20190404-1858@default:default"/>
+<setEntry value="org.apache.lucene.core@default:default"/>
 <setEntry value="org.apache.xmlgraphics@default:default"/>
 <setEntry value="org.apiguardian@default:default"/>
 <setEntry value="org.eclipse.ant.core@default:default"/>
@@ -140,7 +138,6 @@
 <setEntry value="org.eclipse.osgi.util@default:default"/>
 <setEntry value="org.eclipse.osgi@-1:true"/>
 <setEntry value="org.eclipse.platform@default:default"/>
-<setEntry value="org.eclipse.sdk@default:default"/>
 <setEntry value="org.eclipse.swt.gtk.linux.x86_64@default:false"/>
 <setEntry value="org.eclipse.swt@default:default"/>
 <setEntry value="org.eclipse.team.core@default:default"/>
@@ -161,7 +158,6 @@
 <setEntry value="org.eclipse.ui.workbench@default:default"/>
 <setEntry value="org.eclipse.ui@default:default"/>
 <setEntry value="org.eclipse.urischeme@default:default"/>
-<setEntry value="org.eclipse.xtext.logging@default:false"/>
 <setEntry value="org.hamcrest.core@default:default"/>
 <setEntry value="org.junit.jupiter.api@default:default"/>
 <setEntry value="org.junit.jupiter.engine@default:default"/>
@@ -182,6 +178,11 @@
 <setEntry value="org.w3c.dom.svg@default:default"/>
 </setAttribute>
 <setAttribute key="selected_workspace_bundles">
+<setEntry value="com.opcoach.e4.preference.example.e3@default:false"/>
+<setEntry value="com.opcoach.e4.preferences.example@default:default"/>
+<setEntry value="com.opcoach.e4.preferences.mainmenu@default:default"/>
+<setEntry value="com.opcoach.e4.preferences.provider.example@default:default"/>
+<setEntry value="com.opcoach.e4.preferences@default:default"/>
 <setEntry value="com.opcoach.e4tester.core.test@default:false"/>
 <setEntry value="com.opcoach.e4tester.core@default:default"/>
 <setEntry value="com.opcoach.e4tester.test.components.test@default:false"/>

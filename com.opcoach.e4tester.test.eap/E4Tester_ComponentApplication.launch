@@ -32,9 +32,11 @@
 <setEntry value="javax.inject@default:default"/>
 <setEntry value="javax.servlet@default:default"/>
 <setEntry value="org.apache.batik.constants@default:default"/>
-<setEntry value="org.apache.batik.css@default:default"/>
+<setEntry value="org.apache.batik.css*1.11.0.v20190515-0436@default:default"/>
+<setEntry value="org.apache.batik.css*1.6.0.v201011041432@default:default"/>
 <setEntry value="org.apache.batik.i18n@default:default"/>
-<setEntry value="org.apache.batik.util@default:default"/>
+<setEntry value="org.apache.batik.util*1.11.0.v20190515-0436@default:default"/>
+<setEntry value="org.apache.batik.util*1.6.0.v201011041432@default:default"/>
 <setEntry value="org.apache.commons.codec*1.10.0.v20180409-1845@default:default"/>
 <setEntry value="org.apache.commons.io@default:default"/>
 <setEntry value="org.apache.commons.jxpath@default:default"/>
@@ -72,7 +74,8 @@
 <setEntry value="org.eclipse.e4.tools.emf.ui@default:default"/>
 <setEntry value="org.eclipse.e4.tools.model.spy@default:default"/>
 <setEntry value="org.eclipse.e4.tools.services@default:default"/>
-<setEntry value="org.eclipse.e4.tools.spy@default:default"/>
+<setEntry value="org.eclipse.e4.tools.spy*0.18.0.v20191202-1938@default:default"/>
+<setEntry value="org.eclipse.e4.tools.spy*0.18.0.v20200123-1744@default:default"/>
 <setEntry value="org.eclipse.e4.ui.bindings@default:default"/>
 <setEntry value="org.eclipse.e4.ui.css.core@default:default"/>
 <setEntry value="org.eclipse.e4.ui.css.swt.theme@default:default"/>
