@@ -13,6 +13,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
+import org.eclipse.e4.ui.internal.workbench.SelectionServiceImpl;
 import org.eclipse.e4.ui.internal.workbench.swt.E4Application;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
@@ -23,6 +24,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.nebula.widgets.nattable.NatTable;
@@ -121,7 +123,9 @@ public abstract class E4TestCase {
 	}
 
 	private void cleanSelection() {
-		getSelectionService().setSelection("");
+		Display.getDefault().syncExec(() ->{
+			getSelectionService().setSelection("");	
+		});
 	}
 
 	/** Create or return the test Window as a sibling of application's window. */
@@ -646,6 +650,14 @@ public abstract class E4TestCase {
 			getPartService().activate(part, true);
 			selectObjectInTreeViewer(part.getObject(), fieldName, value);
 		});
+	}
+	
+	
+	public void setSelectionService(Object selection) {
+		Display.getDefault().syncExec(()->{
+			getSelectionService().setSelection(selection);	
+		});	
+		
 	}
 
 	/// ASSERT METHODS

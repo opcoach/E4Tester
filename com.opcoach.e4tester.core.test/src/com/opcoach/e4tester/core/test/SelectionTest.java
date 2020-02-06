@@ -12,6 +12,7 @@ import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Display;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,9 +33,10 @@ public class SelectionTest extends E4TestCase {
 	
 	@Test
 	public void testgetSelectionService()  {
-		ESelectionService sel = getSelectionService();
+		//ESelectionService sel = getSelectionService();
 		String expected = "ASampleString";
-		sel.setSelection(expected);
+		setSelectionService(expected);
+		//sel.setSelection(expected);
 		assertEquals(expected, getTextWidgetValue(part2, "label"), "Text in label must be as expected after selection");
 	}
 	
@@ -46,7 +48,6 @@ public class SelectionTest extends E4TestCase {
 		///   IF setup is initialized with part1 then part2, it will fail.... 
 		
 		String expected = "String11";
-		
 		selectObjectInTreeViewer(part1, "tv", expected);
 		//wait1second();
 		assertEquals(expected, getTextWidgetValue(part2, "label"), "Text in label must be as selected tree node");
@@ -56,7 +57,9 @@ public class SelectionTest extends E4TestCase {
 		
 		String expected = "String12";
 		TreeViewer tv = getTreeViewer(part1, "tv");
-		tv.setSelection(new TreeSelection(new TreePath( new Object[] {expected} )));
+		Display.getDefault().syncExec(()-> {
+			tv.setSelection(new TreeSelection(new TreePath( new Object[] {expected} )));
+		});
 		assertEquals(expected, getTextWidgetValue(part2, "label"), "Text in label must be as selected tree node");
 	}
 }
