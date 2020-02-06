@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.nebula.widgets.nattable.selection.command.SelectCellCommand;
+import org.eclipse.swt.widgets.Display;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -61,11 +62,14 @@ public class NattableTest extends E4TestCase{
 	public void getNatTableCellValue() throws InterruptedException {
 		NatTable ntable = getNatTable(natPart1, "natTable");
 		assertNotNull(ntable);
-		ntable.doCommand(new SelectCellCommand(ntable,1,10,false,false));
-		waitseconds(1);
-		Thread.sleep(10000L);
 		setTextWidgetValue(natPart1.getObject(), "outputArea","");
+		Display.getDefault().syncExec(()->{
+			ntable.doCommand(new SelectCellCommand(ntable,1,10,false,false));	
+		});
+		waitseconds(1);
+		//
 		String text = getTextWidgetValue(natPart1, "outputArea");
 		assertNotEquals("",text);
+
 	}
 }

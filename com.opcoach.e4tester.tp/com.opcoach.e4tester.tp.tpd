@@ -6,6 +6,7 @@ location "http://download.eclipse.org/releases/2019-12" {
 	org.eclipse.e4.rcp.feature.group
 		
 	org.eclipse.equinox.executable.feature.group
+	org.eclipse.pde.core
 	org.eclipse.pde.junit.runtime
 
     // Add the junit 5 support	

@@ -2,12 +2,6 @@
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_6wlLcMgZEeSyMNYR5xypkQ" elementId="com.opcoach.e4tester.test.eap.application" bindingContexts="_6wlLecgZEeSyMNYR5xypkQ">
   <children xsi:type="basic:TrimmedWindow" xmi:id="_6wlLccgZEeSyMNYR5xypkQ" elementId="com.opcoach.e4tester.test.eap.window.main" label="E4 Tester - Test Components Application" width="800" height="600">
     <children xsi:type="basic:PartSashContainer" xmi:id="_6wlLksgZEeSyMNYR5xypkQ" elementId="com.opcoach.e4tester.test.eap.partsashcontainer.sample" horizontal="true">
-      <children xsi:type="basic:PartStack" xmi:id="_6wlLk8gZEeSyMNYR5xypkQ" elementId="com.opcoach.e4tester.test.eap.partstack.sample" containerData="70">
-        <children xsi:type="basic:Part" xmi:id="_6wlLlMgZEeSyMNYR5xypkQ" elementId="com.opcoach.e4tester.test.eap.part.sample" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.components.Part1" label="Part 1" iconURI="platform:/plugin/com.opcoach.e4tester.test.eap/icons/home.png"/>
-      </children>
-      <children xsi:type="basic:PartStack" xmi:id="_VkKrUNd3Eei9mNR82qPnrg" elementId="com.opcoach.e4tester.test.eap.partstack.0" containerData="30">
-        <children xsi:type="basic:Part" xmi:id="_WdwlwNd3Eei9mNR82qPnrg" elementId="com.opcoach.e4tester.test.eap.part.part2" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.components.Part2" label="Part2"/>
-      </children>
       <children xsi:type="basic:PartStack" xmi:id="_rsd9gEHvEeqep8nxdCYgeQ" elementId="com.opcoach.e4tester.test.eap.partstack.1">
         <children xsi:type="basic:Part" xmi:id="_wCMAkEHvEeqep8nxdCYgeQ" elementId="com.opcoach.e4tester.test.eap.part.nattablepart1" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.nattable.components.NattablePart1" label="Nattable Part"/>
       </children>

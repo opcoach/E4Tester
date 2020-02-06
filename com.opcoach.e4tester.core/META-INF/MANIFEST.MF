@@ -21,7 +21,9 @@ Require-Bundle: org.eclipse.e4.core.contexts,
  org.junit.platform.commons;visibility:=reexport,
  org.eclipse.jdt.junit5.runtime;visibility:=reexport,
  org.eclipse.equinox.registry,
- org.eclipse.nebula.widgets.nattable.core
+ org.eclipse.nebula.widgets.nattable.core,
+ org.eclipse.pde.core,
+ org.eclipse.pde.junit.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: javax.inject;version="1.0.0",
  org.junit.jupiter.api

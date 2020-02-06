@@ -2,15 +2,14 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="application"
-         name="E4 Tester Application"
+         id="com.opcoach.e4tester.core.test"
          point="org.eclipse.core.runtime.applications">
       <application
             cardinality="singleton-global"
             thread="main"
             visible="true">
          <run
-               class="com.opcoach.e4tester.core.E4TesterApplication">
+               class="com.opcoach.e4tester.core.E4TesterUITestApplication">
          </run>
       </application>
    </extension>
