@@ -15,15 +15,9 @@ Require-Bundle: org.eclipse.e4.core.contexts,
  org.eclipse.e4.ui.model.workbench,
  org.eclipse.e4.ui.services,
  org.eclipse.e4.ui.workbench.swt,
- org.eclipse.e4.ui.di,
- org.eclipse.e4.core.di.extensions,
- org.eclipse.osgi.services,
- org.junit.platform.commons;visibility:=reexport,
- org.eclipse.jdt.junit5.runtime;visibility:=reexport,
- org.eclipse.equinox.registry,
  org.eclipse.nebula.widgets.nattable.core,
- org.eclipse.pde.core,
- org.eclipse.pde.junit.runtime
+ org.eclipse.pde.junit.runtime,
+ org.eclipse.jdt.junit5.runtime
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: javax.inject;version="1.0.0",
  org.junit.jupiter.api
