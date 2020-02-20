@@ -5,6 +5,14 @@
       <children xsi:type="basic:PartStack" xmi:id="_rsd9gEHvEeqep8nxdCYgeQ" elementId="com.opcoach.e4tester.test.eap.partstack.1">
         <children xsi:type="basic:Part" xmi:id="_wCMAkEHvEeqep8nxdCYgeQ" elementId="com.opcoach.e4tester.test.eap.part.nattablepart1" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.nattable.components.NattablePart1" label="Nattable Part"/>
       </children>
+      <children xsi:type="basic:PartSashContainer" xmi:id="_9WOMIFP7EeqCWe2IKd1OnQ" elementId="com.opcoach.e4tester.test.eap.partsashcontainer.0">
+        <children xsi:type="basic:PartStack" xmi:id="_7iI_YFP7EeqCWe2IKd1OnQ" elementId="com.opcoach.e4tester.test.eap.partstack.0">
+          <children xsi:type="basic:Part" xmi:id="_TjuwIFP8EeqCWe2IKd1OnQ" elementId="com.opcoach.e4tester.test.components.part1" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.components.Part1" label="Part 1"/>
+        </children>
+        <children xsi:type="basic:PartStack" xmi:id="_A-susFP8EeqCWe2IKd1OnQ" elementId="com.opcoach.e4tester.test.eap.partstack.2">
+          <children xsi:type="basic:Part" xmi:id="_UGDaEFP8EeqCWe2IKd1OnQ" elementId="com.opcoach.e4tester.test.components.part2" contributionURI="bundleclass://com.opcoach.e4tester.test.components/com.opcoach.e4tester.test.components.Part2" label="Part 2"/>
+        </children>
+      </children>
     </children>
     <mainMenu xmi:id="_6wlLicgZEeSyMNYR5xypkQ" elementId="org.eclipse.ui.main.menu">
       <children xsi:type="menu:Menu" xmi:id="_6wlLisgZEeSyMNYR5xypkQ" elementId="file" label="File">
