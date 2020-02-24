@@ -55,11 +55,11 @@
 				   	<!--  See https://www.eclipse.org/tycho/sitedocs/tycho-surefire/tycho-surefire-plugin/test-mojo.html -->
 				  	<useUIHarness>true</useUIHarness>
 					
-					<useUIThread>true</useUIThread>
-		 			<application>com.opcoach.e4tester.core.test</application> 
+					<useUIThread>false</useUIThread>
+		 			<application>com.opcoach.e4tester.core.application</application> 
 					<product>com.opcoach.e4tester.core.product</product>
-					<!--  <argLine>${ui.test.vmargs}</argLine>-->
-					<argLine>-Dtestpluginname com.opcoach.e4tester.core</argLine>
+					<argLine>${ui.test.vmargs}</argLine>
+					<!-- <argLine>-Dtestpluginname com.opcoach.e4tester.core.test</argLine> -->
 				</configuration>
 			</plugin>
 		</plugins>
