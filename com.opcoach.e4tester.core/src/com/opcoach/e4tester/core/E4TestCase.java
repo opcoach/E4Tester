@@ -117,8 +117,8 @@ public abstract class E4TestCase {
 	 */
 	@AfterEach
 	public void release() {
-		cleanTestWindow();
 		cleanSelection();
+		cleanTestWindow();
 		wait1second();
 	}
 
@@ -174,7 +174,7 @@ public abstract class E4TestCase {
 
 		Display.getDefault().syncExec(() -> {
 			// TODO HERE
-			// getPartStack().getChildren().clear();
+			getPartStack().getChildren().clear();
 		});
 	}
 
@@ -288,8 +288,17 @@ public abstract class E4TestCase {
 
 	private MPartStack getPartStack() {
 		MWindow testWindow = getTestWindow();
-
-		return (MPartStack) testWindow.getChildren().get(0);
+		MPartStack ps = null;
+		if (testWindow.getChildren().size()==0)
+		{
+			ps = getModelService().createModelElement(MPartStack.class);
+			testWindow.getChildren().add(ps);
+		}
+	    ps =  (MPartStack) testWindow.getChildren().get(0);
+		
+		return ps;
+		
+		
 	}
 
 	protected Shell getTestShell() {
