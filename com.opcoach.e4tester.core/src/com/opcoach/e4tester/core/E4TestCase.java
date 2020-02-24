@@ -382,7 +382,7 @@ public abstract class E4TestCase {
 	 * Get the text value of the clazz widget, null if no field found or no getText
 	 * method
 	 */
-	public void setTextWidgetValue(Object pojo, String widgetFieldName, String newValue) {
+	synchronized public void setTextWidgetValue(Object pojo, String widgetFieldName, String newValue) {
 		Display.getDefault().syncExec(() -> {
 
 			// Get the field in the pojo object
@@ -628,7 +628,7 @@ public abstract class E4TestCase {
 	 * @param fieldName
 	 * @param value
 	 */
-	protected void selectObjectInTreeViewer(Object pojo, String fieldName, Object value) {
+	synchronized protected void selectObjectInTreeViewer(Object pojo, String fieldName, Object value) {
 
 		////// MUST BE UPDATED... IT WORKS IF PARTS ARE CREATED IN A GIVEN ORDER (See
 		////// tests)...

@@ -39,7 +39,7 @@ public class NattableTest extends E4TestCase{
 		assertNotNull(natPart1);
 	}
 	@Order(1)
-	@Disabled
+	// @Disabled
 	@Test
 	public void getNattableWidget() {
 		NatTable ntable = getNatTable(natPart1, "natTable");
@@ -47,7 +47,7 @@ public class NattableTest extends E4TestCase{
 	}
 	
 	@Order(2)
-	@Disabled
+	// @Disabled
 	@Test
 	public void getNattableOutputAera(){
 		String text = getTextWidgetValue(natPart1, "outputArea");
@@ -62,12 +62,12 @@ public class NattableTest extends E4TestCase{
 	public void getNatTableCellValue() throws InterruptedException {
 		NatTable ntable = getNatTable(natPart1, "natTable");
 		assertNotNull(ntable);
+		
 		setTextWidgetValue(natPart1.getObject(), "outputArea","");
 		Display.getDefault().syncExec(()->{
 			ntable.doCommand(new SelectCellCommand(ntable,1,10,false,false));	
 		});
-		waitseconds(1);
-		//
+		
 		String text = getTextWidgetValue(natPart1, "outputArea");
 		assertNotEquals("",text);
 
