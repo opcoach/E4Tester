@@ -19,6 +19,7 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -29,7 +30,6 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.junit.jupiter.api.AfterEach;
@@ -56,6 +56,7 @@ public abstract class E4TestCase {
 
 	protected static E4Application e4Appli = null;
 	protected static E4Workbench e4workbench = null;
+	
 	
 	protected static E4TesterLogger e4testLogger = null;
 
@@ -118,7 +119,6 @@ public abstract class E4TestCase {
 	public void release() {
 		cleanSelection();
 		cleanTestWindow();
-		wait1second();
 	}
 
 	private void cleanSelection() {
@@ -162,19 +162,13 @@ public abstract class E4TestCase {
 		// injector.
 
 		// Must release pojo in each part in partStack
-//		for (MStackElement mse : getPartStack().getChildren()) {
-//			if (mse instanceof MPart) {
-//				// Release the pojo in injector
-//				MPart p = (MPart) mse;
-//				ContextInjectionFactory.uninject(p.getObject(), p.getContext());
-//			}
-//
-//		} 
-
 		getSync().syncExec(() -> {
-			// TODO HERE
-			getPartStack().getChildren().clear();
+			
+			Object[] toBeDeleted = getPartStack().getChildren().toArray();
+			for (Object o : toBeDeleted)
+				getModelService().deleteModelElement((MStackElement) o);
 		});
+
 	}
 
 	protected EPartService getPartService() {
@@ -268,6 +262,11 @@ public abstract class E4TestCase {
 		});
 		return refpart.get();
 
+	}
+	
+	protected void disposeTestPart(MPart p)
+	{
+		
 	}
 
 	private void waitActivatedPart() {
