@@ -12,8 +12,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
-import org.eclipse.e4.ui.internal.workbench.SelectionServiceImpl;
 import org.eclipse.e4.ui.internal.workbench.swt.E4Application;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
@@ -24,7 +24,6 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.nebula.widgets.nattable.NatTable;
@@ -57,7 +56,7 @@ public abstract class E4TestCase {
 
 	protected static E4Application e4Appli = null;
 	protected static E4Workbench e4workbench = null;
-
+	
 	protected static E4TesterLogger e4testLogger = null;
 
 	static AtomicBoolean partActivated = new AtomicBoolean(false);
@@ -123,8 +122,8 @@ public abstract class E4TestCase {
 	}
 
 	private void cleanSelection() {
-		Display.getDefault().syncExec(() ->{
-			getSelectionService().setSelection("");	
+		getSync().syncExec(() -> {
+			getSelectionService().setSelection("");
 		});
 	}
 
@@ -172,7 +171,7 @@ public abstract class E4TestCase {
 //
 //		} 
 
-		Display.getDefault().syncExec(() -> {
+		getSync().syncExec(() -> {
 			// TODO HERE
 			getPartStack().getChildren().clear();
 		});
@@ -189,6 +188,10 @@ public abstract class E4TestCase {
 	protected EModelService getModelService() {
 		return getContext().get(EModelService.class);
 	}
+	
+	protected UISynchronize getSync() {
+		return getContext().get(UISynchronize.class);
+	}
 
 	protected ESelectionService getSelectionService() {
 		return getContext().get(ESelectionService.class);
@@ -202,7 +205,7 @@ public abstract class E4TestCase {
 	 */
 	public MPart createTestPart(String partDescId) {
 		AtomicReference<MPart> refpart = new AtomicReference<>();
-		Display.getDefault().syncExec(() -> {
+		getSync().syncExec(() -> {
 			MPart p = null;
 			try {
 
@@ -240,7 +243,7 @@ public abstract class E4TestCase {
 	public MPart createTestPart(String name, String id, Class<?> pojoClazz) {
 		AtomicReference<MPart> refpart = new AtomicReference<>();
 
-		Display.getDefault().syncExec(() -> {
+		getSync().syncExec(() -> {
 			MPart p = null;
 			try {
 				p = getModelService().createModelElement(MPart.class);
@@ -268,7 +271,7 @@ public abstract class E4TestCase {
 	}
 
 	private void waitActivatedPart() {
-		Display.getDefault().syncExec(() -> {
+		getSync().syncExec(() -> {
 
 			long end = System.currentTimeMillis() + DEFAULT_TIMEOUT_PART_ACTIVATION;
 			while (!partActivated.get()) {
@@ -289,16 +292,14 @@ public abstract class E4TestCase {
 	private MPartStack getPartStack() {
 		MWindow testWindow = getTestWindow();
 		MPartStack ps = null;
-		if (testWindow.getChildren().size()==0)
-		{
+		if (testWindow.getChildren().size() == 0) {
 			ps = getModelService().createModelElement(MPartStack.class);
 			testWindow.getChildren().add(ps);
 		}
-	    ps =  (MPartStack) testWindow.getChildren().get(0);
-		
+		ps = (MPartStack) testWindow.getChildren().get(0);
+
 		return ps;
-		
-		
+
 	}
 
 	protected Shell getTestShell() {
@@ -361,19 +362,20 @@ public abstract class E4TestCase {
 	public String getTextWidgetValue(Object pojo, String widgetFieldName) {
 		// Get the field in the pojo object
 		AtomicReference<String> refText = new AtomicReference<>();
-		Display.getDefault().syncExec(() -> {
+		getSync().syncExec(() -> {
 			Class<?> c = pojo.getClass();
-			String result = null;
+			Object o = null;
 			try {
 				// Get the instance value .
-				Object o = getInstanceValue(pojo, widgetFieldName);
+				o = getInstanceValue(pojo, widgetFieldName);
 
 				// Look for the getText method in the field instance
 				Class<?> wclass = o.getClass(); // Class for this widget
 				// Is there a getText method ?
 				Method m = wclass.getMethod("getText");
-				if (m != null)
-					refText.set((String) m.invoke(o));
+				if (m != null) {
+						refText.set((String) m.invoke(o));
+				}
 
 			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 				System.out.println("The method getText could not be called on value instance of field "
@@ -381,7 +383,7 @@ public abstract class E4TestCase {
 			} catch (NoSuchMethodException e) {
 				System.out.println("The method getText could not be found on value instance of field '"
 						+ widgetFieldName + "' in class : " + c.getCanonicalName());
-			}
+			} 
 		});
 		return refText.get();
 
@@ -392,21 +394,24 @@ public abstract class E4TestCase {
 	 * method
 	 */
 	synchronized public void setTextWidgetValue(Object pojo, String widgetFieldName, String newValue) {
-		Display.getDefault().syncExec(() -> {
+	
+		getSync().syncExec(() -> {
 
-			// Get the field in the pojo object
+				// Get the field in the pojo object
 			Class<?> c = pojo.getClass();
 			String result = null;
+			Object o = null;
 			try {
 				// Get the instance value .
-				Object o = getInstanceValue(pojo, widgetFieldName);
+				o = getInstanceValue(pojo, widgetFieldName);
 
 				// Look for the getText method in the field instance
 				Class<?> wclass = o.getClass(); // Class for this widget
 				// Is there a getText method ?
 				Method m = wclass.getMethod("setText", String.class);
-				if (m != null)
-					m.invoke(o, newValue);
+				if (m != null) {
+						m.invoke(o, newValue);
+				}
 
 			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 				System.out.println("The method getText could not be called on value instance of field "
@@ -414,10 +419,8 @@ public abstract class E4TestCase {
 			} catch (NoSuchMethodException e) {
 				System.out.println("The method getText could not be found on value instance of field '"
 						+ widgetFieldName + "' in class : " + c.getCanonicalName());
-			}
-
+			} 
 		});
-
 	}
 
 	/**
@@ -443,7 +446,7 @@ public abstract class E4TestCase {
 	public boolean isButtonChecked(Object pojo, String widgetFieldName) {
 		// Get the field in the pojo object
 		AtomicBoolean abool = new AtomicBoolean();
-		Display.getDefault().syncExec(() -> {
+		getSync().syncExec(() -> {
 			Class<?> c = pojo.getClass();
 			boolean result = false;
 			try {
@@ -522,7 +525,7 @@ public abstract class E4TestCase {
 	protected TreeViewer getTreeViewer(Object pojo, String fieldName) {
 		AtomicReference<TreeViewer> refresult = new AtomicReference<>();
 		AtomicReference<WrongFieldTypeException> refexeceptionToThrow = new AtomicReference<>();
-		Display.getDefault().syncExec(() -> {
+		getSync().syncExec(() -> {
 			Object fieldValue = getInstanceValue(pojo, fieldName);
 			if (fieldValue != null) {
 				if (fieldValue instanceof TreeViewer) {
@@ -543,14 +546,13 @@ public abstract class E4TestCase {
 
 	protected TreeViewer getTreeViewer(MPart part, String fieldName) {
 		AtomicReference<TreeViewer> refTreev = new AtomicReference<>();
-		AtomicReference<WrongFieldTypeException> refexeceptionToThrow =new AtomicReference<>();
-		Display.getDefault().syncExec( () -> {
-			getPartService().activate(part);	
+		AtomicReference<WrongFieldTypeException> refexeceptionToThrow = new AtomicReference<>();
+		getSync().syncExec(() -> {
+			getPartService().activate(part);
 			try {
 				TreeViewer treev = getTreeViewer(part.getObject(), fieldName);
 				refTreev.set(treev);
-			}catch(WrongFieldTypeException ex)
-			{
+			} catch (WrongFieldTypeException ex) {
 				refexeceptionToThrow.set(ex);
 			}
 		});
@@ -655,18 +657,17 @@ public abstract class E4TestCase {
 	}
 
 	protected void selectObjectInTreeViewer(MPart part, String fieldName, Object value) {
-		Display.getDefault().syncExec(() -> {
+		getSync().syncExec(() -> {
 			getPartService().activate(part, true);
 			selectObjectInTreeViewer(part.getObject(), fieldName, value);
 		});
 	}
-	
-	
+
 	public void setSelectionService(Object selection) {
-		Display.getDefault().syncExec(()->{
-			getSelectionService().setSelection(selection);	
-		});	
-		
+		getSync().syncExec(() -> {
+			getSelectionService().setSelection(selection);
+		});
+
 	}
 
 	/// ASSERT METHODS

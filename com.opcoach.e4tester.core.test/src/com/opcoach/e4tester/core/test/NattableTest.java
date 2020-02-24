@@ -62,12 +62,10 @@ public class NattableTest extends E4TestCase{
 	public void getNatTableCellValue() throws InterruptedException {
 		NatTable ntable = getNatTable(natPart1, "natTable");
 		assertNotNull(ntable);
-		
+		getSync().syncExec(()->{
 		setTextWidgetValue(natPart1.getObject(), "outputArea","");
-		Display.getDefault().syncExec(()->{
 			ntable.doCommand(new SelectCellCommand(ntable,1,10,false,false));	
 		});
-		
 		String text = getTextWidgetValue(natPart1, "outputArea");
 		assertNotEquals("",text);
 
