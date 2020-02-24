@@ -15,16 +15,16 @@
     <booleanAttribute key="includeOptional" value="true"/>
     <stringAttribute key="location" value="${workspace_loc}/../junit-E4Testerworkspace"/>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-        <listEntry value="/com.opcoach.e4tester.core.test/src"/>
+        <listEntry value="/com.opcoach.e4tester.core.test"/>
     </listAttribute>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
-        <listEntry value="2"/>
+        <listEntry value="4"/>
     </listAttribute>
     <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
         <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
         <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
     </listAttribute>
-    <stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value="=com.opcoach.e4tester.core.test/src"/>
+    <stringAttribute key="org.eclipse.jdt.junit.CONTAINER" value="=com.opcoach.e4tester.core.test"/>
     <booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="true"/>
     <stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
     <stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit5"/>
@@ -34,6 +34,7 @@
     <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -clean"/>
     <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="com.opcoach.e4tester.core.test"/>
     <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
+    <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea -DapplicationXMI=com.opcoach.e4tester.core/E4TesterApplication.e4xmi -DapplicationCSS=platform:/plugin/com.opcoach.e4tester.core/css/default.css"/>
     <stringAttribute key="pde.version" value="3.3"/>
     <stringAttribute key="product" value="com.opcoach.e4tester.core.product"/>
     <booleanAttribute key="run_in_ui_thread" value="true"/>
@@ -50,7 +51,6 @@
         <setEntry value="org.apache.commons.codec*1.10.0.v20180409-1845@default:default"/>
         <setEntry value="org.apache.commons.io@default:default"/>
         <setEntry value="org.apache.commons.jxpath@default:default"/>
-        <setEntry value="org.apache.commons.logging*1.1.1.v201101211721@default:default"/>
         <setEntry value="org.apache.commons.logging*1.2.0.v20180409-1502@default:default"/>
         <setEntry value="org.apache.felix.gogo.runtime@default:default"/>
         <setEntry value="org.apache.felix.scr@1:true"/>
@@ -65,14 +65,12 @@
         <setEntry value="org.eclipse.core.databinding.property@default:default"/>
         <setEntry value="org.eclipse.core.databinding@default:default"/>
         <setEntry value="org.eclipse.core.expressions@default:default"/>
-        <setEntry value="org.eclipse.core.filebuffers@default:default"/>
         <setEntry value="org.eclipse.core.filesystem.macosx@default:false"/>
         <setEntry value="org.eclipse.core.filesystem@default:default"/>
         <setEntry value="org.eclipse.core.jobs@default:default"/>
         <setEntry value="org.eclipse.core.resources@default:default"/>
         <setEntry value="org.eclipse.core.runtime@default:true"/>
         <setEntry value="org.eclipse.core.variables@default:default"/>
-        <setEntry value="org.eclipse.debug.core@default:default"/>
         <setEntry value="org.eclipse.e4.core.commands@default:default"/>
         <setEntry value="org.eclipse.e4.core.contexts@default:default"/>
         <setEntry value="org.eclipse.e4.core.di.annotations@default:default"/>
@@ -104,39 +102,14 @@
         <setEntry value="org.eclipse.equinox.bidi@default:default"/>
         <setEntry value="org.eclipse.equinox.common@2:true"/>
         <setEntry value="org.eclipse.equinox.event@default:default"/>
-        <setEntry value="org.eclipse.equinox.frameworkadmin.equinox@default:default"/>
-        <setEntry value="org.eclipse.equinox.frameworkadmin@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.artifact.repository@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.core@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.director.app@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.director@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.engine@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.garbagecollector@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.jarprocessor@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.metadata.repository@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.metadata@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.publisher.eclipse@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.publisher@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.repository.tools@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.repository@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.touchpoint.eclipse@default:default"/>
-        <setEntry value="org.eclipse.equinox.p2.updatesite@default:default"/>
         <setEntry value="org.eclipse.equinox.preferences@default:default"/>
         <setEntry value="org.eclipse.equinox.region@default:false"/>
         <setEntry value="org.eclipse.equinox.registry@default:default"/>
-        <setEntry value="org.eclipse.equinox.security.macosx@default:false"/>
-        <setEntry value="org.eclipse.equinox.security@default:default"/>
-        <setEntry value="org.eclipse.equinox.simpleconfigurator.manipulator@default:default"/>
-        <setEntry value="org.eclipse.equinox.simpleconfigurator@1:true"/>
-        <setEntry value="org.eclipse.equinox.supplement@default:default"/>
         <setEntry value="org.eclipse.equinox.transforms.hook@default:false"/>
         <setEntry value="org.eclipse.equinox.weaving.hook@default:false"/>
         <setEntry value="org.eclipse.help@default:default"/>
-        <setEntry value="org.eclipse.jdt.core@default:default"/>
-        <setEntry value="org.eclipse.jdt.debug@default:default"/>
         <setEntry value="org.eclipse.jdt.junit.runtime@default:default"/>
         <setEntry value="org.eclipse.jdt.junit5.runtime@default:default"/>
-        <setEntry value="org.eclipse.jdt.launching@default:default"/>
         <setEntry value="org.eclipse.jface.databinding@default:default"/>
         <setEntry value="org.eclipse.jface@default:default"/>
         <setEntry value="org.eclipse.nebula.cwt@default:default"/>
@@ -151,17 +124,13 @@
         <setEntry value="org.eclipse.osgi.services@default:default"/>
         <setEntry value="org.eclipse.osgi.util@default:default"/>
         <setEntry value="org.eclipse.osgi@-1:true"/>
-        <setEntry value="org.eclipse.pde.build@default:default"/>
-        <setEntry value="org.eclipse.pde.core@default:default"/>
         <setEntry value="org.eclipse.pde.junit.runtime@default:default"/>
         <setEntry value="org.eclipse.swt.cocoa.macosx.x86_64@default:false"/>
         <setEntry value="org.eclipse.swt@default:default"/>
         <setEntry value="org.eclipse.team.core@default:default"/>
-        <setEntry value="org.eclipse.text@default:default"/>
         <setEntry value="org.eclipse.ui.cocoa@default:false"/>
         <setEntry value="org.eclipse.ui.workbench@default:default"/>
         <setEntry value="org.eclipse.ui@default:default"/>
-        <setEntry value="org.eclipse.update.configurator@default:default"/>
         <setEntry value="org.hamcrest.core@default:default"/>
         <setEntry value="org.junit.jupiter.api@default:default"/>
         <setEntry value="org.junit.jupiter.engine@default:default"/>
@@ -175,9 +144,6 @@
         <setEntry value="org.junit.vintage.engine@default:default"/>
         <setEntry value="org.junit@default:default"/>
         <setEntry value="org.opentest4j@default:default"/>
-        <setEntry value="org.sat4j.core@default:default"/>
-        <setEntry value="org.sat4j.pb@default:default"/>
-        <setEntry value="org.tukaani.xz@default:default"/>
         <setEntry value="org.w3c.css.sac@default:default"/>
         <setEntry value="org.w3c.dom.events@default:default"/>
         <setEntry value="org.w3c.dom.smil@default:default"/>
@@ -191,7 +157,7 @@
     </setAttribute>
     <booleanAttribute key="show_selected_only" value="false"/>
     <stringAttribute key="templateConfig" value="${target_home}/configuration/config.ini"/>
-    <stringAttribute key="testApplication" value="org.eclipse.e4.ui.workbench.swt.E4Application"/>
+    <stringAttribute key="testApplication" value="com.opcoach.e4tester.core.application"/>
     <booleanAttribute key="tracing" value="false"/>
     <booleanAttribute key="useCustomFeatures" value="false"/>
     <booleanAttribute key="useDefaultConfig" value="true"/>

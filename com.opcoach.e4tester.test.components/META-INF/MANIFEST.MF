@@ -22,5 +22,5 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.13.0",
 Export-Package: com.opcoach.e4tester.test.components,
  com.opcoach.e4tester.test.nattable.components
 Import-Package: javax.inject;version="1.0.0"
-Bundle-ClassPath: lib/org.eclipse.nebula.widgets.nattable.dataset_2.0.0.201910081900.jar,
- .
+Bundle-ClassPath: .,
+ lib/org.eclipse.nebula.widgets.nattable.dataset_2.0.0.201910081900.jar
