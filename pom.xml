@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.opcoach.e4tester</groupId>
 	<artifactId>com.opcoach.e4tester.parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-<!-- 	<name>E4 Tester parent pom</name> -->
+	<!-- <name>E4 Tester parent pom</name> -->
 
 
 	<properties>
@@ -14,10 +15,43 @@
 	</properties>
 
 
-  <issueManagement>
-    <url>https://github.com/opcoach/E4Tester/issues</url>
-    <system>github</system>
-  </issueManagement>
+	<issueManagement>
+		<url>https://github.com/opcoach/E4Tester/issues</url>
+		<system>github</system>
+	</issueManagement>
+
+
+
+
+
+	<!-- For mac os, must use a specific configuration to manage the SWT Thread 
+		in UI Tests ! -->
+	<profiles>
+		<profile>
+			<id>macosx</id>
+			<activation>
+				<os>
+					<name>mac os x</name>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<ui.test.vmargs>-XstartOnFirstThread</ui.test.vmargs>
+			</properties>
+		</profile>
+		<profile>
+			<id>other-os</id>
+			<activation>
+				<os>
+					<name>not-mac</name>
+					<family>!mac</family>
+				</os>
+			</activation>
+			<properties>
+				<ui.test.vmargs></ui.test.vmargs>
+			</properties>
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>
@@ -40,10 +74,10 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-				 
+
 					<!-- <dependency-resolution> <optionalDependencies>ignore</optionalDependencies> 
 						</dependency-resolution> -->
-						<target>
+					<target>
 						<artifact>
 							<groupId>com.opcoach.e4tester</groupId>
 							<artifactId>com.opcoach.e4tester.tp</artifactId>
@@ -69,6 +103,23 @@
 						</environment>
 
 					</environments>
+				</configuration>
+			</plugin>
+
+			<!-- Copy exactly this build block in each plugin test pom (in build/plugins) 
+				or once in your parent pom like here -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<!-- See https://www.eclipse.org/tycho/sitedocs/tycho-surefire-plugin/test-mojo.html -->
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>false</useUIThread>
+					<application>com.opcoach.e4tester.core.tychoRunnerApplication
+					</application>
+					<product>com.opcoach.e4tester.core.product</product>
+					<argLine>${ui.test.vmargs}</argLine>
 				</configuration>
 			</plugin>
 
