@@ -47,6 +47,7 @@
 		</profile>
 	</profiles>
 
+	<!--  Copy exactly this build block in each plugin test pom or once in your parent pom -->
 	<build>
 		<plugins>
 			<plugin>
@@ -56,18 +57,9 @@
 				<configuration>
 					<!-- See https://www.eclipse.org/tycho/sitedocs/tycho-surefire-plugin/test-mojo.html -->
 					<useUIHarness>true</useUIHarness>
-
-					<useUIThread>true</useUIThread>
-					<application>com.opcoach.e4tester.core.application</application>
-					<product>com.opcoach.e4tester.core.product</product>
-					<appArgLine>
-						-testpluginname com.opcoach.e4tester.core.test -ea 
-						-classNames com.opcoach.e4tester.core.test.PerspectiveTest 
-						-port 6293 -debugging
-						-Djava.net.preferIPv4Stack=true
-					    -DapplicationXMI=com.opcoach.e4tester.core/E4TesterApplication.e4xmi 
-						-DapplicationCSS=com.opcoach.e4tester.core/css/default.css
-					</appArgLine>
+					<useUIThread>false</useUIThread>
+				    <application>com.opcoach.e4tester.core.tychoRunnerApplication</application> 
+				     <product>com.opcoach.e4tester.core.product</product> 
 					<argLine>${ui.test.vmargs}</argLine>
 
 				</configuration>

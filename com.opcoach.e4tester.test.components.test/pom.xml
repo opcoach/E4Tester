@@ -44,6 +44,8 @@
 			</properties>
 		</profile>
 	</profiles>
+
+	<!--  Copy exactly this build block in each plugin test pom or once in your parent pom -->
 	<build>
 		<plugins>
 			<plugin>
@@ -51,16 +53,19 @@
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
-				   <!--  See https://www.eclipse.org/tycho/sitedocs/tycho-surefire/tycho-surefire-plugin/test-mojo.html -->
+					<!-- See https://www.eclipse.org/tycho/sitedocs/tycho-surefire-plugin/test-mojo.html -->
 					<useUIHarness>true</useUIHarness>
-					 <useUIThread>true</useUIThread>
-					 <!--  Must use the e4Tester application and product  -->
-		 			<application>com.opcoach.e4tester.core.application</application> 
-					<product>com.opcoach.e4tester.core.product</product>
+					<useUIThread>false</useUIThread>
+				    <application>com.opcoach.e4tester.core.tychoRunnerApplication</application> 
+				     <product>com.opcoach.e4tester.core.product</product> 
 					<argLine>${ui.test.vmargs}</argLine>
+
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+
+
 
 </project>
