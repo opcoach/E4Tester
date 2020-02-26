@@ -559,6 +559,23 @@ public abstract class E4TestCase {
 			throw refexeceptionToThrow.get();
 		return refTreev.get();
 	}
+	
+	protected Object[] getExpandElements(TreeViewer tv)
+	{
+		AtomicReference<Object[]> refExpand = new AtomicReference<>();
+
+		getSync().syncExec( () -> { 
+			tv.expandAll(); 
+			refExpand.set( tv.getExpandedElements());
+		});
+		return refExpand.get();
+	}
+	
+	protected void expandAll(TreeViewer tv)
+	{
+		getSync().syncExec(() ->
+		tv.expandAll());
+	}
 
 	/**
 	 * Get the nattable instance stored in the field 'fieldname' of the pojo
