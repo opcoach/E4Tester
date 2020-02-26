@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: com.opcoach.e4tester.test.components.test
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: OPCOACH
 Fragment-Host: com.opcoach.e4tester.test.components;bundle-version="1.0.0"
 Automatic-Module-Name: com.opcoach.e4tester.test.components.test

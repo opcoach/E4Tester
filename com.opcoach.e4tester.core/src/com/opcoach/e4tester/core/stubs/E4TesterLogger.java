@@ -1,73 +1,174 @@
 package com.opcoach.e4tester.core.stubs;
 
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.e4.core.di.annotations.Optional;
 import org.eclipse.e4.core.services.log.Logger;
+import org.eclipse.e4.ui.internal.workbench.Activator;
+import org.eclipse.e4.ui.internal.workbench.Policy;
+import org.eclipse.e4.ui.internal.workbench.WorkbenchLogger;
+import org.eclipse.osgi.framework.log.FrameworkLog;
+import org.eclipse.osgi.framework.log.FrameworkLogEntry;
+import org.eclipse.osgi.service.debug.DebugOptions;
+import org.eclipse.osgi.service.debug.DebugTrace;
 
+
+/**
+ * Logger class duplicate from workbenchlogger
+ * @author root
+ *
+ */
 public class E4TesterLogger extends Logger {
+	
+	
+	public static final String E4TEST_LOGGER ="e4testlogger";
+		
+	protected DebugTrace trace;
+	protected FrameworkLog log;
+	private String bundleName;
 
-	@Override
-	public boolean isErrorEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+	/**
+	 * Creates a new E4TesterLogger logger
+	 */
+	@Inject
+	public E4TesterLogger(@Optional @Named("logger.bundlename") String bundleName) {
+		super();
+		this.bundleName = bundleName == null ? "opcoach.core" : bundleName;
 	}
-
-	@Override
-	public void error(Throwable t, String message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isWarnEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void warn(Throwable t, String message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isInfoEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void info(Throwable t, String message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isTraceEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void trace(Throwable t, String message) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isDebugEnabled() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	@Override
 	public void debug(Throwable t) {
-		// TODO Auto-generated method stub
-
+		debug(t, null);
 	}
 
 	@Override
 	public void debug(Throwable t, String message) {
-		// TODO Auto-generated method stub
+		if (!isDebugEnabled()) {
+			return;
+		}
+		trace(Policy.DEBUG_FLAG, t, message);
+	}
 
+	@Override
+	public void error(Throwable t, String message) {
+		log(new Status(IStatus.ERROR, bundleName, message, t));
+	}
+
+	/**
+	 * Copied from PlatformLogWriter in core runtime.
+	 */
+	private static FrameworkLogEntry getLog(IStatus status) {
+		Throwable t = status.getException();
+		ArrayList<FrameworkLogEntry> childlist = new ArrayList<>();
+
+		int stackCode = t instanceof CoreException ? 1 : 0;
+		// ensure a substatus inside a CoreException is properly logged
+		if (stackCode == 1) {
+			IStatus coreStatus = ((CoreException) t).getStatus();
+			if (coreStatus != null) {
+				childlist.add(getLog(coreStatus));
+			}
+		}
+
+		if (status.isMultiStatus()) {
+			IStatus[] children = status.getChildren();
+			for (IStatus element : children) {
+				childlist.add(getLog(element));
+			}
+		}
+
+		FrameworkLogEntry[] children = childlist.isEmpty() ? null
+				: childlist.toArray(new FrameworkLogEntry[childlist.size()]);
+
+		return new FrameworkLogEntry(status.getPlugin(), status.getSeverity(), status.getCode(),
+				status.getMessage(), stackCode, t, children);
+	}
+
+	@Override
+	public void info(Throwable t, String message) {
+		log(new Status(IStatus.INFO, bundleName, message, t));
+	}
+
+	@Override
+	public boolean isDebugEnabled() {
+		return Policy.DEBUG;
+	}
+
+	@Override
+	public boolean isErrorEnabled() {
+		return true;
+	}
+
+	@Override
+	public boolean isInfoEnabled() {
+		return true;
+	}
+
+	@Override
+	public boolean isTraceEnabled() {
+		return Policy.TRACE;
+	}
+
+	@Override
+	public boolean isWarnEnabled() {
+		return true;
+	}
+
+	private void log(IStatus status) {
+		if (log != null) {
+			log.log(getLog(status));
+		} else {
+			System.out.println(status.getMessage());
+			if (status.getException() != null)
+				status.getException().printStackTrace();
+		}
+	}
+
+	/**
+	 * Sets the debug options service for this logger.
+	 *
+	 * @param options
+	 *            The debug options to be used by this logger
+	 */
+	@Inject
+	public void setDebugOptions(DebugOptions options) {
+		if (options != null) {
+			this.trace = options.newDebugTrace(bundleName, WorkbenchLogger.class);
+		}
+	}
+
+	/**
+	 * @param log
+	 */
+	@Inject
+	public void setFrameworkLog(FrameworkLog log) {
+		this.log = log;
+	}
+
+	@Override
+	public void trace(Throwable t, String message) {
+		trace(Policy.TRACE_FLAG, t, message);
+	}
+
+	private void trace(String flag, Throwable t, String message) {
+		if (trace != null) {
+			trace.trace(flag, message, t);
+		} else {
+			System.out.println(message);
+			if (t != null)
+				t.printStackTrace();
+		}
+	}
+
+	@Override
+	public void warn(Throwable t, String message) {
+		log(new Status(IStatus.WARNING, bundleName, message, t));
 	}
 
 }

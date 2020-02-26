@@ -54,6 +54,7 @@ public class E4TesterApplication extends E4Application {
 		if (product != null && product.getName() != null) {
 			Display.setAppName(product.getName());
 		}
+		
 		Display display = getApplicationDisplay();
 
 		Location instanceLocation = null; // Do not manage instance location for tests...
@@ -65,7 +66,8 @@ public class E4TesterApplication extends E4Application {
 			if (shell == null) {
 				shell = new Shell();
 				// place it off so it's not visible
-				shell.setLocation(0, 0);
+				shell.setLocation(100,300);
+				
 			}
 
 			e4workbench.getApplication().setOnTop(true);

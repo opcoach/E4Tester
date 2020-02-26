@@ -9,6 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.widgets.Display;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,15 +26,17 @@ public class SelectionTest extends E4TestCase {
 
 	@BeforeEach public void setup()
 	{
-		part2 = createTestPart(Part2.ID);
 		part1 = createTestPart(Part1.ID);
+		part2 = createTestPart(Part2.ID);
+		
 	}
 	
 	@Test
 	public void testgetSelectionService()  {
-		ESelectionService sel = getSelectionService();
+		//ESelectionService sel = getSelectionService();
 		String expected = "ASampleString";
-		sel.setSelection(expected);
+		setSelectionService(expected);
+		//sel.setSelection(expected);
 		assertEquals(expected, getTextWidgetValue(part2, "label"), "Text in label must be as expected after selection");
 	}
 	
@@ -39,13 +45,21 @@ public class SelectionTest extends E4TestCase {
 		
 		
 		////// MUST BE UPDATED... IT WORKS IF PARTS ARE CREATED IN A GIVEN ORDER (See setup )...
-		///   IF setup is initialed with part1 then part2, it will fail.... 
+		///   IF setup is initialized with part1 then part2, it will fail.... 
 		
 		String expected = "String11";
 		selectObjectInTreeViewer(part1, "tv", expected);
-		//tv.setSelection(new TreeSelection(new TreePath( new Object[] {expected} )));
-		wait1second();
+		//wait1second();
 		assertEquals(expected, getTextWidgetValue(part2, "label"), "Text in label must be as selected tree node");
 	}
-
+	@Test
+	public void testgetTreeviewerAndSelectObjectInTreeViewer()  {
+		
+		String expected = "String12";
+		TreeViewer tv = getTreeViewer(part1, "tv");
+		Display.getDefault().syncExec(()-> {
+			tv.setSelection(new TreeSelection(new TreePath( new Object[] {expected} )));
+		});
+		assertEquals(expected, getTextWidgetValue(part2, "label"), "Text in label must be as selected tree node");
+	}
 }

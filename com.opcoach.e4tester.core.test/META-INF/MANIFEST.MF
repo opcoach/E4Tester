@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test
 Bundle-SymbolicName: com.opcoach.e4tester.core.test;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.1.0.qualifier
 Bundle-Vendor: OPCOACH
 Fragment-Host: com.opcoach.e4tester.core;bundle-version="1.0.0"
 Require-Bundle: org.eclipse.e4.ui.model.workbench;bundle-version="2.0.1.v20170713-1800",

@@ -1,11 +1,12 @@
-target "E4 Tester 2019-09" with source requirements
+target "E4 Tester 2019-12" with source requirements
 
-location "http://download.eclipse.org/releases/2019-09" {
+location "http://download.eclipse.org/releases/2019-12" {
 // org.eclipse.rcp.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.e4.rcp.feature.group
 		
 	org.eclipse.equinox.executable.feature.group
+	org.eclipse.pde.core
 	org.eclipse.pde.junit.runtime
 
     // Add the junit 5 support	
@@ -25,8 +26,24 @@ location "http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/"
 
 
 // Add delta pack
-location "http://download.eclipse.org/eclipse/updates/4.13" {
+location "http://download.eclipse.org/eclipse/updates/4.14" {
 	org.eclipse.equinox.sdk.feature.group
+}
+
+// Add nebula stuff
+location "http://download.eclipse.org/nattable/releases/1.6.0/repository/" {
+	
+	org.eclipse.nebula.widgets.nattable.core.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.core.source.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.e4.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.e4.source.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.glazedlists.source.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.nebula.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.nebula.source.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.poi.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.poi.source.feature.feature.group
+	
 }
 
 

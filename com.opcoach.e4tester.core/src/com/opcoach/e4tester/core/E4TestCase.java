@@ -6,15 +6,20 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.internal.workbench.E4Workbench;
 import org.eclipse.e4.ui.internal.workbench.swt.E4Application;
 import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.advanced.MPerspective;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.model.application.ui.basic.MPartStack;
+import org.eclipse.e4.ui.model.application.ui.basic.MStackElement;
 import org.eclipse.e4.ui.model.application.ui.basic.MWindow;
 import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
@@ -22,13 +27,17 @@ import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.nebula.widgets.nattable.NatTable;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
+import com.opcoach.e4tester.core.stubs.E4TesterLogger;
 
 /**
  * This basic class can be used as parent class for any E4 POJO test It
@@ -47,9 +56,19 @@ public abstract class E4TestCase {
 
 	protected static E4Application e4Appli = null;
 	protected static E4Workbench e4workbench = null;
+	
+	
+	protected static E4TesterLogger e4testLogger = null;
+
+	static AtomicBoolean partActivated = new AtomicBoolean(false);
+
+	static AtomicReference<String> refPartId = new AtomicReference<>();
+
+	static long DEFAULT_TIMEOUT_PART_ACTIVATION = 2 * 1000;
 
 	/** This global setup initializes basic contexts for tests */
-	@BeforeAll 
+	@SuppressWarnings("restriction")
+	@BeforeAll
 	public static void globalSetup() throws Exception {
 
 		if (e4Appli == null) {
@@ -64,6 +83,31 @@ public abstract class E4TestCase {
 			// Activate first window (to avoid No Active context !).
 			appli.getChildren().get(0).getContext().activate();
 
+			// create E4TesterLogger
+			e4testLogger = ContextInjectionFactory.make(E4TesterLogger.class, appli.getContext());
+			appli.getContext().set(E4TesterLogger.E4TEST_LOGGER, e4testLogger);
+
+//			// get event broker to subscribe 
+//			EventBroker broker = appli.getContext().getLocal(EventBroker.class);
+//			
+//			// subscribe to LifeCycle Event topic 
+//			broker.subscribe(UIEvents.UILifeCycle.ACTIVATE, (eventHandler) -> {
+//				
+//				// this Event Tag is published when a part is activated
+//				if ( eventHandler.containsProperty(EventTags.ELEMENT) && 
+//						eventHandler.getProperty(EventTags.ELEMENT) instanceof MPart)
+//				{
+//					MPart activatePart = (MPart) eventHandler.getProperty(EventTags.ELEMENT);
+//					String createdPartId = refPartId.get(); 
+//					// get part id and compare with referenced part Id  
+//					if ( createdPartId != null && createdPartId.equals(activatePart.getElementId()))
+//					{
+//						partActivated.set(true);
+//						refPartId.set("");
+//					}
+//					
+//				}
+//			});
 		}
 
 	}
@@ -73,14 +117,14 @@ public abstract class E4TestCase {
 	 */
 	@AfterEach
 	public void release() {
-		cleanTestWindow();
 		cleanSelection();
-		wait1second();
+		cleanTestWindow();
 	}
 
 	private void cleanSelection() {
-		getSelectionService().setSelection("");
-
+		getSync().syncExec(() -> {
+			getSelectionService().setSelection("");
+		});
 	}
 
 	/** Create or return the test Window as a sibling of application's window. */
@@ -109,26 +153,22 @@ public abstract class E4TestCase {
 	 * This method removes the content in the test window (created by previous test)
 	 */
 	protected void cleanTestWindow() {
-		
-		// Must ensure that Test model is always the same for each test.. 
-		// 2 ideas : 
-		//  Use a ChangeRecorder EMF to revert the changes ? 
-		//  Reload the applicationE4Xmi and all fragments.. but heavy... 
-		// It must also ensure that Pojo of part are correctly unregistered from injector. 
-		
-		
-		
-		// Must release pojo in each part in partStack
-//		for (MStackElement mse : getPartStack().getChildren()) {
-//			if (mse instanceof MPart) {
-//				// Release the pojo in injector
-//				MPart p = (MPart) mse;
-//				ContextInjectionFactory.uninject(p.getObject(), p.getContext());
-//			}
-//
-//		} 
 
-		getPartStack().getChildren().clear();
+		// Must ensure that Test model is always the same for each test..
+		// 2 ideas :
+		// Use a ChangeRecorder EMF to revert the changes ?
+		// Reload the applicationE4Xmi and all fragments.. but heavy...
+		// It must also ensure that Pojo of part are correctly unregistered from
+		// injector.
+
+		// Must release pojo in each part in partStack
+		getSync().syncExec(() -> {
+			
+			Object[] toBeDeleted = getPartStack().getChildren().toArray();
+			for (Object o : toBeDeleted)
+				getModelService().deleteModelElement((MStackElement) o);
+		});
+
 	}
 
 	protected EPartService getPartService() {
@@ -142,6 +182,10 @@ public abstract class E4TestCase {
 	protected EModelService getModelService() {
 		return getContext().get(EModelService.class);
 	}
+	
+	protected UISynchronize getSync() {
+		return getContext().get(UISynchronize.class);
+	}
 
 	protected ESelectionService getSelectionService() {
 		return getContext().get(ESelectionService.class);
@@ -154,25 +198,31 @@ public abstract class E4TestCase {
 	 * @return
 	 */
 	public MPart createTestPart(String partDescId) {
+		AtomicReference<MPart> refpart = new AtomicReference<>();
+		getSync().syncExec(() -> {
+			MPart p = null;
+			try {
 
-		MPart p = null;
-		try {
+				// refPartId.set(partDescId);
+				EPartService ps = getPartService();
+				p = ps.createPart(partDescId);
 
-			EPartService ps = getPartService();
-			p = ps.createPart(partDescId);
+				// Add this part in the test window and activate it !
+				MPartStack mps = getPartStack();
+				mps.getChildren().add(p);
+				p.setOnTop(true);
 
-			// Add this part in the test window and activate it !
-			MPartStack mps = getPartStack();
-			mps.getChildren().add(p);
-			p.setOnTop(true);
+				ps.showPart(p, PartState.CREATE);
+				ps.activate(p);
+				// waitActivatedPart();
+				refpart.set(p);
+			} catch (Exception t) {
+				e4testLogger.error(t);
+			}
+			// return p;
 
-			ps.showPart(p, PartState.CREATE);
-			ps.activate(p);
-
-		} catch (Exception t) {
-			t.printStackTrace();
-		}
-		return p;
+		});
+		return refpart.get();
 	}
 
 	/**
@@ -185,36 +235,70 @@ public abstract class E4TestCase {
 	 * @return
 	 */
 	public MPart createTestPart(String name, String id, Class<?> pojoClazz) {
+		AtomicReference<MPart> refpart = new AtomicReference<>();
 
-		MPart p = null;
-		try {
-			p = getModelService().createModelElement(MPart.class);
-			p.setLabel(name);
-			Bundle b = FrameworkUtil.getBundle(pojoClazz);
-			p.setContributionURI("bundleclass://" + b.getSymbolicName() + "/" + pojoClazz.getCanonicalName());
-			p.setVisible(true);
-			p.setElementId(id);
-			p.setToBeRendered(true);
+		getSync().syncExec(() -> {
+			MPart p = null;
+			try {
+				p = getModelService().createModelElement(MPart.class);
+				p.setLabel(name);
+				Bundle b = FrameworkUtil.getBundle(pojoClazz);
+				p.setContributionURI("bundleclass://" + b.getSymbolicName() + "/" + pojoClazz.getCanonicalName());
+				p.setVisible(true);
+				p.setElementId(id);
+				p.setToBeRendered(true);
 
-			// Add this part in the test window and activate it !
-			MPartStack mps = getPartStack();
-			mps.getChildren().add(p);
-			p.setOnTop(true);
+				// Add this part in the test window and activate it !
+				MPartStack mps = getPartStack();
+				mps.getChildren().add(p);
+				p.setOnTop(true);
 
-			getPartService().showPart(p, PartState.CREATE);
-			getPartService().activate(p);
+				getPartService().showPart(p, PartState.CREATE);
+				getPartService().activate(p);
+				refpart.set(p);
+			} catch (Exception t) {
+				t.printStackTrace();
+			}
+		});
+		return refpart.get();
 
-		} catch (Exception t) {
-			t.printStackTrace();
-		}
-		return p;
+	}
+	
+	protected void disposeTestPart(MPart p)
+	{
+		
+	}
 
+	private void waitActivatedPart() {
+		getSync().syncExec(() -> {
+
+			long end = System.currentTimeMillis() + DEFAULT_TIMEOUT_PART_ACTIVATION;
+			while (!partActivated.get()) {
+				try {
+					Thread.sleep(200L);
+					if (System.currentTimeMillis() > end) {
+						partActivated.set(true);
+					}
+
+				} catch (InterruptedException e) {
+					e4testLogger.error(e);
+				}
+			}
+		});
+		partActivated.set(false);
 	}
 
 	private MPartStack getPartStack() {
 		MWindow testWindow = getTestWindow();
+		MPartStack ps = null;
+		if (testWindow.getChildren().size() == 0) {
+			ps = getModelService().createModelElement(MPartStack.class);
+			testWindow.getChildren().add(ps);
+		}
+		ps = (MPartStack) testWindow.getChildren().get(0);
 
-		return (MPartStack) testWindow.getChildren().get(0);
+		return ps;
+
 	}
 
 	protected Shell getTestShell() {
@@ -276,29 +360,66 @@ public abstract class E4TestCase {
 	 */
 	public String getTextWidgetValue(Object pojo, String widgetFieldName) {
 		// Get the field in the pojo object
-		Class<?> c = pojo.getClass();
-		String result = null;
-		try {
-			// Get the instance value .
-			Object o = getInstanceValue(pojo, widgetFieldName);
+		AtomicReference<String> refText = new AtomicReference<>();
+		getSync().syncExec(() -> {
+			Class<?> c = pojo.getClass();
+			Object o = null;
+			try {
+				// Get the instance value .
+				o = getInstanceValue(pojo, widgetFieldName);
 
-			// Look for the getText method in the field instance
-			Class<?> wclass = o.getClass(); // Class for this widget
-			// Is there a getText method ?
-			Method m = wclass.getMethod("getText");
-			if (m != null)
-				result = (String) m.invoke(o);
+				// Look for the getText method in the field instance
+				Class<?> wclass = o.getClass(); // Class for this widget
+				// Is there a getText method ?
+				Method m = wclass.getMethod("getText");
+				if (m != null) {
+						refText.set((String) m.invoke(o));
+				}
 
-		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-			System.out.println("The method getText could not be called on value instance of field " + widgetFieldName
-					+ " of class : " + c.getCanonicalName());
-		} catch (NoSuchMethodException e) {
-			System.out.println("The method getText could not be found on value instance of field '" + widgetFieldName
-					+ "' in class : " + c.getCanonicalName());
-		}
+			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+				System.out.println("The method getText could not be called on value instance of field "
+						+ widgetFieldName + " of class : " + c.getCanonicalName());
+			} catch (NoSuchMethodException e) {
+				System.out.println("The method getText could not be found on value instance of field '"
+						+ widgetFieldName + "' in class : " + c.getCanonicalName());
+			} 
+		});
+		return refText.get();
 
-		return result;
+	}
 
+	/**
+	 * Get the text value of the clazz widget, null if no field found or no getText
+	 * method
+	 */
+	synchronized public void setTextWidgetValue(Object pojo, String widgetFieldName, String newValue) {
+	
+		getSync().syncExec(() -> {
+
+				// Get the field in the pojo object
+			Class<?> c = pojo.getClass();
+			String result = null;
+			Object o = null;
+			try {
+				// Get the instance value .
+				o = getInstanceValue(pojo, widgetFieldName);
+
+				// Look for the getText method in the field instance
+				Class<?> wclass = o.getClass(); // Class for this widget
+				// Is there a getText method ?
+				Method m = wclass.getMethod("setText", String.class);
+				if (m != null) {
+						m.invoke(o, newValue);
+				}
+
+			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+				System.out.println("The method getText could not be called on value instance of field "
+						+ widgetFieldName + " of class : " + c.getCanonicalName());
+			} catch (NoSuchMethodException e) {
+				System.out.println("The method getText could not be found on value instance of field '"
+						+ widgetFieldName + "' in class : " + c.getCanonicalName());
+			} 
+		});
 	}
 
 	/**
@@ -323,28 +444,31 @@ public abstract class E4TestCase {
 	 */
 	public boolean isButtonChecked(Object pojo, String widgetFieldName) {
 		// Get the field in the pojo object
-		Class<?> c = pojo.getClass();
-		boolean result = false;
-		try {
-			// Get the instance value .
-			Object o = getInstanceValue(pojo, widgetFieldName);
+		AtomicBoolean abool = new AtomicBoolean();
+		getSync().syncExec(() -> {
+			Class<?> c = pojo.getClass();
+			boolean result = false;
+			try {
+				// Get the instance value .
+				Object o = getInstanceValue(pojo, widgetFieldName);
 
-			// Look for the getText method in the field instance
-			Class<?> wclass = o.getClass(); // Class for this widget
-			// Is there a getText method ?
-			Method m = wclass.getMethod("getSelection");
-			if (m != null)
-				result = (boolean) m.invoke(o);
+				// Look for the getText method in the field instance
+				Class<?> wclass = o.getClass(); // Class for this widget
+				// Is there a getText method ?
+				Method m = wclass.getMethod("getSelection");
+				if (m != null)
+					abool.set((boolean) m.invoke(o));
 
-		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-			System.out.println("The method getSelection could not be called on value instance of field "
-					+ widgetFieldName + " of class : " + c.getCanonicalName());
-		} catch (NoSuchMethodException e) {
-			System.out.println("The method getSelection could not be found on value instance of field '"
-					+ widgetFieldName + "' in class : " + c.getCanonicalName());
-		}
+			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+				System.out.println("The method getSelection could not be called on value instance of field "
+						+ widgetFieldName + " of class : " + c.getCanonicalName());
+			} catch (NoSuchMethodException e) {
+				System.out.println("The method getSelection could not be found on value instance of field '"
+						+ widgetFieldName + "' in class : " + c.getCanonicalName());
+			}
 
-		return result;
+		});
+		return abool.get();
 
 	}
 
@@ -398,26 +522,73 @@ public abstract class E4TestCase {
 	 * @throws NoSuchFieldException
 	 */
 	protected TreeViewer getTreeViewer(Object pojo, String fieldName) {
-		TreeViewer result = null;
+		AtomicReference<TreeViewer> refresult = new AtomicReference<>();
+		AtomicReference<WrongFieldTypeException> refexeceptionToThrow = new AtomicReference<>();
+		getSync().syncExec(() -> {
+			Object fieldValue = getInstanceValue(pojo, fieldName);
+			if (fieldValue != null) {
+				if (fieldValue instanceof TreeViewer) {
+					refresult.set((TreeViewer) fieldValue);
+				} else {
+					WrongFieldTypeException wfte = new WrongFieldTypeException(fieldName, pojo, TreeViewer.class,
+							fieldValue.getClass());
+					refexeceptionToThrow.set(wfte);
+					System.out.println(wfte.getMessage());
+				}
+			}
+
+		});
+		if (refexeceptionToThrow.get() != null)
+			throw refexeceptionToThrow.get();
+		return refresult.get();
+	}
+
+	protected TreeViewer getTreeViewer(MPart part, String fieldName) {
+		AtomicReference<TreeViewer> refTreev = new AtomicReference<>();
+		AtomicReference<WrongFieldTypeException> refexeceptionToThrow = new AtomicReference<>();
+		getSync().syncExec(() -> {
+			getPartService().activate(part);
+			try {
+				TreeViewer treev = getTreeViewer(part.getObject(), fieldName);
+				refTreev.set(treev);
+			} catch (WrongFieldTypeException ex) {
+				refexeceptionToThrow.set(ex);
+			}
+		});
+		if (refexeceptionToThrow.get() != null)
+			throw refexeceptionToThrow.get();
+		return refTreev.get();
+	}
+
+	/**
+	 * Get the nattable instance stored in the field 'fieldname' of the pojo
+	 * instance.
+	 * 
+	 * @param pojo      the part to be analyzed
+	 * @param fieldName the fieldname containing the tree viewer
+	 * @return the treeviewer of null if nothing found.
+	 * @throws NoSuchFieldException
+	 */
+	protected NatTable getNatTable(Object pojo, String fieldName) {
+		NatTable result = null;
 
 		Object fieldValue = getInstanceValue(pojo, fieldName);
 		if (fieldValue != null) {
-			if (fieldValue instanceof TreeViewer) {
-				result = (TreeViewer) fieldValue;
+			if (fieldValue instanceof NatTable) {
+				result = (NatTable) fieldValue;
 			} else {
 				WrongFieldTypeException wfte = new WrongFieldTypeException(fieldName, pojo, TreeViewer.class,
 						fieldValue.getClass());
-				System.out.println(wfte.getMessage());
+				e4testLogger.error(wfte.getMessage());
 				throw wfte;
 			}
-
 		}
 		return result;
 	}
 
-	protected TreeViewer getTreeViewer(MPart part, String fieldName) {
+	protected NatTable getNatTable(MPart part, String fieldName) {
 		getPartService().activate(part);
-		return getTreeViewer(part.getObject(), fieldName);
+		return getNatTable(part.getObject(), fieldName);
 	}
 
 	/**
@@ -457,13 +628,17 @@ public abstract class E4TestCase {
 		return getControl(part, fieldName, Combo.class);
 	}
 
+	protected Text getTextWidget(MPart part, String fieldName) {
+		return getControl(part, fieldName, Text.class);
+	}
+
 	/**
 	 * 
 	 * @param pojo
 	 * @param fieldName
 	 * @param value
 	 */
-	protected void selectObjectInTreeViewer(Object pojo, String fieldName, Object value) {
+	synchronized protected void selectObjectInTreeViewer(Object pojo, String fieldName, Object value) {
 
 		////// MUST BE UPDATED... IT WORKS IF PARTS ARE CREATED IN A GIVEN ORDER (See
 		////// tests)...
@@ -481,9 +656,16 @@ public abstract class E4TestCase {
 	}
 
 	protected void selectObjectInTreeViewer(MPart part, String fieldName, Object value) {
+		getSync().syncExec(() -> {
+			getPartService().activate(part, true);
+			selectObjectInTreeViewer(part.getObject(), fieldName, value);
+		});
+	}
 
-		getPartService().activate(part, true);
-		selectObjectInTreeViewer(part.getObject(), fieldName, value);
+	public void setSelectionService(Object selection) {
+		getSync().syncExec(() -> {
+			getSelectionService().setSelection(selection);
+		});
 
 	}
 
