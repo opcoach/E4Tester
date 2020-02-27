@@ -655,7 +655,7 @@ public abstract class E4TestCase {
 	 * @param fieldName
 	 * @param value
 	 */
-	synchronized protected void selectObjectInTreeViewer(Object pojo, String fieldName, Object value) {
+	 protected void selectObjectInTreeViewer(Object pojo, String fieldName, Object value) {
 
 		////// MUST BE UPDATED... IT WORKS IF PARTS ARE CREATED IN A GIVEN ORDER (See
 		////// tests)...
@@ -663,11 +663,12 @@ public abstract class E4TestCase {
 		// Then can select value in the treeviewer
 		TreeViewer tv = getTreeViewer(pojo, fieldName);
 		if (tv != null) {
-			tv.getTree().setFocus();
+			getSync().syncExec(() -> { 			tv.getTree().setFocus();
 			// tv.setSelection(new TreeSelection(new TreePath( new Object[] {expected} )));
 
 			// tv.setSelection(new TreeSelection(new TreePath( new Object[] {value} )));
 			tv.setSelection(new StructuredSelection(value), true);
+});
 		}
 
 	}
