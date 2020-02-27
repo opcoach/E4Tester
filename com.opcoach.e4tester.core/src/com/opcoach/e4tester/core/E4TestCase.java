@@ -212,8 +212,7 @@ public abstract class E4TestCase {
 				mps.getChildren().add(p);
 				p.setOnTop(true);
 
-				ps.showPart(p, PartState.CREATE);
-				ps.activate(p);
+				ps.showPart(p, PartState.ACTIVATE);
 				// waitActivatedPart();
 				refpart.set(p);
 			} catch (Exception t) {
@@ -251,7 +250,7 @@ public abstract class E4TestCase {
 				MPartStack mps = getPartStack();
 				mps.getChildren().add(p);
 				p.setOnTop(true);
-				getPartService().showPart(p, PartState.CREATE);
+				getPartService().showPart(p, PartState.ACTIVATE);
 				refpart.set(p);
 			} catch (Exception t) {
 				t.printStackTrace();
@@ -602,7 +601,9 @@ public abstract class E4TestCase {
 	}
 
 	protected NatTable getNatTable(MPart part, String fieldName) {
-		getPartService().activate(part);
+		getSync().syncExec(()->{
+			getPartService().activate(part);
+		});
 		return getNatTable(part.getObject(), fieldName);
 	}
 
