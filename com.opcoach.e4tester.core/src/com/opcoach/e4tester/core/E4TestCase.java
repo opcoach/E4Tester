@@ -50,7 +50,7 @@ import com.opcoach.e4tester.core.stubs.E4TesterLogger;
  *
  */
 public abstract class E4TestCase {
-
+	
 	private static final String TEST_WINDOW_ID = "com.opcoach.e4tester.core.testWindow";
 	private static final String TEST_PART_STACK = "com.opcoach.e4tester.core.partstack";
 
@@ -236,7 +236,6 @@ public abstract class E4TestCase {
 	 */
 	public MPart createTestPart(String name, String id, Class<?> pojoClazz) {
 		AtomicReference<MPart> refpart = new AtomicReference<>();
-
 		getSync().syncExec(() -> {
 			MPart p = null;
 			try {
@@ -252,14 +251,13 @@ public abstract class E4TestCase {
 				MPartStack mps = getPartStack();
 				mps.getChildren().add(p);
 				p.setOnTop(true);
-
 				getPartService().showPart(p, PartState.CREATE);
-				getPartService().activate(p);
 				refpart.set(p);
 			} catch (Exception t) {
 				t.printStackTrace();
 			}
 		});
+		System.out.println("return createTestpart " + name);
 		return refpart.get();
 
 	}
