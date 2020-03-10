@@ -132,6 +132,7 @@
 		<module>com.opcoach.e4tester.tp</module>
 		<module>com.opcoach.e4tester.core</module>
 		<module>com.opcoach.e4tester.core.test</module>
+		<module>com.opcoach.e4tester.robot</module>
 		<module>com.opcoach.e4tester.test.components</module>
 		<module>com.opcoach.e4tester.test.components.test</module>
 		<module>com.opcoach.e4tester.feature</module>

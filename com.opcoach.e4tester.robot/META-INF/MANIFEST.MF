@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Robot
+Bundle-SymbolicName: com.opcoach.e4tester.robot
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ALTRAN
+Automatic-Module-Name: com.opcoach.e4tester.robot
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: com.opcoach.e4tester.core;bundle-version="1.1.0"
+Bundle-ClassPath: lib/javalib-core-2.0.3.jar,
+ lib/robotframework-3.1.2.jar,
+ .
