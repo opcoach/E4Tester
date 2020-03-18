@@ -3,5 +3,13 @@
    <feature id="com.opcoach.e4tester.feature">
       <category name="com.opcoach.e4 tester"/>
    </feature>
+   <feature id="com.opcoach.e4tester.all.feature">
+      <category name="com.opcoach.e4tester.all"/>
+   </feature>
    <category-def name="com.opcoach.e4 tester" label="e4Tester"/>
+   <category-def name="com.opcoach.e4tester.all" label="All plugins">
+      <description>
+         Used to create a product with all the components.
+      </description>
+   </category-def>
 </site>

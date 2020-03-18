@@ -135,7 +135,9 @@
 		<module>com.opcoach.e4tester.robot</module>
 		<module>com.opcoach.e4tester.test.components</module>
 		<module>com.opcoach.e4tester.test.components.test</module>
+		<module>com.opcoach.e4tester.test.eap</module>
 		<module>com.opcoach.e4tester.feature</module>
+		<module>com.opcoach.e4tester.all.feature</module>
 		<module>com.opcoach.e4tester.repository</module>
 	</modules>
 

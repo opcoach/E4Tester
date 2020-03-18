@@ -10,9 +10,8 @@
 		<version>1.1.0-SNAPSHOT</version>
 	</parent>
 
-<!-- 	<name>E4 Application to show Test Components </name> -->
-	<artifactId>com.opcoach.e4tester.test.eap</artifactId>
-	<packaging>eclipse-plugin</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+<!-- 	<name>E4 Tester Feature </name> -->
+	<artifactId>com.opcoach.e4tester.all.feature</artifactId>
+	<packaging>eclipse-feature</packaging>
 
 </project>
