@@ -139,6 +139,8 @@
 		<module>com.opcoach.e4tester.feature</module>
 		<module>com.opcoach.e4tester.all.feature</module>
 		<module>com.opcoach.e4tester.repository</module>
+		<module>com.opcoach.e4tester.robot.test</module>
+		
 	</modules>
 
 </project>
