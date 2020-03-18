@@ -15,7 +15,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
-    <build>
+   <!--  <build>
         <plugins>
             <plugin>
                 <groupId>org.robotframework</groupId>
@@ -23,20 +23,21 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <!-- Execute tests -->
+                        Execute tests
                         <id>test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
+                                     
                         <configuration>
                             <logLevel>debug</logLevel>
                             <testCasesDirectory>${project.basedir}/robot</testCasesDirectory>
-                            <extraPathDirectories>${project.build.directory}/${project.build.finalName}.jar</extraPathDirectories>
+                            <extraPathDirectories>${project.basedir}/../com.opcoach.e4tester.repository/target/products/e4testerEap/macosx/cocoa/x86_64/Eclipse.app/Contents/Eclipse/plugins</extraPathDirectories>
                         </configuration>
                     </execution>
                 </executions>
               </plugin>
         </plugins>
-    </build>
+    </build> -->
 </project>

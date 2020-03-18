@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: com.opcoach.e4tester.robot.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: OPCOACH
+Fragment-Host: com.opcoach.e4tester.robot;bundle-version="1.0.0"
+Automatic-Module-Name: com.opcoach.e4tester.robot.test
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

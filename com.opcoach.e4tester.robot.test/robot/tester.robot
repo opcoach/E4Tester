@@ -6,7 +6,8 @@ Test launch application
     com.opcoach.e4tester.robot.E4TesterKeywords.doSomething
     com.opcoach.e4tester.robot.E4TesterKeywords.startApplicationInSeparateThread    org.eclipse.equinox.launcher.Main
     ...    -debug
-    ...    -Dosgi.bundles=org.eclipse.core.runtime@start,reference\:file\:C\:/Users/jbeaumont/Documents/ALTRAN/git_repository/tas/workspace12/.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/plugins/org.eclipse.equinox.simpleconfigurator_1.3.400.v20191015-1836.jar@1\:start
+    ...    -Dosgi.bundles=reference\:file\:org.eclipse.equinox.simpleconfigurator_1.3.400.v20191015-1836.jar@1\:start
+org.eclipse.equinox.simpleconfigurator.configUrl=file\:org.eclipse.equinox.simpleconfigurator/bundles.info
     ...    -launcher "C:/Users/jbeaumont/Documents/ALTRAN/git_repository/tas/workspace12/.metadata/.plugins/org.eclipse.pde.core/.bundle_pool/eclipse.exe"
     ...    -name Eclipse
     ...    -showsplash 600 

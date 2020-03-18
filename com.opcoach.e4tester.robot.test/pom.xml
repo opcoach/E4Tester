@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.opcoach.e4tester</groupId>
+		<artifactId>com.opcoach.e4tester.parent</artifactId>
+		<version>1.1.0-SNAPSHOT</version>
+	</parent>
+
+	<!-- <name>E4 Tester Core Unit Tests</name> -->
+	<artifactId>com.opcoach.e4tester.robot.test</artifactId>
+	<packaging>eclipse-test-plugin</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    
+    
+      <build>
+        <plugins>
+        
+        <plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<!-- See https://www.eclipse.org/tycho/sitedocs/tycho-surefire-plugin/test-mojo.html -->
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>false</useUIThread>
+					<application>com.opcoach.e4tester.robot.robotRunnerApplication</application>
+					<product>com.opcoach.e4tester.robot.product</product> 
+					<argLine>${ui.test.vmargs}</argLine>
+				</configuration>
+			</plugin>
+        </plugins>
+        </build>
+
+</project>
