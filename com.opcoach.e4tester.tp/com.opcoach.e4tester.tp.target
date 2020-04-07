@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="E4 Tester 2019-12" sequenceNumber="1581003092">
+<target name="E4 Tester 2020-03" sequenceNumber="1586293534">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.platform.feature.group" version="4.14.0.v20191210-0610"/>
-      <unit id="org.eclipse.e4.rcp.feature.group" version="4.14.0.v20191204-0601"/>
-      <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.600.v20191014-2025"/>
-      <unit id="org.eclipse.pde.core" version="3.13.200.v20191202-2135"/>
-      <unit id="org.eclipse.pde.junit.runtime" version="3.5.600.v20191105-0947"/>
-      <unit id="org.eclipse.jdt.junit5.runtime" version="1.0.700.v20191009-0503"/>
-      <unit id="org.junit.jupiter.api" version="5.5.1.v20190826-0900"/>
-      <unit id="org.junit.jupiter.engine" version="5.5.1.v20190826-0900"/>
-      <unit id="org.junit.jupiter.migrationsupport" version="5.5.1.v20190826-0900"/>
-      <unit id="org.junit.jupiter.params" version="5.5.1.v20190826-0900"/>
-      <unit id="org.junit.platform.commons" version="1.5.1.v20190826-0900"/>
-      <repository location="http://download.eclipse.org/releases/2019-12"/>
+      <unit id="org.eclipse.platform.feature.group" version="4.15.0.v20200305-0155"/>
+      <unit id="org.eclipse.e4.rcp.feature.group" version="4.15.0.v20200304-0601"/>
+      <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.700.v20200207-2156"/>
+      <unit id="org.eclipse.pde.core" version="3.13.300.v20200217-1517"/>
+      <unit id="org.eclipse.pde.junit.runtime" version="3.5.700.v20200116-1804"/>
+      <unit id="org.eclipse.jdt.junit5.runtime" version="1.0.800.v20200214-0716"/>
+      <unit id="org.junit.jupiter.api" version="5.6.0.v20200203-2009"/>
+      <unit id="org.junit.jupiter.engine" version="5.6.0.v20200203-2009"/>
+      <unit id="org.junit.jupiter.migrationsupport" version="5.6.0.v20200203-2009"/>
+      <unit id="org.junit.jupiter.params" version="5.6.0.v20200203-2009"/>
+      <unit id="org.junit.platform.commons" version="1.6.0.v20200203-2009"/>
+      <repository location="http://download.eclipse.org/releases/2020-03"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.e4.tools.spies.feature.feature.group" version="0.18.0.v20200203-1625"/>
       <repository location="http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.equinox.sdk.feature.group" version="3.20.0.v20191122-2104"/>
-      <repository location="http://download.eclipse.org/eclipse/updates/4.14"/>
+      <unit id="org.eclipse.equinox.sdk.feature.group" version="3.20.100.v20200303-1901"/>
+      <repository location="http://download.eclipse.org/eclipse/updates/4.15"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.nebula.widgets.nattable.core.feature.feature.group" version="1.6.0.201909181823"/>

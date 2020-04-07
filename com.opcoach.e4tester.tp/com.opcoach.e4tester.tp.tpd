@@ -1,6 +1,6 @@
-target "E4 Tester 2019-12" with source requirements
+target "E4 Tester 2020-03" with source requirements
 
-location "http://download.eclipse.org/releases/2019-12" {
+location "http://download.eclipse.org/releases/2020-03" {
 // org.eclipse.rcp.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.e4.rcp.feature.group
@@ -26,7 +26,7 @@ location "http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/"
 
 
 // Add delta pack
-location "http://download.eclipse.org/eclipse/updates/4.14" {
+location "http://download.eclipse.org/eclipse/updates/4.15" {
 	org.eclipse.equinox.sdk.feature.group
 }
 
