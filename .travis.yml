@@ -1,5 +1,5 @@
 language: java
-jdk: openjdk8
+jdk: openjdk11
 script: mvn -X -Dmaven.test.skip=true install 
 
 # Add init for UI Tests -> Must be checked (doesn not work anymore on travis...)
