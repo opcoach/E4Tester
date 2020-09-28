@@ -18,7 +18,6 @@ public class SampleProvider extends LabelProvider implements ITreeContentProvide
 		{
 			// Get the last digit (x) and generate 'Stringx1' ... 
 			String p = (String) parentElement;
-			String last = p.substring(p.length()-1);
 			String result[] = new String[5];
 			for (int i = 0; i < 5; i++)
 				result[i] = p + i;
