@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="E4 Tester 2020-12" sequenceNumber="1608550517">
+<target name="E4 Tester 2020-12" sequenceNumber="1614172668">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.platform.feature.group" version="4.18.0.v20201202-1800"/>
@@ -30,16 +30,16 @@
       <repository location="http://download.eclipse.org/eclipse/updates/4.18"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.nebula.widgets.nattable.core.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.core.source.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.e4.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.e4.source.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.source.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.nebula.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.nebula.source.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.poi.feature.feature.group" version="2.0.0.202012161455"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.poi.source.feature.feature.group" version="2.0.0.202012161455"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.core.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.core.source.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.e4.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.e4.source.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.source.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.nebula.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.nebula.source.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.poi.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.poi.source.feature.feature.group" version="2.0.1.202102181509"/>
       <repository location="http://download.eclipse.org/nattable/snapshots/latest/repository/"/>
     </location>
   </locations>
