@@ -3,5 +3,8 @@
    <feature id="com.opcoach.e4tester.feature">
       <category name="com.opcoach.e4 tester"/>
    </feature>
+    <feature id="com.opcoach.e4tester.feature.source">
+      <category name="com.opcoach.e4 tester"/>
+   </feature>
    <category-def name="com.opcoach.e4 tester" label="e4Tester"/>
 </site>
