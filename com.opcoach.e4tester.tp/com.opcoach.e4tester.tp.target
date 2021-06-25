@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde?>
 <!-- generated with https://github.com/eclipse-cbi/targetplatform-dsl -->
-<target name="E4 Tester 2021-03" sequenceNumber="1616346470">
+<target name="E4 Tester 2021-03" sequenceNumber="1624624009">
   <locations>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.platform.feature.group" version="4.19.0.v20210303-1800"/>
-      <unit id="org.eclipse.e4.rcp.feature.group" version="4.19.0.v20210302-1107"/>
-      <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.1100.v20210209-1541"/>
-      <unit id="org.eclipse.pde.core" version="3.14.200.v20210208-1154"/>
-      <unit id="org.eclipse.pde.junit.runtime" version="3.5.1000.v20210110-1048"/>
-      <unit id="org.eclipse.jdt.junit5.runtime" version="1.0.1200.v20210112-0706"/>
+      <unit id="org.eclipse.platform.feature.group" version="4.20.0.v20210611-1600"/>
+      <unit id="org.eclipse.e4.rcp.feature.group" version="4.20.0.v20210602-2209"/>
+      <unit id="org.eclipse.equinox.executable.feature.group" version="3.8.1200.v20210527-0259"/>
+      <unit id="org.eclipse.pde.core" version="3.14.300.v20210515-0638"/>
+      <unit id="org.eclipse.pde.junit.runtime" version="3.6.0.v20210513-1344"/>
+      <unit id="org.eclipse.jdt.junit5.runtime" version="1.0.1300.v20210320-1132"/>
       <unit id="org.junit.jupiter.api" version="5.7.1.v20210222-1948"/>
       <unit id="org.junit.jupiter.engine" version="5.7.1.v20210222-1948"/>
       <unit id="org.junit.jupiter.migrationsupport" version="5.7.1.v20210222-1948"/>
       <unit id="org.junit.jupiter.params" version="5.7.1.v20210222-1948"/>
       <unit id="org.junit.platform.commons" version="1.7.1.v20210222-1948"/>
-      <repository location="http://download.eclipse.org/releases/2021-03"/>
+      <repository location="http://download.eclipse.org/releases/2021-06"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="org.eclipse.e4.tools.spies.feature.feature.group" version="0.18.0.v20200923-1237"/>
@@ -23,23 +23,23 @@
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
       <unit id="javax.annotation" version="1.3.5.v20200909-1856"/>
-      <repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20210223232630/repository"/>
+      <repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20210602031627/repository"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.equinox.sdk.feature.group" version="3.22.0.v20210227-0235"/>
-      <repository location="http://download.eclipse.org/eclipse/updates/4.19"/>
+      <unit id="org.eclipse.equinox.sdk.feature.group" version="3.23.0.v20210611-1654"/>
+      <repository location="http://download.eclipse.org/eclipse/updates/4.20"/>
     </location>
     <location includeMode="planner" includeAllPlatforms="false" includeSource="true" includeConfigurePhase="false" type="InstallableUnit">
-      <unit id="org.eclipse.nebula.widgets.nattable.core.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.core.source.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.e4.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.e4.source.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.source.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.nebula.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.nebula.source.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.poi.feature.feature.group" version="2.0.1.202102181509"/>
-      <unit id="org.eclipse.nebula.widgets.nattable.extension.poi.source.feature.feature.group" version="2.0.1.202102181509"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.core.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.core.source.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.e4.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.e4.source.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.glazedlists.source.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.nebula.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.nebula.source.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.poi.feature.feature.group" version="2.0.2.202106180809"/>
+      <unit id="org.eclipse.nebula.widgets.nattable.extension.poi.source.feature.feature.group" version="2.0.2.202106180809"/>
       <repository location="http://download.eclipse.org/nattable/snapshots/latest/repository/"/>
     </location>
   </locations>
