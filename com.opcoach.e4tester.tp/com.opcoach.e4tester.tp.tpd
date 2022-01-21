@@ -1,6 +1,6 @@
 target "E4 Tester 2021-09" with source requirements
 
-location "http://download.eclipse.org/releases/2021-09" {
+location "http://download.eclipse.org/releases/2021-12" {
 // org.eclipse.rcp.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.e4.rcp.feature.group
@@ -25,14 +25,14 @@ location "http://download.eclipse.org/e4/snapshots/org.eclipse.e4.tools/latest/"
 }
 
 // Add support for java 11 (removed javax.annotation)...
-location "https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository" {
+location "https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository" {
     javax.annotation
 }
 
 
 
 // Add delta pack
-location "http://download.eclipse.org/eclipse/updates/4.21" {
+location "http://download.eclipse.org/eclipse/updates/4.22" {
 	org.eclipse.equinox.sdk.feature.group
 }
 
