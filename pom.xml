@@ -81,7 +81,7 @@
 						<artifact>
 							<groupId>com.opcoach.e4tester</groupId>
 							<artifactId>com.opcoach.e4tester.tp</artifactId>
-							<version>4.23.0</version>
+							<version>4.24.0</version>
 						</artifact>
 					</target>
 					<environments>
