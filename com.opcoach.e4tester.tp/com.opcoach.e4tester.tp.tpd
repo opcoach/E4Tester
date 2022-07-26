@@ -37,7 +37,7 @@ location "http://download.eclipse.org/eclipse/updates/4.24" {
 }
 
 // Add nebula stuff
-location "http://download.eclipse.org/nattable/snapshots/latest/repository/" {
+location "http://download.eclipse.org/nattable/snapshots/36/repository/" {
 	
 	org.eclipse.nebula.widgets.nattable.core.feature.feature.group
 	org.eclipse.nebula.widgets.nattable.core.source.feature.feature.group
