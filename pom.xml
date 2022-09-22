@@ -11,7 +11,7 @@
 
 
 	<properties>
-		<tycho-version>2.7.4</tycho-version>
+		<tycho-version>2.7.5</tycho-version>
 	</properties>
 
 
@@ -81,7 +81,7 @@
 						<artifact>
 							<groupId>com.opcoach.e4tester</groupId>
 							<artifactId>com.opcoach.e4tester.tp</artifactId>
-							<version>4.24.0</version>
+							<version>4.25.0</version>
 						</artifact>
 					</target>
 					<environments>
@@ -116,6 +116,7 @@
 					<!-- See https://www.eclipse.org/tycho/sitedocs/tycho-surefire-plugin/test-mojo.html -->
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
+					<failIfNoTests>false</failIfNoTests>
 					<application>com.opcoach.e4tester.core.tychoRunnerApplication
 					</application>
 					<product>com.opcoach.e4tester.core.product</product>

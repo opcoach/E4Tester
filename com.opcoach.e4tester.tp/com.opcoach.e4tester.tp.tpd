@@ -1,6 +1,6 @@
-target "E4 Tester 2022-06" with source requirements
+target "E4 Tester 2022-09" with source requirements
 
-location "http://download.eclipse.org/releases/2022-06" {
+location "https://download.eclipse.org/releases/2022-09" {
 // org.eclipse.rcp.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.e4.rcp.feature.group
@@ -11,11 +11,11 @@ location "http://download.eclipse.org/releases/2022-06" {
 
     // Add the junit 5 support	
    	org.eclipse.jdt.junit5.runtime
-	org.junit.jupiter.api
-	org.junit.jupiter.engine
-	org.junit.jupiter.migrationsupport
-	org.junit.jupiter.params
-	org.junit.platform.commons
+   	junit-jupiter-api
+   	junit-jupiter-engine
+   	junit-jupiter-migrationsupport
+   	junit-jupiter-params
+   	junit-platform-commons
 	
 	// Get spies from pde
 	org.eclipse.pde.feature.group
@@ -25,19 +25,19 @@ location "http://download.eclipse.org/releases/2022-06" {
 
 
 // Add support for java 11 (removed javax.annotation)...
-location "https://download.eclipse.org/tools/orbit/downloads/drops/R20220531185310/repository" {
+location "https://download.eclipse.org/tools/orbit/downloads/drops/R20220830213456/repository" {
     javax.annotation
 }
 
 
 
 // Add delta pack
-location "http://download.eclipse.org/eclipse/updates/4.24" {
+location "https://download.eclipse.org/eclipse/updates/4.25" {
 	org.eclipse.equinox.sdk.feature.group
 }
 
-// Add nebula stuff
-location "http://download.eclipse.org/nattable/snapshots/36/repository/" {
+// Add nebula nattable
+location "https://download.eclipse.org/nattable/snapshots/42/repository/" {
 	
 	org.eclipse.nebula.widgets.nattable.core.feature.feature.group
 	org.eclipse.nebula.widgets.nattable.core.source.feature.feature.group
