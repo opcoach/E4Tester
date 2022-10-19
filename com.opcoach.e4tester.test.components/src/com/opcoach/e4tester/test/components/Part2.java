@@ -29,7 +29,7 @@ public class Part2 {
 	@Inject
 	@Optional
 	public void reactOnSelection(@Named(IServiceConstants.ACTIVE_SELECTION) String s) {
-		if ((label != null) && !label.isDisposed())
+		if ((label != null) && !label.isDisposed() && s != null)
 			label.setText(s);
 	}
 
