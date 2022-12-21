@@ -10,7 +10,7 @@
 
 <!-- 	<name>E4 Tester Target Platform</name> -->
 	<artifactId>com.opcoach.e4tester.tp</artifactId>
-	<version>4.25.0</version>
+	<version>4.26.0</version>
 	<packaging>eclipse-target-definition</packaging>
 	
 </project>
