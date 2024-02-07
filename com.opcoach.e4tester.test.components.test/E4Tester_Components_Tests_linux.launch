@@ -27,6 +27,8 @@
     <booleanAttribute key="org.eclipse.jdt.junit.KEEPRUNNING_ATTR" value="false"/>
     <stringAttribute key="org.eclipse.jdt.junit.TESTNAME" value=""/>
     <stringAttribute key="org.eclipse.jdt.junit.TEST_KIND" value="org.eclipse.jdt.junit.loader.junit5"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_ATTR_USE_ARGFILE" value="false"/>
+    <booleanAttribute key="org.eclipse.jdt.launching.ATTR_SHOW_CODEDETAILS_IN_EXCEPTION_MESSAGES" value="true"/>
     <booleanAttribute key="org.eclipse.jdt.launching.ATTR_USE_START_ON_FIRST_THREAD" value="true"/>
     <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
     <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value=""/>
@@ -39,7 +41,6 @@
     <booleanAttribute key="run_in_ui_thread" value="true"/>
     <setAttribute key="selected_target_bundles">
         <setEntry value="com.ibm.icu@default:default"/>
-        <setEntry value="javax.annotation@default:default"/>
         <setEntry value="javax.inject@default:default"/>
         <setEntry value="org.apache.batik.constants@default:default"/>
         <setEntry value="org.apache.batik.css@default:default"/>
@@ -117,34 +118,12 @@
         <setEntry value="org.junit@default:default"/>
         <setEntry value="org.opentest4j@default:default"/>
         <setEntry value="org.w3c.css.sac@default:default"/>
-        <setEntry value="org.w3c.dom.events@default:default"/>
-        <setEntry value="org.w3c.dom.smil@default:default"/>
-        <setEntry value="org.w3c.dom.svg@default:default"/>
     </setAttribute>
     <setAttribute key="selected_workspace_bundles">
-        <setEntry value="com.opcoach.e34tools@default:default"/>
-        <setEntry value="com.opcoach.e4.preference.example.e3@default:false"/>
-        <setEntry value="com.opcoach.e4.preferences.example@default:default"/>
-        <setEntry value="com.opcoach.e4.preferences.mainmenu@default:default"/>
-        <setEntry value="com.opcoach.e4.preferences.provider.example@default:default"/>
-        <setEntry value="com.opcoach.e4.preferences@default:default"/>
         <setEntry value="com.opcoach.e4tester.core.test@default:false"/>
         <setEntry value="com.opcoach.e4tester.core@default:default"/>
         <setEntry value="com.opcoach.e4tester.test.components.test@default:false"/>
         <setEntry value="com.opcoach.e4tester.test.components@default:default"/>
-        <setEntry value="com.opcoach.generator.data@default:default"/>
-        <setEntry value="com.opcoach.generator.model.test@default:false"/>
-        <setEntry value="com.opcoach.generator.model@default:default"/>
-        <setEntry value="com.opcoach.genmodeladdon.core.test@default:false"/>
-        <setEntry value="com.opcoach.genmodeladdon.core@default:default"/>
-        <setEntry value="com.opcoach.genmodeladdon.sample@default:default"/>
-        <setEntry value="com.opcoach.genmodeladdon.ui@default:default"/>
-        <setEntry value="com.opcoach.project.test@default:default"/>
-        <setEntry value="org.lcx.robotframework.eclipselibrary@default:default"/>
-        <setEntry value="org.lcx.robotframework.eclipselibrary_interface@default:default"/>
-        <setEntry value="org.lcx.robotframework.rcp.part1@default:default"/>
-        <setEntry value="org.lcx.robotframework.swtbotplugin@default:default"/>
-        <setEntry value="robotframework-eclipselibrary@default:default"/>
     </setAttribute>
     <booleanAttribute key="show_selected_only" value="false"/>
     <stringAttribute key="testApplication" value="com.opcoach.e4tester.core.application"/>

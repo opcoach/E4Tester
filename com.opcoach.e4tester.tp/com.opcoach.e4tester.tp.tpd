@@ -1,6 +1,10 @@
-target "E4 Tester 2022-12" with source requirements
+target "E4 Tester 2023-12" with source requirements
 
-location "https://download.eclipse.org/releases/2023-06" {
+
+
+
+
+location "https://download.eclipse.org/releases/2023-12" {
 // org.eclipse.rcp.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.e4.rcp.feature.group
@@ -20,14 +24,22 @@ location "https://download.eclipse.org/releases/2023-06" {
 	
 	// Delta pack
 	org.eclipse.equinox.sdk.feature.group 
+	jakarta.inject.jakarta.inject-api
+	jakarta.annotation-api
 	
-	javax.annotation
-	
+	//	org.eclipse.orbit.xml-apis-ext
+		  
+}
+
+// Nebula is not totally updated with its dependencies... Must still get sac (legacy) from 2023-09
+
+location "https://download.eclipse.org/releases/2023-09" {
+	org.w3c.css.sac
 }
 
 
 // Add nebula nattable
-location "https://download.eclipse.org/nattable/releases/2.2.0/repository" {
+location "https://download.eclipse.org/nattable/releases/2.2.1/repository" {
 	
 	org.eclipse.nebula.widgets.nattable.core.feature.feature.group
 	org.eclipse.nebula.widgets.nattable.core.source.feature.feature.group
@@ -39,6 +51,7 @@ location "https://download.eclipse.org/nattable/releases/2.2.0/repository" {
 	org.eclipse.nebula.widgets.nattable.extension.nebula.source.feature.feature.group
 	org.eclipse.nebula.widgets.nattable.extension.poi.feature.feature.group
 	org.eclipse.nebula.widgets.nattable.extension.poi.source.feature.feature.group
+	org.eclipse.nebula.widgets.nattable.extension.e4.feature.feature.jar
 	
 }
 

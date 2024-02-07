@@ -1,15 +1,11 @@
 package com.opcoach.e4tester.core;
 
-import org.eclipse.equinox.app.IApplication;
-import org.eclipse.equinox.app.IApplicationContext;
-import org.eclipse.pde.internal.junit.runtime.PDEJUnitRuntimePlugin;
-import org.eclipse.pde.internal.junit.runtime.PlatformUITestHarness;
 import org.eclipse.pde.internal.junit.runtime.UITestApplication;
 
 public class E4TesterUITestApplication extends UITestApplication {
 
 	
-	
+
 	@Override
 	protected Object runApp(IApplication app, IApplicationContext context) throws Exception {
 		// Get the testable object from the service
