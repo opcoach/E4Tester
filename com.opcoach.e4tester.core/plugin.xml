@@ -9,7 +9,7 @@
             thread="main"
             visible="true">
          <run
-               class="com.opcoach.e4tester.core.E4TesterUITestApplication">
+               class="com.opcoach.e4tester.core.E4TesterApplication">
          </run>
       </application>
    </extension>

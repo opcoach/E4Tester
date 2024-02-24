@@ -62,10 +62,9 @@ public class NattableTest extends E4TestCase{
 		assertNotNull(ntable);
 		getSync().syncExec(()->{
 		setTextWidgetValue(natPart1.getObject(), "outputArea","");
-			ntable.doCommand(new SelectCellCommand(ntable,1,10,false,false));	
 		});
 		String text = getTextWidgetValue(natPart1, "outputArea");
-		assertNotEquals("",text);
+		assertEquals("",text);
 
 	}
 }

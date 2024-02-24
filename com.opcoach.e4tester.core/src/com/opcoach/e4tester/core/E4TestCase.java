@@ -397,6 +397,7 @@ public abstract class E4TestCase {
 			Class<?> c = pojo.getClass();
 			String result = null;
 			Object o = null;
+			System.out.println("New value is : " + newValue);
 			try {
 				// Get the instance value .
 				o = getInstanceValue(pojo, widgetFieldName);
