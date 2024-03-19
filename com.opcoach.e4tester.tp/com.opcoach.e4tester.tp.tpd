@@ -1,11 +1,8 @@
-target "E4 Tester 2023-12" with source requirements
+target "E4 Tester 2024-03" with source requirements
 
 
+location "https://download.eclipse.org/releases/2024-03" {
 
-
-
-location "https://download.eclipse.org/releases/2023-12" {
-// org.eclipse.rcp.feature.group
 	org.eclipse.platform.feature.group
 	org.eclipse.e4.rcp.feature.group
 		
@@ -29,12 +26,6 @@ location "https://download.eclipse.org/releases/2023-12" {
 	
 	//	org.eclipse.orbit.xml-apis-ext
 		  
-}
-
-// Nebula is not totally updated with its dependencies... Must still get sac (legacy) from 2023-09
-
-location "https://download.eclipse.org/releases/2023-09" {
-	org.w3c.css.sac
 }
 
 
