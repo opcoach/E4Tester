@@ -11,7 +11,7 @@
 
 
 	<properties>
-		<tycho-version>4.0.10</tycho-version>
+		<tycho-version>4.0.13</tycho-version>
 	</properties>
 
 
@@ -81,7 +81,7 @@
 						<artifact>
 							<groupId>com.opcoach.e4tester</groupId>
 							<artifactId>com.opcoach.e4tester.tp</artifactId>
-							<version>4.35.0</version>
+							<version>4.36.0</version>
 						</artifact>
 					</target>
 					<environments>
